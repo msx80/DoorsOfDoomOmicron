@@ -24,7 +24,7 @@ jobs:
         cmdline-tools-version: 8512546
     - name: Install packages        
       run: |
-        sdkmanager "platforms;android-26"        
+        sdkmanager "build-tools;33.0.2" "platforms;android-26"        
     - name: Build app
       run: |
         cd doorsofdoom

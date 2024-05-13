@@ -9,7 +9,7 @@
 
   <name>OmicronAndroid</name>
   <properties>
-    <it-plugin.version>4.6.2-SNAPSHOT</it-plugin.version>
+    <it-plugin.version>4.6.3-SNAPSHOT</it-plugin.version>
 	<maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>	
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -181,6 +181,7 @@
         <configuration>
           <sdk>
             <platform>26</platform>
+			<buildTools>33.0.2</buildTools>
           </sdk>
 			<dexCompiler>d8</dexCompiler>
 			<d8>

@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        packages: ''
+        cmdline-tools-version: 8512546
+    - name: Build app
+      run: |
+        cd doorsofdoom
+        mvn --batch-mode clean install
+    - name: Build android
+      run: |
+        cd androd-gradle
+        ./gradlew clean assembleRelease
+    - name: Deploy Apk
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'doorsofdoom-1.0.0.apk'
+        path: android-gradle/build/outputs/apk/release/android-gradle-release-unsigned.apk

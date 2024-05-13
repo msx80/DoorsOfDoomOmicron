@@ -37,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: 'DoorsOfDoom.apk'
-        path: android-mvn\target\DoorsOfDoom.apk
+        path: android-mvn/target/DoorsOfDoom.apk

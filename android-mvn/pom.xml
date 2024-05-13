@@ -58,8 +58,8 @@
 	  <type>aar</type>
     </dependency>
 
-	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-v7a</classifier></dependency>
-	<!--<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-arm64-v8a</classifier></dependency>
+	<!--<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-v7a</classifier></dependency>
+	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-arm64-v8a</classifier></dependency>
 	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-x86</classifier></dependency>
 	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-x86_64</classifier></dependency>-->
 	
@@ -118,6 +118,46 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>armeabi-v7a</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+									<artifactId>gdx-platform</artifactId>
+									<groupId>com.badlogicgames.gdx</groupId>
+									<version>1.12.1</version>
+									<classifier>natives-armeabi-v7a</classifier>
+                                    <outputDirectory>${project.build.directory}/libgdxnatives/armeabi-v7a/</outputDirectory>
+                                    <includes>libgdx.so</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>arm64-v8a</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+									<artifactId>gdx-platform</artifactId>
+									<groupId>com.badlogicgames.gdx</groupId>
+									<version>1.12.1</version>
+									<classifier>natives-arm64-v8a</classifier>
+                                    <outputDirectory>${project.build.directory}/libgdxnatives/arm64-v8a/</outputDirectory>
+                                    <includes>libgdx.so</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+					
+					
+					<execution>
                         <id>unpack</id>
                         <phase>initialize</phase>
                         <goals>
@@ -179,6 +219,7 @@
         <groupId>com.github.msx80</groupId>
         <artifactId>android-maven-plugin</artifactId>
         <configuration>
+		  <nativeLibrariesDirectory>${project.build.directory}/libgdxnatives/</nativeLibrariesDirectory>
           <sdk>
             <platform>26</platform>
 			<buildTools>33.0.2</buildTools>

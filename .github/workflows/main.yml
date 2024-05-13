@@ -29,7 +29,7 @@ jobs:
         mvn --batch-mode clean install
     - name: Build android
       run: |
-        cd androd-gradle
+        cd android-gradle
         ./gradlew clean assembleRelease
     - name: Deploy Apk
       uses: actions/upload-artifact@v2

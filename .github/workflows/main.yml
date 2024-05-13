@@ -27,6 +27,8 @@ jobs:
       run: |
         cd doorsofdoom
         mvn --batch-mode clean install
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v3
     - name: Build android
       run: |
         cd android-gradle

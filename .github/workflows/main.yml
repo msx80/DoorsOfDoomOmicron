@@ -29,10 +29,10 @@ jobs:
         mvn --batch-mode clean install
     - name: Build android
       run: |
-        cd android-gradle
-        ./gradlew clean assembleRelease
+        cd android-mvn
+        mvn --batch-mode clean install android:apk
     - name: Deploy Apk
       uses: actions/upload-artifact@v2
       with:
-        name: 'doorsofdoom-1.0.0.apk'
-        path: android-gradle/build/outputs/apk/release/android-gradle-release-unsigned.apk
+        name: 'DoorsOfDoom.apk'
+        path: android-mvn\target\DoorsOfDoom.apk

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.github.msx80.omicron</groupId>
+  <artifactId>omicronandroid</artifactId>
+  <version>1.0.0</version>
+  <packaging>apk</packaging>
+
+  <name>OmicronAndroid</name>
+  <properties>
+    <it-plugin.version>4.6.2-SNAPSHOT</it-plugin.version>
+	<maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>	
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+<pluginRepositories>
+    <pluginRepository>
+        <id>jitpack.io</id>
+		<url>https://jitpack.io</url>
+    </pluginRepository>
+</pluginRepositories> 
+  
+  <repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+  <dependencies>
+  
+  <dependency>
+	<artifactId>doorsofdoom</artifactId>
+	<groupId>com.github.msx80.omicron</groupId>
+	<version>0.0.3</version>
+</dependency>
+
+<dependency>
+    <groupId>com.badlogicgames.gdx-controllers</groupId>
+    <artifactId>gdx-controllers-android</artifactId>
+    <version>2.2.3</version>
+	<type>aar</type>
+</dependency>
+
+  
+    <dependency>
+      <groupId>com.google.android</groupId>
+      <artifactId>android</artifactId>
+      <version>4.1.1.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+	   <dependency>
+      <groupId>com.badlogicgames.gdx</groupId>
+      <artifactId>gdx-backend-android</artifactId>
+      <version>1.12.1</version>
+	  <type>aar</type>
+    </dependency>
+
+	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-v7a</classifier></dependency>
+	<!--<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-arm64-v8a</classifier></dependency>
+	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-x86</classifier></dependency>
+	<dependency><groupId>com.badlogicgames.gdx</groupId><artifactId>gdx-platform</artifactId><version>1.12.1</version><classifier>natives-armeabi-x86_64</classifier></dependency>-->
+	
+
+	
+	<dependency>
+      <groupId>com.github.msx80.omicron</groupId>
+      <artifactId>omicron-engine</artifactId>
+      <version>0.0.4</version>
+    </dependency>	
+  </dependencies>
+
+  <build>
+   <resources>
+    <resource>
+      <directory>${project.basedir}</directory>
+      <filtering>true</filtering>
+      <targetPath>${project.build.directory}/filtered-manifest</targetPath>
+      <includes>
+        <include>src/main/AndroidManifest.xml</include>
+      </includes>
+    </resource>
+  </resources>
+  
+  
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.msx80</groupId>
+          <artifactId>android-maven-plugin</artifactId>
+          <version>${it-plugin.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+        <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+		  <version>3.13.0</version>
+        </plugin>
+		<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+				<version>3.6.1</version>
+		</plugin>
+		<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+				<version>1.2.1</version>
+		</plugin>
+      </plugins>
+    </pluginManagement>
+	
+    <plugins>
+
+	            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+									<artifactId>${project.dependencies[0].artifactId}</artifactId>
+									<groupId>${project.dependencies[0].groupId}</groupId>
+									<version>${project.dependencies[0].version}</version>
+                                    <outputDirectory>${project.build.directory}/omicron/</outputDirectory>
+                                    <includes>omicron.properties</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+	
+	 <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+			  <goal>write-project-properties</goal>
+            </goals>
+            <configuration>
+			<useDefaultValues>true</useDefaultValues>
+			<files>
+                <file>${project.build.directory}/omicron/omicron.properties</file>
+              </files>
+			  <outputFile>${project.build.outputDirectory}/omicron_android.properties</outputFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+	  
+	  	<plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+            <execution>
+                <phase>initialize</phase>
+                <goals>
+                    <goal>resources</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+	
+     
+	
+	
+      <plugin>
+        <groupId>com.github.msx80</groupId>
+        <artifactId>android-maven-plugin</artifactId>
+        <configuration>
+          <sdk>
+            <platform>26</platform>
+          </sdk>
+			<dexCompiler>d8</dexCompiler>
+			<d8>
+            <minApi>26</minApi>
+         </d8>
+		 <androidManifestFile>${project.build.directory}/filtered-manifest/src/main/AndroidManifest.xml</androidManifestFile>
+        </configuration>
+      </plugin>
+    </plugins>
+	<finalName>${omicron.main}</finalName>
+  </build>
+
+</project>

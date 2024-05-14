@@ -9,6 +9,13 @@
 
   <name>OmicronAndroid</name>
   <properties>
+  
+  <!-- This is the omicron cartridge to be package as an Android app -->
+	<cartridge.artifactId>doorsofdoom</cartridge.artifactId>
+	<cartridge.groupId>com.github.msx80.omicron</cartridge.groupId>
+	<cartridge.version>0.0.3</cartridge.version>
+  <!-- ============================================================  -->
+  
     <it-plugin.version>4.6.3-SNAPSHOT</it-plugin.version>
 	<maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>	
@@ -31,9 +38,9 @@
   <dependencies>
   
   <dependency>
-	<artifactId>doorsofdoom</artifactId>
-	<groupId>com.github.msx80.omicron</groupId>
-	<version>0.0.3</version>
+	<artifactId>${cartridge.artifactId}</artifactId>
+	<groupId>${cartridge.groupId}</groupId>
+	<version>${cartridge.version}</version>
 </dependency>
 
 <dependency>
@@ -107,10 +114,12 @@
     <plugins>
 
 	            <plugin>
+				
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
+						<!-- Unpack libgdx.so from LibGDX native packages -->
                         <id>armeabi-v7a</id>
                         <phase>initialize</phase>
                         <goals>
@@ -140,6 +149,7 @@
                   			
 					
 					<execution>
+						<!-- Unpack omicron.properties from the cartridge in order to later read all settings -->
                         <id>unpack</id>
                         <phase>initialize</phase>
                         <goals>
@@ -148,9 +158,9 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-									<artifactId>${project.dependencies[0].artifactId}</artifactId>
-									<groupId>${project.dependencies[0].groupId}</groupId>
-									<version>${project.dependencies[0].version}</version>
+									<artifactId>${cartridge.artifactId}</artifactId>
+									<groupId>${cartridge.groupId}</groupId>
+									<version>${cartridge.version}</version>
                                     <outputDirectory>${project.build.directory}/omicron/</outputDirectory>
                                     <includes>omicron.properties</includes>
                                 </artifactItem>
@@ -165,6 +175,9 @@
         <artifactId>properties-maven-plugin</artifactId>
         <executions>
           <execution>
+			<!-- read properties from omicron.properties extracted from the cartridge -->
+			<!-- then write all properties to an omicron_android.properties to be included in the android apk,
+				so that the Launcher can instantiate the main class dinamically	-->
             <phase>initialize</phase>
             <goals>
               <goal>read-project-properties</goal>
@@ -182,6 +195,7 @@
       </plugin>
 	  
 	  	<plugin>
+		<!-- handle resources with filtering (to dinamically build AndroidManifest.xml) -->
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.5</version>
         <executions>
@@ -198,6 +212,7 @@
 	
 	
       <plugin>
+		<!-- main android plugin. select platform and build-tool version (33.0.2 is the last one supported by java 8) -->
         <groupId>com.github.msx80</groupId>
         <artifactId>android-maven-plugin</artifactId>
 		        <!--<executions>
@@ -207,15 +222,18 @@
               <goal>apk</goal>
             </goals>-->
         <configuration>
+		  <!-- read natives from the folder we have unpacked them earlier -->
 		  <nativeLibrariesDirectory>${project.build.directory}/libgdxnatives/</nativeLibrariesDirectory>
           <sdk>
             <platform>26</platform>
 			<buildTools>33.0.2</buildTools>
           </sdk>
+		  <release>true</release>
 			<dexCompiler>d8</dexCompiler>
 			<d8>
             <minApi>26</minApi>
          </d8>
+		 <!-- use the dynamically built manifest -->
 		 <androidManifestFile>${project.build.directory}/filtered-manifest/src/main/AndroidManifest.xml</androidManifestFile>
         </configuration>
 		 <!--  </execution>

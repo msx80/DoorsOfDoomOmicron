@@ -22,9 +22,11 @@ Powered by [Omicron](https://github.com/msx80/Omicron)
 
 ## On android:
 
-install the APK from the [latest successful build](https://github.com/msx80/DoorsOfDoomOmicron/actions).
+Install the APK from the [latest successful build](https://github.com/msx80/DoorsOfDoomOmicron/actions).
 
-Soon on fdroid hopefully.
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.github.msx80.doorsofdoom/)
 
 ## On desktop: 
 

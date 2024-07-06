@@ -544,25 +544,30 @@ public class DoorsOfDoom implements Game, GameInterface {
     	List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(run.level)).collect(Collectors.toList());
     	return new Monster( eligibles.get(r.nextInt(eligibles.size())) );
     }
-    private Loot calcLoot(Loot[] loots)
+    
+    protected static Loot calcLoot(Loot[] loots)
     {
-    	if (loots.length == 0) {
+    	if (loots.length == 0) 
+    	{
 			return null;
-		} else if (loots.length == 1 )
+		} 
+    	else if (loots.length == 1 )
 		{
 			return loots[0];
 		}
     	
     	int tot = Stream.of(loots).mapToInt(l -> l.probability).sum();
     	
-    	int v = r.nextInt(tot);
+    	int v= r.nextInt(tot);
+
     	for (int i = 0; i < loots.length; i++) {
 			v = v - loots[i].probability;
-			if (v<=0) {
+			if (v<0) {
 				return loots[i];
 			}
+
 		}
-    	throw new RuntimeException("No loot selected?!");
+    	throw new RuntimeException("No loot selected?! "+v);
     }
     
     public void render() 

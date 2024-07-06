@@ -98,12 +98,6 @@ public enum MonsterDef {
 				Loot.of(3, Item.Rejuvenant, Range.of(1,1)),
 				Loot.of(3, Item.SmokeBomb, Range.of(1,1)),
 				Loot.of(1, Item.Magnet, Range.of(1,1))),
-			
-	 
-	 TARDIGRADE("TARDIGRADE",-13,range(80,100),range(15,25),
-				range(55,1000), range(3,6),
-				Loot.of(2, Item.Spinach, Range.of(1,3)),
-				Loot.of(2, Item.Leather, Range.of(6,8))),
 	 
 	 SPIDER("SPIDER",-16,range(18,25),range(8,12),
 				range(30,55), range(10,12),
@@ -153,6 +147,10 @@ public enum MonsterDef {
 	 KITTEN("LOST KITTEN",-28,range(2, 3),range(5, 6),
 				range(40,41), range(10,15),				
 				Loot.of(3, Item.BagOfGold, Range.of(3,4))),
+	 TARDIGRADE("TARDIGRADE",-13,range(80,100),range(15,25),
+				range(59,1000), range(3,6),
+				Loot.of(2, Item.Spinach, Range.of(1,3)),
+				Loot.of(2, Item.Leather, Range.of(6,8))),
 
 
 	 MAGE("MAGE",-9,range(45,55),range(30,60),

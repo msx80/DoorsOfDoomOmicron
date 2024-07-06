@@ -115,15 +115,16 @@ public enum MonsterDef {
 				Loot.of(3, Item.Stick, Range.of(3,5)),
 				Loot.of(1, Item.Clover, Range.of(2,3))),
 	 	 
+	 
+	 KITTEN("LOST KITTEN",-28,range(2, 3),range(5, 6),
+				range(40,41), range(10,15),				
+				Loot.of(3, Item.BagOfGold, Range.of(3,4))),
+
+
 			 
 	 GOLEM("GOLEM",-8,range(50,60),range(15,20),
 				range(40,1000), range(10,20),
 				Loot.of(3, Item.Rock, Range.of(5, 8))),
-
-	 SUCCUBUS("SUCCUBUS",-17,range(40,60),range(20, 25),
-		range(45,1000), range(10,12),
-		Loot.of(1, Item.Helm, Range.of(1,1)),
-		Loot.of(5, Item.Gold, Range.of(10,20))),
 	 
 	 DARKKNIGHT("DARK KNIGHT",-18,range(50,80),range(20,30),
 				range(35,1000), range(8,20),
@@ -144,11 +145,12 @@ public enum MonsterDef {
 				range(45,1000), range(15,20),
 				Loot.of(1, Item.Key, Range.of(3,5))),
 	 
+	 SUCCUBUS("SUCCUBUS",-17,range(40,60),range(20, 25),
+		range(49,89), range(10,12),
+		Loot.of(1, Item.Helm, Range.of(1,1)),
+		Loot.of(5, Item.Gold, Range.of(10,20))),
 	 
-		
-	 KITTEN("LOST KITTEN",-28,range(2, 3),range(5, 6),
-				range(40,41), range(10,15),				
-				Loot.of(3, Item.BagOfGold, Range.of(3,4))),
+	 
 	 TARDIGRADE("TARDIGRADE",-13,range(80,100),range(15,25),
 				range(59,1000), range(3,6),
 				Loot.of(2, Item.Spinach, Range.of(1,3)),

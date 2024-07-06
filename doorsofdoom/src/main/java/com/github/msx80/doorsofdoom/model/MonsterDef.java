@@ -100,7 +100,7 @@ public enum MonsterDef {
 				Loot.of(1, Item.Magnet, Range.of(1,1))),
 	 
 	 SPIDER("SPIDER",-16,range(18,25),range(8,12),
-				range(30,55), range(10,12),
+				range(34,65), range(10,12),
 				Loot.of(3, Item.Venom, Range.of(4,6)),
 				Loot.of(5, Item.Blood, Range.of(3,5))),
 	 

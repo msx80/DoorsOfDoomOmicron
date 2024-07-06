@@ -105,6 +105,11 @@ public enum MonsterDef {
 				range(20,40), range(4,6),
 				Loot.of(3, Item.Venom, Range.of(3,4)),
 				Loot.of(3, Item.Blood, Range.of(2,4))),
+	 ENT("ENT",-20,range(30, 120),range(10,20),
+				range(39,65), range(20,22),
+				Loot.of(5, Item.Rejuvenant, Range.of(2,4)),
+				Loot.of(3, Item.BagOfGold, Range.of(2,3))),
+		
 			 
 	 GOLEM("GOLEM",-8,range(50,60),range(15,20),
 				range(40,1000), range(10,20),
@@ -139,10 +144,6 @@ public enum MonsterDef {
 				Loot.of(3, Item.Stick, Range.of(3,5)),
 				Loot.of(1, Item.Clover, Range.of(2,3))),
 	 
-	 ENT("ENT",-20,range(30, 150),range(10,20),
-				range(35,55), range(20,22),
-				Loot.of(5, Item.Rejuvenant, Range.of(2,4)),
-				Loot.of(3, Item.BagOfGold, Range.of(2,3))),
 		
 	 KITTEN("LOST KITTEN",-28,range(2, 3),range(5, 6),
 				range(40,41), range(10,15),				

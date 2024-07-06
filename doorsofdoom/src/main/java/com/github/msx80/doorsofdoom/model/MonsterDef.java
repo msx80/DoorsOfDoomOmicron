@@ -36,6 +36,11 @@ public enum MonsterDef {
 				Loot.of(3, Item.CrabShell, Range.of(1,1)),
 				Loot.of(4, Item.Claw, Range.of(2,2))),
 
+	 GHOST("GHOST",-5,range(15,20),range(2,5),
+				range(7,29), range(1,2),
+				Loot.of(1, Item.Ectoplasm, Range.of(2, 6))),
+
+	 
 	 GOBLIN("GOBLIN",-11,range(6,14),range(4,5),
 				range(8,30), range(3,6),
 				Loot.of(3, Item.Shirt, Range.of(1,1)),
@@ -104,10 +109,6 @@ public enum MonsterDef {
 	 GOLEM("GOLEM",-8,range(50,60),range(15,20),
 				range(40,1000), range(10,20),
 				Loot.of(3, Item.Rock, Range.of(5, 8))),
-	 GHOST("GHOST",-5,range(15,20),range(2,5),
-				range(6,1000), range(1,2),
-				Loot.of(1, Item.Ectoplasm, Range.of(2, 6))),
-	 
 
 	 SUCCUBUS("SUCCUBUS",-17,range(40,60),range(20, 25),
 		range(45,1000), range(10,12),

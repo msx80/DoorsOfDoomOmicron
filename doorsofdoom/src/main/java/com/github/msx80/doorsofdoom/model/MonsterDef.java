@@ -69,6 +69,12 @@ public enum MonsterDef {
 				Loot.of(3, Item.Helm, Range.of(1,1)),
 				Loot.of(5, Item.Phlogiston, Range.of(4,6))),
 	 
+	 
+	 HELLFLY("HELLFLY",-22,range(8,12),range(3,10),
+				range(22,43), range(4,6),
+				Loot.of(3, Item.Venom, Range.of(3,4)),
+				Loot.of(3, Item.Blood, Range.of(2,4))),
+	 
 	 OGRE("OGRE",-15,range(25,30),range(6,8),
 				range(25,60), range(7,9),
 				Loot.of(5, Item.Buckler, Range.of(1,1)),
@@ -102,10 +108,6 @@ public enum MonsterDef {
 				Loot.of(3, Item.Venom, Range.of(4,6)),
 				Loot.of(5, Item.Blood, Range.of(3,5))),
 	 
-	 HELLFLY("HELLFLY",-22,range(8,12),range(3,10),
-				range(20,40), range(4,6),
-				Loot.of(3, Item.Venom, Range.of(3,4)),
-				Loot.of(3, Item.Blood, Range.of(2,4))),
 	 ENT("ENT",-20,range(30, 120),range(10,20),
 				range(39,65), range(20,22),
 				Loot.of(5, Item.Rejuvenant, Range.of(2,4)),

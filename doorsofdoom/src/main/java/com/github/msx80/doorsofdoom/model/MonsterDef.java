@@ -51,6 +51,11 @@ public enum MonsterDef {
 				Loot.of(3, Item.Clover, Range.of(1,2)),
 				Loot.of(1, Item.Spinach, Range.of(1,1))),
 			 
+	 MIMIC("MIMIC",-14,range(10,14),range(3,8),
+				range(17,40), range(1,15),
+				Loot.of(2, Item.Mace, Range.of(1,1)),
+				Loot.of(2, Item.Spinach, Range.of(1,3)),
+				Loot.of(2, Item.Magnet, Range.of(2,3))),
 	 
 	 
 	 SKULL("SKULL",-12,range(25,30),range(1,10),
@@ -68,11 +73,6 @@ public enum MonsterDef {
 				Loot.of(3, Item.SmokeBomb, Range.of(1,1)),
 				Loot.of(1, Item.Magnet, Range.of(1,1))),
 			
-	 MIMIC("MIMIC",-14,range(10,14),range(3,8),
-				range(15,40), range(1,15),
-				Loot.of(2, Item.Mace, Range.of(1,1)),
-				Loot.of(2, Item.Spinach, Range.of(1,3)),
-				Loot.of(2, Item.Magnet, Range.of(2,3))),
 	 
 	 TARDIGRADE("TARDIGRADE",-13,range(80,100),range(15,25),
 				range(55,1000), range(3,6),

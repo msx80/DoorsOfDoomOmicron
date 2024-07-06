@@ -20,6 +20,12 @@ public enum Item {
 	GhostSword("Ghost Sword", 336, new String[] {"Spooky and", "deadly."},0,Place.Left,Range.of(13,22),null,null),
 	VenomSword("Venom Sword", 337, new String[] {"Be careful when", "you sheathe this."},0,Place.Left,Range.of(14,23),null,null),
 	
+	
+	// legs
+	Pants("Fancy Panties", 306, new String[] {"The last in fashon."}, 5, Place.Legs, null, null, null),
+	Throusers("Throusers", 290, new String[] {"Sweet leather on", "your legs."}, 12, Place.Legs, null, null, null),
+	Greaves("Greaves", 331, new String[] {"Iron shins"}, 16, Place.Legs, null, null, null),
+	
 	Key("Key", 319, new String[]{"They open doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null ),
 	Cheese("Cheese", 317, new String[]{"Stinky and delicious.","","Heal 4 hp."},0,null, null, Usable.of("Eat", (i, g) -> foodHealing(i,g,4)), null),
 	Blood("Blood", 265,  new String[]{"It's always good","to bring some","around."},0,null,null,null,null),
@@ -34,7 +40,6 @@ public enum Item {
 	SmallPotion("Potion, Small", 293, new String[] {"Deliciously","refreshing!", "", "Heal 10 hp."},0,null,null,null,Usable.of("Drink",(a,b )-> potionHealing(a,b,10))),
 	MediumPotion("Potion, Medium", 310, new String[] {"Double the fun!", "", "Heal 20 hp."},0,null,null,null,Usable.of("Drink",(a,b )-> potionHealing(a,b,20))),
 	BigPotion("Potion, Big", 294, new String[] {"So much healing!", "", "Heal 100 hp."},0,null,null,null,Usable.of("Drink",(a,b )-> potionHealing(a,b,100))),
-	Pants("Fancy Panties", 306, new String[] {"The last in fashon."}, 5, Place.Legs, null, null, null),
 	Tomato("Tomato", 296, new String[] {"Juicy!","","Heal 6 hp."}, 0, null, null, Usable.of("Eat",(i, g) -> foodHealing(i,g,6)), null),
 	MintLeaf("Mint Leaf", 313, new String[] {"Always kill with", "a fresh breath"}, 0, null, null, null, null),
 	Shirt("Shirt", 295, new String[] {"The very basic in", "combat protection."}, 8, Place.Body, null, null, null),
@@ -55,7 +60,6 @@ public enum Item {
 	Elixir("Elixir", 292, new String[] {"The strength of","a lion, bottled.","", "+10 max hp."}, 0, null, null, Usable.of("Drink",elixir()), null),
 	Rock("Rock", 315, new String[] {"You can sling this", "If you have a","slingshot."}, 0, null, null, null, Usable.of("Sling",sling())),
 	Armour("Plate Armour", 289, new String[] {"Now we are talking.", "Plate is great."}, 20, Place.Body, null, null, null),
-	Throusers("Throusers", 290, new String[] {"Sweet leather on", "your legs."}, 12, Place.Legs, null, null, null),
 	Jacket("Jacket", 291, new String[] {"Fine leather", "jacket, purchased", "from a pirate dude."}, 15, Place.Body, null, null, null),
 	Scroll("Scroll", 325, new String[] {"Suck all life from","an enemy and gives","it to you.", "(except demons)"}, 0, null, null, null, Usable.of("Recite",scroll())),
 	Dart("Poison Dart", 285, new String[] {"Halve monster","strength."}, 0, null, null, null, Usable.of("Throw",dart())),

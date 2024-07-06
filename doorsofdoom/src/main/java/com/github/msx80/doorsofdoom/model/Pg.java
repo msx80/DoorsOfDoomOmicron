@@ -135,9 +135,8 @@ public class Pg extends Entity{
 
 
 	public void addEffect(Effect e) {
-		effects.put(e, e.turns);
+		effects.put(e, effects.getOrDefault(e,0)+e.turns);
 		ricalcola();
-		
 	}
 
 

@@ -13,7 +13,7 @@
   <!-- This is the omicron cartridge to be package as an Android app -->
 	<cartridge.artifactId>doorsofdoom</cartridge.artifactId>
 	<cartridge.groupId>com.github.msx80.omicron</cartridge.groupId>
-	<cartridge.version>0.0.4</cartridge.version>
+	<cartridge.version>0.0.5-SNAPSHOT</cartridge.version>
   <!-- ============================================================  -->
   
     <it-plugin.version>4.6.3-SNAPSHOT</it-plugin.version>

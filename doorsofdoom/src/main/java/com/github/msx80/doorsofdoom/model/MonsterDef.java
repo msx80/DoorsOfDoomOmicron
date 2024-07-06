@@ -133,9 +133,6 @@ public enum MonsterDef {
 				Loot.of(1, Item.Armour, Range.of(1,1)),
 				Loot.of(1, Item.Sword, Range.of(1,1))),
 	 
-	 DEVIL("DEVIL",-24,range(200, 200),range(20, 300),
-				range(65,1000), range(30,50),
-				Loot.of(1, Item.Crown, Range.of(1,1))),
 	 KEYMASTER("KEY MASTER",-25,range(25, 35),range(10, 15),
 				range(45,1000), range(15,20),
 				Loot.of(1, Item.Key, Range.of(3,5))),
@@ -162,6 +159,9 @@ public enum MonsterDef {
 		Loot.of(3, Item.Key, Range.of(2,3)),
 		Loot.of(1, Item.Diamond, Range.of(1,1))),
 
+	 DEVIL("DEVIL",-24,range(200, 200),range(20, 300),
+				range(100,1000), range(30,50),
+				Loot.of(1, Item.Crown, Range.of(1,1))),
 	 ;
 	
 	

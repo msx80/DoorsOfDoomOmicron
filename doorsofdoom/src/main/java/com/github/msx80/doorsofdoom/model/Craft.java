@@ -51,6 +51,9 @@ public class Craft {
 			Craft.of(Item.Stockade, Item.Stick, 5),
 			Craft.of(Item.Slingshot, Item.Pants, 1, Item.Stick, 2),
 			Craft.of(Item.FlamingSword, Item.Phlogiston, 15, Item.Sword, 1),
+			Craft.of(Item.GhostSword, Item.Ectoplasm, 15, Item.Sword, 1),
+			Craft.of(Item.VenomSword, Item.Venom, 15, Item.Sword, 1),
+			
 			Craft.of(Item.Hamburger, Item.Bread, 1, Item.Tomato, 1, Item.Cheese, 1),
 			Craft.of(Item.Bomb, Item.Phlogiston, 2, Item.Ectoplasm, 3)
 			

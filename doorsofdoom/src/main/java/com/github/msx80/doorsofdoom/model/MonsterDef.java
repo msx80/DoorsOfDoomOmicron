@@ -53,7 +53,7 @@ public enum MonsterDef {
 				Loot.of(4, Item.Blood, Range.of(3,6))),
 	 
 	 MYCONID("MYCONID",-10,range(15,18),range(2,5),
-				range(13,40), range(3,6),
+				range(15,40), range(3,6),
 				Loot.of(3, Item.Clover, Range.of(1,2)),
 				Loot.of(1, Item.Spinach, Range.of(1,1))),
 			 

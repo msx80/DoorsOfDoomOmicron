@@ -88,9 +88,11 @@ public enum MonsterDef {
 				Loot.of(3, Item.Phlogiston, Range.of(3,4)),
 				Loot.of(5, Item.Blood, Range.of(3,5))),
 	 OGRE("OGRE",-15,range(25,30),range(6,8),
-				range(25,60), range(7,9),
+				range(29,60), range(7,9),
 				Loot.of(5, Item.Buckler, Range.of(1,1)),
 				Loot.of(3, Item.Leather, Range.of(2,4))),
+
+	 
 	 DWARF("DWARF",-23,range(25,30),range(7,10),
 				range(30,58), range(6,10),
 				Loot.of(3, Item.Rejuvenant, Range.of(1,1)),

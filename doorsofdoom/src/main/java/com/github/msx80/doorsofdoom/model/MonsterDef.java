@@ -1,9 +1,11 @@
 package com.github.msx80.doorsofdoom.model;
 
 public enum MonsterDef {
-	MOUSE("MOUSE",-1,Range.of(5,8),Range.of(1,3), Range.of(0,20), Range.of(1,2), Loot.of(5, Item.Cheese, Range.of(1,2)), Loot.of(2, Item.Blood, Range.of(2,3))),
+	MOUSE( "MOUSE",-1,Range.of(5,8),Range.of(1,3), 
+			Range.of(0,15), Range.of(1,2), Loot.of(5, Item.Cheese, Range.of(1,2)), Loot.of(2, Item.Blood, Range.of(2,3))),
 	
-	SNAKE("SNAKE", -2,Range.of(6,10),Range.of(2,3), Range.of(0,17), Range.of(2,3),
+	SNAKE("SNAKE", -2,Range.of(6,10),Range.of(2,3), 
+			Range.of(0,17), Range.of(2,3),
 			Loot.of(5, Item.Leather, Range.of(1, 2)),
 			Loot.of(2, Item.Blood, Range.of(2,3)),
 			Loot.of(2, Item.Venom, Range.of(2, 3))
@@ -15,7 +17,8 @@ public enum MonsterDef {
 				Loot.of(3, Item.Tomato, Range.of(1, 2)),
 				Loot.of(3, Item.MintLeaf, Range.of(2, 4))),
 	 
-	 SKELETON("SKELETON",-3,range(9,13),range(3,4), range(0,28), range(3,6),
+	 SKELETON("SKELETON",-3,range(9,13),range(3,4), 
+			 range(3,28), range(3,6),
 				Loot.of(3, Item.Bone, Range.of(1,1)),
 				Loot.of(3, Item.Shirt, Range.of(1, 1))
 			 ),

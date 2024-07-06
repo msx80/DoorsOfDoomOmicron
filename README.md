@@ -1,5 +1,9 @@
 # DoorsOfDoom
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.github.msx80.doorsofdoom/)
+
 A porting of my [TIC-80 Game Doors of Doom](https://tic80.com/play?cart=786) ([sources](https://github.com/msx80/DoorsOfDoom)) to Omicron.
 
 *Adventure into the dungeon of infinite doors! Behind each, a monster awaits!*
@@ -23,10 +27,6 @@ Powered by [Omicron](https://github.com/msx80/Omicron)
 ## On android:
 
 Install the APK from the [latest successful build](https://github.com/msx80/DoorsOfDoomOmicron/actions).
-
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.github.msx80.doorsofdoom/)
 
 ## On desktop: 
 

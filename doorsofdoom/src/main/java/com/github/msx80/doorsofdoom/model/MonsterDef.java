@@ -65,7 +65,7 @@ public enum MonsterDef {
 	 
 	 
 	 SKULL("SKULL",-12,range(25,30),range(1,10),
-				range(15,30), range(4,7),
+				range(19,38), range(4,7),
 				Loot.of(3, Item.Helm, Range.of(1,1)),
 				Loot.of(5, Item.Phlogiston, Range.of(4,6))),
 	 

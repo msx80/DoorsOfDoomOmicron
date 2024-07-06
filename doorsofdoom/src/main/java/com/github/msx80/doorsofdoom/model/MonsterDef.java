@@ -69,6 +69,7 @@ public enum MonsterDef {
 				Loot.of(3, Item.Helm, Range.of(1,1)),
 				Loot.of(5, Item.Phlogiston, Range.of(4,6))),
 	 
+	
 	 
 	 HELLFLY("HELLFLY",-22,range(8,12),range(3,10),
 				range(22,43), range(4,6),
@@ -87,6 +88,13 @@ public enum MonsterDef {
 
 				Loot.of(3, Item.Phlogiston, Range.of(3,4)),
 				Loot.of(5, Item.Blood, Range.of(3,5))),
+	 
+	 PIRATE("PIRATE",-29,range(20,28),range(5,7),
+				range(25,45), range(5,10),
+				Loot.of(2, Item.Pants, Range.of(1,1)),
+				Loot.of(2, Item.Tricorn, Range.of(1,1)),
+				Loot.of(2, Item.EyePatch, Range.of(1,1))),
+	 
 	 OGRE("OGRE",-15,range(25,30),range(6,8),
 				range(29,60), range(7,9),
 				Loot.of(5, Item.Buckler, Range.of(1,1)),
@@ -132,6 +140,17 @@ public enum MonsterDef {
 				Loot.of(1, Item.Shield, Range.of(1,1)),
 				Loot.of(1, Item.Armour, Range.of(1,1)),
 				Loot.of(1, Item.Sword, Range.of(1,1))),
+
+	 
+	 JESTER("JESTER",-31,range(15,16),range(0,25),
+				range(40,69), range(3,8),
+				Loot.of(2, Item.Rock, Range.of(1,3)),
+				Loot.of(2, Item.Clover, Range.of(1,3)),
+				Loot.of(2, Item.MintLeaf, Range.of(2,3)),
+				Loot.of(2, Item.Rejuvenant, Range.of(1,2)),
+				Loot.of(2, Item.Pants, Range.of(1,1)),
+				Loot.of(2, Item.Tomato, Range.of(2,3))),
+
 	 
 	 KEYMASTER("KEY MASTER",-25,range(25, 35),range(10, 15),
 				range(45,1000), range(15,20),
@@ -142,6 +161,12 @@ public enum MonsterDef {
 		Loot.of(1, Item.Helm, Range.of(1,1)),
 		Loot.of(5, Item.Gold, Range.of(10,20))),
 	 
+	 
+	 SPRITES("SPRITES",-33,range(40, 60),range(5, 40),
+		range(55,85), range(30,50),
+		Loot.of(1, Item.Ectoplasm, Range.of(4,8)),
+		Loot.of(2, Item.Sprite, Range.of(2,3)),
+		Loot.of(1, Item.Rejuvenant, Range.of(2,4))),
 	 
 	 TARDIGRADE("TARDIGRADE",-13,range(80,100),range(15,25),
 				range(59,1000), range(3,6),
@@ -154,14 +179,43 @@ public enum MonsterDef {
 		Loot.of(5, Item.BigPotion, Range.of(2,2)),
 		Loot.of(2, Item.Elixir, Range.of(1,1)),
 		Loot.of(3, Item.Scroll, Range.of(2,4))),	 	 
+	
+	 BLOB("BLOB",-35,range(35, 45),range(10, 15),
+				range(60,90), range(4,20),
+				Loot.of(1, Item.Gelatin, Range.of(2,3)),
+				Loot.of(1, Item.Slime, Range.of(4,6))
+				),
+
+	 
+	 VAMPIRE("VAMPIRE",-32,range(40, 70),range(20, 30),
+		range(65,1000), range(30,50),
+		Loot.of(1, Item.Sword, Range.of(1,1)),
+		Loot.of(1, Item.Fang, Range.of(2,2)),
+		Loot.of(1, Item.Blood, Range.of(3,6))),
+		
 	 DEMON("DEMON",-19,range(50, 100),range(30, 50),
 		range(75,1000), range(30,50),
 		Loot.of(3, Item.Key, Range.of(2,3)),
 		Loot.of(1, Item.Diamond, Range.of(1,1))),
 
+	 DRAGON("DRAGON",-30,range(80, 150),range(20, 40),
+		range(70,1000), range(1,50),
+		Loot.of(1, Item.Fang, Range.of(2,2)),
+		Loot.of(1, Item.BagOfGold, Range.of(2,3)),
+		Loot.of(1, Item.Blood, Range.of(3,6))),
+		
+	 
 	 DEVIL("DEVIL",-24,range(200, 200),range(20, 300),
 				range(100,1000), range(30,50),
 				Loot.of(1, Item.Crown, Range.of(1,1))),
+	 ANCIENT("ANCIENT",-36,range(400, 400),range(100, 1000),
+				range(200,1000), range(30,50),
+				Loot.of(1, Item.Wisdom, Range.of(1,1))),
+
+	 
+	
+
+
 	 ;
 	
 	

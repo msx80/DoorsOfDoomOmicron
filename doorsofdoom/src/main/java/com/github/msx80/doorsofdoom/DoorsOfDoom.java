@@ -39,6 +39,9 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	// SOUND EFFECTS: https://juhanijunkala.com/ SubspaceAudio https://opengameart.org/content/512-sound-effects-8-bit-style
 	// MUSIC: https://twitter.com/SBieliayev  https://www.youtube.com/channel/UCvjkkwGL7g092E1oV7IMffw
+
+	private static final int MADNESS_DAMAGE = 4;
+	public static final int WISDOM_DAMAGE = 50;
 	
 	public final int BUTTONS_X = 167; //8*12+3;
 	public final int STATS_X = 97; //8*12+3;
@@ -231,6 +234,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 	   {	
 	     log.add(15,"You regenerate ",6,"2",15," hp!");   
 		 run.damage(run.pg, -2);
+	   }
+	   if (run.pg.hasEffect(Effect.MADNESS))
+	   {	
+	     log.add(14,"Your mind deals you ",6,""+MADNESS_DAMAGE,15," hp!");   
+		 run.damage(run.pg, MADNESS_DAMAGE);
 	   }
 	   run.pg.decEffects();
 	}

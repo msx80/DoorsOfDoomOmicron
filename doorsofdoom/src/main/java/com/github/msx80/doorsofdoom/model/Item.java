@@ -29,6 +29,7 @@ public enum Item {
 	// head
 	Helm("Helm", 309, new String[] {"Protect your", "brain cells, your", "most powerful", "weapon."}, 15, Place.Head, null, null, null),
 	Cap("Cap", 301, new String[] {"Keep your scalp", "warm and safe."}, 8, Place.Head, null, null, null),
+	EyePatch("Eye Patch", 332, new String[] {"Not sure it", "protects that", "much."}, 5, Place.Head, null, null, null),
 	Tricorn("Tricorn", 333, new String[] {"Classic pirate", "headware"}, 13, Place.Head, null, null, null),
 
 	// shields
@@ -54,11 +55,15 @@ public enum Item {
 	Ectoplasm("Ectoplasm", 298, new String[] {"Gooey and powerful."},0,null,null,null,null),
 	Diamond("Diamond", 303, new String[] {"So so precious.", "", "100 Points each."},0,null,null,null,null),
 	Crown("Crown", 321, new String[] {"The Crown was only", "heard of in the", "wildest legends.", "", "1000 Points each."},0,null,null,null,null),
+	Wisdom("Ancient Wisdom", 338, new String[] {"Some things are", "better left", "unlearned."},0,null,null,null,Usable.of("Read",wisdom())),
+	
 	SmallPotion("Potion, Small", 293, new String[] {"Deliciously","refreshing!", "", "Heal 10 hp."},0,null,null,null,Usable.of("Drink",(a,b )-> potionHealing(a,b,10))),
 	MediumPotion("Potion, Medium", 310, new String[] {"Double the fun!", "", "Heal 20 hp."},0,null,null,null,Usable.of("Drink",(a,b )-> potionHealing(a,b,20))),
 	BigPotion("Potion, Big", 294, new String[] {"So much healing!", "", "Heal 100 hp."},0,null,null,null,Usable.of("Drink",(a,b )-> potionHealing(a,b,100))),
 	Tomato("Tomato", 296, new String[] {"Juicy!","","Heal 6 hp."}, 0, null, null, Usable.of("Eat",(i, g) -> foodHealing(i,g,6)), null),
 	MintLeaf("Mint Leaf", 313, new String[] {"Always kill with", "a fresh breath"}, 0, null, null, null, null),
+	
+	
 	Clover("Clover", 324, new String[] {"This one has","four leaves.","", "Always max damage."}, 0, null, null, null, Usable.of("Prime", addEffect(Effect.LUCKY, "You activate the clover and feel lucky!"))),
 	Spinach("Spinach can", 299, new String[] {"The strength of","a sailor!","", "+5 Strength."}, 0, null, null, Usable.of("Eat", addEffect(Effect.MUSCLES, "You eat the whole can and you're READY", "TO RUMBLE!!")), null),
 	Rejuvenant("Rejuvenant", 282, new String[] {"Heal 2 hp per","turn while active."}, 0, null, null, Usable.of("Drink", addEffect(Effect.REGENERATION, "You feel your body slowly fixing itself.")), null),
@@ -66,6 +71,7 @@ public enum Item {
 	Magnet("Magnet", 326, new String[] {"A magnet for","gold!","", "Max gold loot."}, 0, null, null, Usable.of("Wield", addEffect(Effect.MAGNETIC, "You'll find even the most hidden gold", "piece with this!")), null),
 	CowardToken("Coward Token", 327, new String[] {"A memento that you","once fled a monster","", "-15 Points each."}, 0, null, null, null, null),
 	BagOfGold("Bag of Gold", 328, new String[] {"By the weight,","it should be about","20 to 40 gold", "pieces"}, 0, null, null, Usable.of("Open", bagOfGold()), null),
+	
 	Bread("Bread", 280, new String[] {"Just a little stale", "", "Heal 5 hp."}, 0, null, null, Usable.of("Eat",(i, g) -> foodHealing(i,g,5)), null),
 	Hamburger("Tasty Hamburger", 314, new String[] {"The healthy snack","of choice for fine","adventurers.","", "Heal 50 and", "gives strength."}, 0, null, null, Usable.of("Eat",(i, g) -> hamburger(i,g,50)), null),
 	Gelatin("Yummy Gelatin", 323, new String[] {"It's made of bones,","don't you know?","So tasty!","", "Heal 50 hp."}, 0, null, null, Usable.of("Eat",(i, g) -> foodHealing(i,g,50)), null),
@@ -75,7 +81,10 @@ public enum Item {
 	Dart("Poison Dart", 285, new String[] {"Halve monster","strength."}, 0, null, null, null, Usable.of("Throw",dart())),
 	EctoDrink("EctoDrink", 300, new String[] {"Makes you ghostly."}, 0, null, null, Usable.of("Drink", addEffect(Effect.GHOSTLY, "You feel a bit inconsistent after having","the drink.")), null),
 	Mint("Mint", 322, new String[] {"Killer fresh", "breath!", "", "Halven monster HP"}, 0, null, null, null, Usable.of("Chew",mint())),
-	Bomb("Bomb", 312, new String[] {"Kaboom!", "", "Deals 40 damages."}, 0, null, null, null, Usable.of("Throw",bomb()))
+	Bomb("Bomb", 312, new String[] {"Kaboom!", "", "Deals 40 damages."}, 0, null, null, null, Usable.of("Throw",bomb())),
+	
+	Sprite("Sprite", 335, new String[] {"A sprite you", "befriended.", "", "Deals 15 damages."}, 0, null, null, null, Usable.of("Unleash",sprite())),
+	Slime("Slime", 340, new String[] {"Disgusting", "and sticky.", "Basically a glue."}, 0, null, null, null, null)
 	;
 	
 	
@@ -170,6 +179,29 @@ public enum Item {
 				g.getRun().pg.inventoryAdd(i, -1);
 			    g.damageMonster(40, null);
 			    g.getLog().add(15, "You throw ",14, i.name, 15, " and deal ",6,"40",15," damage !");
+		  
+		};
+	}
+	
+	
+	private static UsableFunc wisdom()
+	{
+		return (i, g) -> {
+			    g.damageMonster(DoorsOfDoom.WISDOM_DAMAGE, null);
+			    g.getLog().add(15, "You read ",14, i.name, 15, " and deal ",6,""+DoorsOfDoom.WISDOM_DAMAGE,15," damage !");
+			    g.getLog().add(6, "Your mind degrade..");
+			    g.getRun().pg.addEffect(Effect.MADNESS);
+		  
+		};
+	}
+	
+	
+	private static UsableFunc sprite()
+	{
+		return (i, g) -> {
+				g.getRun().pg.inventoryAdd(i, -1);
+			    g.damageMonster(15, null);
+			    g.getLog().add(15, "You unleash ",14, i.name, 15, " and deal ",6,"15",15," damage !");
 		  
 		};
 	}

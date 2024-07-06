@@ -75,6 +75,12 @@ public enum MonsterDef {
 				Loot.of(3, Item.Venom, Range.of(3,4)),
 				Loot.of(3, Item.Blood, Range.of(2,4))),
 	 
+	 EVILCOOK("EVIL COOK",-21,range(16,25),range(3,8),
+				range(18,48), range(4,8),
+				Loot.of(6, Item.Bread, Range.of(2,3)),
+				Loot.of(4, Item.Tomato, Range.of(2,3)),
+				Loot.of(2, Item.Cheese, Range.of(2,4)),
+				Loot.of(5, Item.Fork, Range.of(1,1))),
 	 OGRE("OGRE",-15,range(25,30),range(6,8),
 				range(25,60), range(7,9),
 				Loot.of(5, Item.Buckler, Range.of(1,1)),
@@ -96,12 +102,6 @@ public enum MonsterDef {
 				Loot.of(3, Item.Phlogiston, Range.of(3,4)),
 				Loot.of(5, Item.Blood, Range.of(3,5))),
 	 
-	 EVILCOOK("EVIL COOK",-21,range(25,35),range(5,8),
-				range(20,50), range(5,8),
-				Loot.of(6, Item.Bread, Range.of(2,3)),
-				Loot.of(4, Item.Tomato, Range.of(2,3)),
-				Loot.of(2, Item.Cheese, Range.of(2,3)),
-				Loot.of(5, Item.Fork, Range.of(1,1))),
 	 
 	 SPIDER("SPIDER",-16,range(18,25),range(8,12),
 				range(30,55), range(10,12),

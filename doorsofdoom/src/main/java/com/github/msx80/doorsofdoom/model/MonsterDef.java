@@ -127,7 +127,7 @@ public enum MonsterDef {
 				Loot.of(3, Item.Rock, Range.of(5, 8))),
 	 
 	 DARKKNIGHT("DARK KNIGHT",-18,range(50,80),range(20,30),
-				range(35,1000), range(8,20),
+				range(43,79), range(8,20),
 
 				Loot.of(1, Item.Shield, Range.of(1,1)),
 				Loot.of(1, Item.Armour, Range.of(1,1)),

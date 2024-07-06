@@ -2,9 +2,9 @@ package com.github.msx80.doorsofdoom.model;
 
 public enum Effect {
 
-	SMOKE("SMOKE", 270, 4),
+	SMOKE("SMOKE", 270, 6),
 	LUCKY("LUCKY", 287, 9),
-	GHOSTLY("GHOSTLY", 271, 8),
+	GHOSTLY("GHOSTLY", 271, 20),
 	MUSCLES("MUSCLES", 268, 15),
 	MAGNETIC("MAGNETIC", 267, 10),
 	REGENERATION("REGENERATION", 284, 10),

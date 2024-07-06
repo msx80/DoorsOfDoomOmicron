@@ -15,7 +15,11 @@ public enum Item {
 	Knife("Knife", 329, new String[] {"There's an ancient", "writing on it,", "it spells: IKEA."},0,Place.Left,Range.of(5,7),null,null),
 	Fork("Fork", 281, new String[] {"Use the fork, Luke."},0,Place.Left,Range.of(6,9),null,null),
 	Sword("Sword", 304, new String[] {"From the guys", "that brought you", "other swords"},0,Place.Left,Range.of(10,15),null,null),
+	Fang("Fang", 334, new String[] {"Cursed.","Halve monster","strength."},0,Place.Left,Range.of(8,12),null, Usable.of("Throw",dart())),
 	FlamingSword("Flaming Sword", 320, new String[] {"The badassery", "made sword."},0,Place.Left,Range.of(15,20),null,null),
+	GhostSword("Ghost Sword", 336, new String[] {"Spooky and", "deadly."},0,Place.Left,Range.of(13,22),null,null),
+	VenomSword("Venom Sword", 337, new String[] {"Be careful when", "you sheathe this."},0,Place.Left,Range.of(14,23),null,null),
+	
 	Key("Key", 319, new String[]{"They open doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null ),
 	Cheese("Cheese", 317, new String[]{"Stinky and delicious.","","Heal 4 hp."},0,null, null, Usable.of("Eat", (i, g) -> foodHealing(i,g,4)), null),
 	Blood("Blood", 265,  new String[]{"It's always good","to bring some","around."},0,null,null,null,null),

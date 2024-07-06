@@ -167,5 +167,12 @@ public enum MonsterDef {
 		return Range.of(min, max);
 	}
 	
+	public boolean hasLoot(Item item)
+	{
+		for (Loot loot : loots) {
+			if(loot.item == item) return true;
+		}
+		return false;
+	}
 	
 }

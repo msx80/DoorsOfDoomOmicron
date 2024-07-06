@@ -32,7 +32,7 @@ public class Craft {
 	public static final List<Craft> ALL = Arrays.asList(
 			Craft.of(Item.Key, Item.Gold, 15),
 			Craft.of(Item.SmallPotion, Item.Gold, 10),
-			Craft.of(Item.MediumPotion, Item.Gold, 20),
+			Craft.of(Item.MediumPotion, Item.Gold, 19),
 			Craft.of(Item.Knife, Item.Gold, 30),
 			Craft.of(Item.Diamond, Item.Gold, 100),
 			Craft.of(Item.Dart, Item.Venom, 4),

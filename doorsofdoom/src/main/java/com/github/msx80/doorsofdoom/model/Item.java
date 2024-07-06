@@ -26,6 +26,10 @@ public enum Item {
 	Throusers("Throusers", 290, new String[] {"Sweet leather on", "your legs."}, 12, Place.Legs, null, null, null),
 	Greaves("Greaves", 331, new String[] {"Iron shins"}, 16, Place.Legs, null, null, null),
 	
+	// head
+	Helm("Helm", 309, new String[] {"Protect your", "brain cells, your", "most powerful", "weapon."}, 15, Place.Head, null, null, null),
+	Cap("Cap", 301, new String[] {"Keep your scalp", "warm and safe."}, 8, Place.Head, null, null, null),
+	Tricorn("Tricorn", 333, new String[] {"Classic pirate", "headware"}, 13, Place.Head, null, null, null),
 	Key("Key", 319, new String[]{"They open doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null ),
 	Cheese("Cheese", 317, new String[]{"Stinky and delicious.","","Heal 4 hp."},0,null, null, Usable.of("Eat", (i, g) -> foodHealing(i,g,4)), null),
 	Blood("Blood", 265,  new String[]{"It's always good","to bring some","around."},0,null,null,null,null),
@@ -45,8 +49,6 @@ public enum Item {
 	Shirt("Shirt", 295, new String[] {"The very basic in", "combat protection."}, 8, Place.Body, null, null, null),
 	Clover("Clover", 324, new String[] {"This one has","four leaves.","", "Always max damage."}, 0, null, null, null, Usable.of("Prime", addEffect(Effect.LUCKY, "You activate the clover and feel lucky!"))),
 	Spinach("Spinach can", 299, new String[] {"The strength of","a sailor!","", "+5 Strength."}, 0, null, null, Usable.of("Eat", addEffect(Effect.MUSCLES, "You eat the whole can and you're READY", "TO RUMBLE!!")), null),
-	Helm("Helm", 309, new String[] {"Protect your", "brain cells, your", "most powerful", "weapon."}, 15, Place.Head, null, null, null),
-	Cap("Cap", 301, new String[] {"Keep your scalp", "warm and safe."}, 10, Place.Head, null, null, null),
 	Buckler("Buckler", 308, new String[] {"Actually the", "bottom of a","beer barrel."}, 20, Place.Right, null, null, null),
 	Stockade("Stockade", 283, new String[] {"Unorthodox but", "effective."}, 15, Place.Right, null, null, null),
 	Rejuvenant("Rejuvenant", 282, new String[] {"Heal 2 hp per","turn while active."}, 0, null, null, Usable.of("Drink", addEffect(Effect.REGENERATION, "You feel your body slowly fixing itself.")), null),

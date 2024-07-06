@@ -17,6 +17,13 @@ public enum MonsterDef {
 				Loot.of(3, Item.Tomato, Range.of(1, 2)),
 				Loot.of(3, Item.MintLeaf, Range.of(2, 4))),
 	 
+	 
+	 BAT("BAT",-34,range(4,9),range(1,4), 
+			 range(0,20), range(2,4),
+				Loot.of(1, Item.Leather, Range.of(1,1)),
+				Loot.of(1, Item.Rock, Range.of(1, 2))
+			 ),
+	 
 	 SKELETON("SKELETON",-3,range(9,13),range(3,4), 
 			 range(3,28), range(3,6),
 				Loot.of(3, Item.Bone, Range.of(1,1)),

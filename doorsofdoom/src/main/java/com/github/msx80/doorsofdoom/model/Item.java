@@ -23,7 +23,7 @@ public enum Item {
 	
 	
 	// legs
-	Pants("Fancy Panties", 306, new String[] {"The last in fashon."}, 5, Place.Legs, null, null, null),
+	Pants("Fancy Panties", 306, new String[] {"The last in fashion."}, 5, Place.Legs, null, null, null),
 	Throusers("Throusers", 290, new String[] {"Sweet leather on", "your legs."}, 12, Place.Legs, null, null, null),
 	Greaves("Greaves", 331, new String[] {"Iron shins"}, 16, Place.Legs, null, null, null),
 	
@@ -78,7 +78,7 @@ public enum Item {
 	Gelatin("Yummy Gelatin", 323, new String[] {"It's made of bones,","don't you know?","So tasty!","", "Heal 50 hp."}, 0, null, null, Usable.of("Eat",(i, g) -> foodHealing(i,g,50)), null),
 	Elixir("Elixir", 292, new String[] {"The strength of","a lion, bottled.","", "+10 max hp."}, 0, null, null, Usable.of("Drink",elixir()), null),
 	Rock("Rock", 315, new String[] {"You can sling this", "If you have a","slingshot."}, 0, null, null, null, Usable.of("Sling",sling())),
-	Scroll("Scroll", 325, new String[] {"Suck all life from","an enemy and gives","it to you.", "(except demons)"}, 0, null, null, null, Usable.of("Recite",scroll())),
+	Scroll("Scroll", 325, new String[] {"Suck all life from","an enemy and gives","it to you.", "(except devils)"}, 0, null, null, null, Usable.of("Recite",scroll())),
 	Dart("Poison Dart", 285, new String[] {"Halve monster","strength."}, 0, null, null, null, Usable.of("Throw",dart())),
 	EctoDrink("EctoDrink", 300, new String[] {"Makes you ghostly."}, 0, null, null, Usable.of("Drink", addEffect(Effect.GHOSTLY, "You feel a bit inconsistent after having","the drink.")), null),
 	Mint("Mint", 322, new String[] {"Killer fresh", "breath!", "", "Halven monster HP"}, 0, null, null, null, Usable.of("Chew",mint())),
@@ -141,8 +141,13 @@ public enum Item {
 		return (i, g) -> {
 			if (g.getRun().monster.type == MonsterDef.DEVIL)
 			{
-				g.getLog().add(15, "Can't use on demons!");
+				g.getLog().add(15, "Can't be used on devils!");
 				g.getLog().add(15, "Do you even read descriptions?");
+			}
+			else if (g.getRun().monster.type == MonsterDef.ANCIENT)
+			{
+				g.getLog().add(15, "Sucking life from ancient horrors?");
+				g.getLog().add(15, "You must already be insane.");
 			}
 			else
 			{

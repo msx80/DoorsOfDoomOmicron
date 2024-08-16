@@ -4,7 +4,7 @@ public enum Easing {
 
 	// from https://github.com/tweenjs/tween.js/blob/master/src/Tween.js
 	LINEAR(t -> t),
-	QUADRATIC_IN(t -> t*t),
+	QUADRATIC_IN(t -> t * t),
 	QUADRATIC_OUT(t -> t * (2f - t)),
 	BOUNCE_OUT(k -> {
 		if (k < (1f / 2.75f)) {
@@ -29,39 +29,28 @@ public enum Easing {
 	;
 	
 	/*
-	 
 	Quadratic: {
-
 		In: function (k) {
-
 			return k * k;
-
 		},
 
 		Out: function (k) {
-
 			return k * (2 - k);
-
 		},
 
 		InOut: function (k) {
-
 			if ((k *= 2) < 1) {
 				return 0.5 * k * k;
 			}
 
 			return - 0.5 * (--k * (k - 2) - 1);
-
 		}
-
 	},
-	 */
+	*/
+	
 	public final FloatFunction fun;
 
-	Easing(FloatFunction fun)
-	{
+	Easing(FloatFunction fun) {
 		this.fun = fun;
 	};
-	
-	
 }

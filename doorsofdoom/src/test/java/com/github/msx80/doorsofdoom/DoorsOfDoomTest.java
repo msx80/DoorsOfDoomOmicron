@@ -41,16 +41,14 @@ class DoorsOfDoomTest {
 	}
 
 	
-	private void testRes(Loot[] loots, Map<Item, Integer> res) 
-	{
+	private void testRes(Loot[] loots, Map<Item, Integer> res) {
 		for (Loot loot : loots) {
 			assertEquals(loot.probability, Math.round(res.get(loot.item).intValue() / 10000f ));
 		}
 	}
 
 	@Test
-	void testLevels()
-	{
+	void testLevels() {
 		for (int i = 0; i < 300; i++) {
 			
 			final int level = i;
@@ -60,8 +58,7 @@ class DoorsOfDoomTest {
 	}
 	
 	@Test
-	void testItems()
-	{
+	void testItems() {
 		for (Item it : Item.values()) {
 			
 			List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.hasLoot(it)).sorted().collect(Collectors.toList());

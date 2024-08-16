@@ -18,6 +18,4 @@ public class Action {
 	public String toString() {
 		return label.toString() ;
 	}
-	
-	
 }

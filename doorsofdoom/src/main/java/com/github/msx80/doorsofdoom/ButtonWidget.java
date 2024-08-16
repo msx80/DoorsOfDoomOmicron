@@ -45,7 +45,7 @@ public class ButtonWidget extends Widget<Action> {
 
 	@Override
 	public void drawItem(int ax, int ay, int idx, Action a) {
-		p.drawBtn(ax,ay,70,13);
-		p.richPrint(ax+2,ay+4,a.label.tokens);
+		p.drawBtn(ax, ay, 70, 13);
+		p.richPrint(ax + 2, ay + 4, a.label.tokens);
 	}
 }

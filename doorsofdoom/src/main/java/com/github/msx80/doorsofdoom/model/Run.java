@@ -44,6 +44,27 @@ public class Run {
         pg.inventoryAdd(Item.SmallPotion, 3);
         pg.inventoryAdd(Item.Key, 50);    
         
+        
+        
+        /*
+        
+        pg.inventoryAdd(Item.Sword, 3);
+        pg.inventoryAdd(Item.Shield, 1);
+        pg.inventoryAdd(Item.Greaves, 1);
+        pg.inventoryAdd(Item.Armour, 1);
+        pg.inventoryAdd(Item.Helm, 1);
+        
+        pg.inventoryAdd(Item.EyePatch, 1);
+        pg.inventoryAdd(Item.Tricorn, 1);
+        pg.inventoryAdd(Item.Fang, 2);
+        pg.inventoryAdd(Item.Sprite, 12);
+        pg.inventoryAdd(Item.Venom, 22);
+        
+        pg.inventoryAdd(Item.Wisdom, 1);
+        pg.inventoryAdd(Item.Ectoplasm, 22);
+        pg.inventoryAdd(Item.Slime, 22);
+        */
+        
         /*
 		pg.inventoryAdd(Item.Hamburger, 2);
 		pg.inventoryAdd(Item.Phlogiston, 20);

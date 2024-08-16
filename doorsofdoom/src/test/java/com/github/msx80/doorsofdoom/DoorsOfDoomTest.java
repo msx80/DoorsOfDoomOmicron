@@ -53,7 +53,9 @@ class DoorsOfDoomTest {
 	@Test
 	void testLevels()
 	{
-		for (int i = 0; i < 200; i++) {
+		
+		
+		for (int i = 0; i < 300; i++) {
 			final int level = i;
 			List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(level)).sorted().collect(Collectors.toList());
 			System.out.println("LEVEL: "+i+" : "+eligibles.size()+" -> "+eligibles);

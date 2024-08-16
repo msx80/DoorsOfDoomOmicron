@@ -93,7 +93,7 @@ public enum MonsterDef {
 				range(25,45), range(5,10),
 				Loot.of(2, Item.Pants, Range.of(1,1)),
 				Loot.of(2, Item.Tricorn, Range.of(1,1)),
-				Loot.of(2, Item.EyePatch, Range.of(1,1))),
+				Loot.of(2, Item.Hook, Range.of(1,1))),
 	 
 	 OGRE("OGRE",-15,range(25,30),range(6,8),
 				range(29,60), range(7,9),

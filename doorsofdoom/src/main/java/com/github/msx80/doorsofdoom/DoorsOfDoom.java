@@ -21,6 +21,7 @@ import com.github.msx80.doorsofdoom.model.Loot;
 import com.github.msx80.doorsofdoom.model.Monster;
 import com.github.msx80.doorsofdoom.model.MonsterDef;
 import com.github.msx80.doorsofdoom.model.Place;
+import com.github.msx80.doorsofdoom.model.Range;
 import com.github.msx80.doorsofdoom.model.Run;
 import com.github.msx80.omicron.api.Game;
 import com.github.msx80.omicron.api.Pointer;
@@ -291,6 +292,14 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	public void init(final Sys sys) 
     {
+		/*
+		 * experiment with calculated spawn windows.
+		// normalize monsters levels
+		for (int i = 0; i < MonsterDef.values().length; i++) {
+			MonsterDef.values()[i].levels = Range.of(i*5-15, i*5+24-15);
+		}
+		*/
+		
 		this.r = new Random(sys.millis());
         this.sys = sys;
         

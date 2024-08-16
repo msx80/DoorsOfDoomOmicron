@@ -14,6 +14,7 @@ public enum Item {
 	Stick("Stick", 307, new String[] {"Better than bare", "hands."}, 0, Place.Left, Range.of(5,6), null, null),
 	Knife("Knife", 329, new String[] {"There's an ancient", "writing on it,", "it spells: IKEA."},0,Place.Left,Range.of(5,7),null,null),
 	Fork("Fork", 281, new String[] {"Use the fork, Luke."},0,Place.Left,Range.of(6,9),null,null),
+	Hook("Hook", 342, new String[] {"Also good to", "open bottles."},0,Place.Left,Range.of(5, 12),null,null),
 	Sword("Sword", 304, new String[] {"From the guys", "that brought you", "other swords"},0,Place.Left,Range.of(10,15),null,null),
 	Fang("Fang", 334, new String[] {"Cursed.","Halve monster","strength."},0,Place.Left,Range.of(8,12),null, Usable.of("Throw",dart())),
 	FlamingSword("Flaming Sword", 320, new String[] {"The badassery", "made sword."},0,Place.Left,Range.of(15,20),null,null),

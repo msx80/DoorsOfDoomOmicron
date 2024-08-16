@@ -8,20 +8,17 @@ public class ButtonWidget extends Widget<Action> {
 	private static final int BUTTON_Y = 14;
 	private List<Action> pulsanti = new ArrayList<>();
 	PrintUtils p;
+	
 	public ButtonWidget(PrintUtils p, int x, int y, int w, int h) {
 		super(p.sys, x, y, w, h, BUTTON_Y);
 		this.p = p;
 	}
 
-	
-	public void set(List<Action> pulsanti)
-	{
+	public void set(List<Action> pulsanti) {
 		this.pulsanti = pulsanti;
 		invalidateAndReload();
 	}
 
-
-	
 	@Override
 	protected List<Action> lines() {
 		return pulsanti;
@@ -33,9 +30,7 @@ public class ButtonWidget extends Widget<Action> {
 	}
 
 	@Override
-	public void drawForeground(int x, int y) {
-		
-	}
+	public void drawForeground(int x, int y) {}
 
 	@Override
 	protected boolean selected(int idx, Action line) {
@@ -50,12 +45,7 @@ public class ButtonWidget extends Widget<Action> {
 
 	@Override
 	public void drawItem(int ax, int ay, int idx, Action a) {
-
-			p.drawBtn(ax,ay,70,13);
-			p.richPrint(ax+2,ay+4,a.label.tokens);
-
+		p.drawBtn(ax,ay,70,13);
+		p.richPrint(ax+2,ay+4,a.label.tokens);
 	}
-
-	
-
 }

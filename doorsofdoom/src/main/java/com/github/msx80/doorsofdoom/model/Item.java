@@ -43,7 +43,6 @@ public enum Item {
 	Jacket("Jacket", 291, new String[] {"Fine leather", "jacket, purchased", "from a pirate dude."}, 15, Place.Body, null, null, null),
 	Armour("Plate Armour", 289, new String[] {"Now we're talking.", "Plate is great."}, 20, Place.Body, null, null, null),
 	
-
 	Key("Key", 319, new String[] {"Opens doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null),
 	Cheese("Cheese", 317, new String[] {"Stinky and delicious.", "", "Heal 4 hp."}, 0, null, null, Usable.of("Eat", (i, g) -> foodHealing(i, g, 4)), null),
 	Blood("Blood", 265,  new String[] {"It's always good", "to bring some", "around."}, 0, null, null, null, null),
@@ -85,7 +84,6 @@ public enum Item {
 	Slime("Slime", 340, new String[] {"Smelly", "and sticky.", "A bit like glue."}, 0, null, null, null, null)
 	;
 	
-	
 	public final String name;
 	public final int sprite;
 	public final String[] flavour;
@@ -95,8 +93,7 @@ public enum Item {
 	public final Usable usable;
 	public final Usable combat;
 
-	Item(String name, int sprite, String[] flavour, int armour, Place equip, Range attack, Usable usable, Usable combat)
-	{
+	Item(String name, int sprite, String[] flavour, int armour, Place equip, Range attack, Usable usable, Usable combat) {
 		this.name = name;
 		this.sprite = sprite;
 		this.flavour = flavour;
@@ -116,8 +113,7 @@ public enum Item {
 		};
 	}
 
-	private static UsableFunc mint()
-	{
+	private static UsableFunc mint() {
 		return (i, g) -> {
 			g.damageMonster(g.getRun().monster.hp / 2, null);
 			g.getLog().add(15, "You chew ", 14, i.name, 15, " and then blow freezing air!");
@@ -125,8 +121,7 @@ public enum Item {
 		};
 	}
 	
-	private static UsableFunc dart()
-	{
+	private static UsableFunc dart() {
 		return (i, g) -> {
 			g.getLog().add(15, "You throw ", 14, i.name, 15, "! The monster is weakened!");
 			g.animEnemy("Halved!", 11, null);
@@ -136,21 +131,17 @@ public enum Item {
 		};
 	}
 	
-	private static UsableFunc scroll()
-	{
+	private static UsableFunc scroll() {
 		return (i, g) -> {
-			if (g.getRun().monster.type == MonsterDef.DEVIL)
-			{
+			if (g.getRun().monster.type == MonsterDef.DEVIL) {
 				g.getLog().add(15, "Can't be used on devils!");
 				g.getLog().add(15, "Do you even read descriptions?");
-			}
-			else if (g.getRun().monster.type == MonsterDef.ANCIENT)
-			{
+			
+			} else if (g.getRun().monster.type == MonsterDef.ANCIENT) {
 				g.getLog().add(15, "Sucking life from ancient horrors?");
 				g.getLog().add(15, "You must already be insane.");
-			}
-			else
-			{
+			
+			} else {
 				 int dmg = g.getRun().monster.hp;
 				 g.getRun().damage(g.getRun().pg, -dmg);
 				 g.animPG("+" + dmg, 6, (a) -> {
@@ -162,33 +153,28 @@ public enum Item {
 		};
 	}
 	
-	private static UsableFunc sling()
-	{
+	private static UsableFunc sling() {
 		return (i, g) -> {
-			if (g.getRun().pg.getInvCount(Item.Slingshot) > 0)
-			{
+			if (g.getRun().pg.getInvCount(Item.Slingshot) > 0) {
 				g.getRun().pg.inventoryAdd(i, -1);
-			    g.damageMonster(15, null);
-			    g.getLog().add(15, "You sling ", 14, i.name, 15, " and deal ", 6, "15", 15, " damage!");
-			}
-			else
-			{
+				g.damageMonster(15, null);
+				g.getLog().add(15, "You sling ", 14, i.name, 15, " and deal ", 6, "15", 15, " damage!");
+			
+			} else {
 				g.getLog().add(15, "You have no ", 14, Item.Slingshot.name, 15, " to sling...");
 			}
 		};
 	}
 	
-	private static UsableFunc bomb()
-	{
+	private static UsableFunc bomb() {
 		return (i, g) -> {
-				g.getRun().pg.inventoryAdd(i, -1);
-			    g.damageMonster(40, null);
-			    g.getLog().add(15, "You throw ", 14, i.name, 15, " and deal ", 6, "40", 15, " damage!");
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.damageMonster(40, null);
+			g.getLog().add(15, "You throw ", 14, i.name, 15, " and deal ", 6, "40", 15, " damage!");
 		};
 	}
 	
-	private static UsableFunc wisdom()
-	{
+	private static UsableFunc wisdom() {
 		return (i, g) -> {
 			    g.damageMonster(DoorsOfDoom.WISDOM_DAMAGE, null);
 			    g.getLog().add(15, "You read ", 14, i.name, 15, " and deal ", 6, "" + DoorsOfDoom.WISDOM_DAMAGE, 15, " damage!");
@@ -197,17 +183,15 @@ public enum Item {
 		};
 	}
 	
-	private static UsableFunc sprite()
-	{
+	private static UsableFunc sprite() {
 		return (i, g) -> {
-				g.getRun().pg.inventoryAdd(i, -1);
-			    g.damageMonster(15, null);
-			    g.getLog().add(15, "You unleash ", 14, i.name, 15, " and deal ", 6, "15", 15, " damage!");
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.damageMonster(15, null);
+			g.getLog().add(15, "You unleash ", 14, i.name, 15, " and deal ", 6, "15", 15, " damage!");
 		};
 	}
 	
-	private static UsableFunc elixir()
-	{
+	private static UsableFunc elixir() {
 		return (i, g) -> {
 			  g.getLog().add(15, "You drink ", 14, i.name, 15, "! You feel stronger!");
 			  g.animPG("+10 max hp!", 6, null);
@@ -216,21 +200,20 @@ public enum Item {
 		};
 	}
 	
-	private static UsableFunc addEffect(Effect e, String... logs)
-	{
+	private static UsableFunc addEffect(Effect e, String... logs) {
 		return (i, g) -> {
 			g.getRun().pg.addEffect(e);
 			g.getRun().pg.inventoryAdd(i, -1);
-			for(String r : logs)
-			{
+			
+			for(String r : logs) {
 				g.getLog().add(14, r);
 			}
+			
 			g.getLog().add(15, "Effect ", 9, e.name, 15, " started!");
 		};
 	}
 
-	private static void foodHealing(Item item, GameInterface g, int hp)
-	{
+	private static void foodHealing(Item item, GameInterface g, int hp) {
 		g.getLog().add(15, "You eat ", 14, item.name, 15, "! ", 6, "+" + hp);
 		g.getLog().add(15, "You feel much better now.");
 		g.getRun().pg.inventoryAdd(item, -1);
@@ -238,15 +221,13 @@ public enum Item {
 		g.animPG("+"+hp, 6, null);
 	}
 	
-	private static void hamburger(Item item, GameInterface g, int hp)
-	{
+	private static void hamburger(Item item, GameInterface g, int hp) {
 		foodHealing(item, g, hp);
 		g.getRun().pg.addEffect(Effect.MUSCLES);
 		g.getLog().add(15, "You feel stronger!");
 	}
 	
-	private static void potionHealing(Item item, GameInterface g, int hp)
-	{
+	private static void potionHealing(Item item, GameInterface g, int hp) {
 		g.getLog().add(15, "You drink ", 14, item.name, 15, "! ", 6, "+" + hp);
 		g.getLog().add(15, "You feel much better now.");
 		g.getRun().pg.inventoryAdd(item, -1);

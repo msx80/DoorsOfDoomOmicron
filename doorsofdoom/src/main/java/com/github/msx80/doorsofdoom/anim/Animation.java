@@ -23,16 +23,12 @@ public class Animation {
 		this.onEnd = onEnd;
 		this.onUpdate = onUpdate;
 	}
-
-
-	public boolean finished()
-	{
+	
+	public boolean finished() {
 		return frame >= ttl;
 	}
 	
-	
-	public boolean advance()
-	{
+	public boolean advance() {
 		onUpdate.accept(this);
 		
 		this.frame++;
@@ -41,13 +37,11 @@ public class Animation {
 		
 		// update stuff
 		
-		if (finished())
-		{
-			if(onEnd!=null) onEnd.accept(this);
+		if (finished()) {
+			if (onEnd != null) onEnd.accept(this);
+			
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}

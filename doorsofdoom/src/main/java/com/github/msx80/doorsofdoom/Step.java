@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class Step 
-{
+public class Step {
 	private final Runnable onEnter;
 	private final Runnable onExit;
 	private final Callable<List<Action>> onActions;
@@ -16,17 +15,16 @@ public class Step
 		this.onActions = onActions;
 	}
 	
-	public void onEnter()
-	{
-		if(onEnter!=null) onEnter.run();
+	public void onEnter() {
+		if (onEnter != null) onEnter.run();
 	}
-	public void onExit()
-	{
-		if(onExit!=null) onExit.run();
+	
+	public void onExit() {
+		if (onExit != null) onExit.run();
 	}
-	public List<Action> onActions()
-	{
-		if(onActions!=null)
+	
+	public List<Action> onActions() {
+		if (onActions != null)
 			try {
 				return onActions.call();
 			} catch (Exception e) {

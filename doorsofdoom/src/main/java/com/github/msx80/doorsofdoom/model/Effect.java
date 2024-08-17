@@ -9,8 +9,8 @@ public enum Effect {
 	MAGNETIC("MAGNETIC", 267, 10),
 	REGENERATION("REGENERATION", 284, 10),
 	MADNESS("MADNESS", 339, 10),
-	
 	;
+	
 	public final String name;
 	public final int sprite;
 	public final int turns;
@@ -21,8 +21,7 @@ public enum Effect {
 		this.turns = turns;
 	}
 	
-/*
-
+	/*
 	SMOKE = {
 		spr = 270,
 		name = "SMOKE",
@@ -52,7 +51,6 @@ public enum Effect {
 		spr = 284,
 		name = "REGENERATION",
 		turns = 10
-	},	
-	
- */
+	},
+	*/
 }

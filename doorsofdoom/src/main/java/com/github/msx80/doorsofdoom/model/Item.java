@@ -173,13 +173,22 @@ public enum Item {
 			g.getLog().add(15, "You throw ", 14, i.name, 15, " and deal ", 6, "40", 15, " damage!");
 		};
 	}
-	
+
+	// uncomment to make the Ancient Wisdom not work on Ancients
 	private static UsableFunc wisdom() {
 		return (i, g) -> {
-			    g.damageMonster(DoorsOfDoom.WISDOM_DAMAGE, null);
-			    g.getLog().add(15, "You read ", 14, i.name, 15, " and deal ", 6, "" + DoorsOfDoom.WISDOM_DAMAGE, 15, " damage!");
-			    g.getLog().add(6, "Your mind degrades..");
-			    g.getRun().pg.addEffect(Effect.MADNESS);
+			/*
+			if (g.getRun().monster.type == MonsterDef.ANCIENT) {
+				g.getLog().add(15, "Did you really think this would work?");
+				g.getLog().add(15, "There is no hope for you left.");
+			
+			} else {
+			*/
+				g.damageMonster(DoorsOfDoom.WISDOM_DAMAGE, null);
+				g.getLog().add(15, "You read ", 14, i.name, 15, " and deal ", 6, "" + DoorsOfDoom.WISDOM_DAMAGE, 15, " damage!");
+				g.getLog().add(6, "Your mind degrades..");
+				g.getRun().pg.addEffect(Effect.MADNESS);
+			// }
 		};
 	}
 	
@@ -193,10 +202,10 @@ public enum Item {
 	
 	private static UsableFunc elixir() {
 		return (i, g) -> {
-			  g.getLog().add(15, "You drink ", 14, i.name, 15, "! You feel stronger!");
-			  g.animPG("+10 max hp!", 6, null);
-			  g.getRun().pg.incMaxHp(10);
-			  g.getRun().pg.inventoryAdd(i, -1);
+			g.getLog().add(15, "You drink ", 14, i.name, 15, "! You feel stronger!");
+			g.animPG("+10 max hp!", 6, null);
+			g.getRun().pg.incMaxHp(10);
+			g.getRun().pg.inventoryAdd(i, -1);
 		};
 	}
 	

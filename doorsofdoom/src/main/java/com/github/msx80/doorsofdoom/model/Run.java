@@ -41,7 +41,7 @@ public class Run {
 		pg.ricalcola();
 		
 		pg.inventoryAdd(Item.SmallPotion, 3);
-		g.inventoryAdd(Item.Key, 50);
+		pg.inventoryAdd(Item.Key, 50);
 		
 		/*
   		pg.inventoryAdd(Item.Sword, 3);

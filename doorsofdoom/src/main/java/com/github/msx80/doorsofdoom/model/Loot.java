@@ -11,8 +11,7 @@ public class Loot {
 		this.qty = qty;
 	}
 	
-	public static Loot of(int probability, Item item, Range qty)
-	{
+	public static Loot of(int probability, Item item, Range qty) {
 		return new Loot(probability, item, qty);
 	}
 }

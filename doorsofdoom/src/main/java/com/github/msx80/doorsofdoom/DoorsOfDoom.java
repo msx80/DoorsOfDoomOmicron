@@ -2,9 +2,11 @@ package com.github.msx80.doorsofdoom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -358,7 +360,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 			//list.add(new Action("AAA prova", this::unimplemented));
 			//list.add(new Action("Back", () -> {enterStep(INTRO);}));
 			
-			for (Item i : run.pg.inventory.keySet()) {
+			List<Item> keys = new ArrayList<>( run.pg.inventory.keySet() );
+			Collections.sort(keys);
+			
+			for (Item i : keys) {
 				if (i.usable != null) {
 					list.add(new Action(Richtext.of(-1, i.sprite, 15, " " + i.usable.command, 14, " [" + run.pg.getInvCount(i) + "]"), () -> this.useItem(i)));
 				}
@@ -372,7 +377,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 			list.add(new Action("Attack", this::doAttack));
 			list.add(new Action("Flee", this::flee));
 			
-			for (Item i : run.pg.inventory.keySet()) {
+			
+			List<Item> keys = new ArrayList<>( run.pg.inventory.keySet() );
+			Collections.sort(keys);
+			
+			for (Item i : keys) {
 				if (i.combat != null) {
 					list.add(new Action(Richtext.of(-1, i.sprite, 15, " " + i.combat.command, 14, " [" + run.pg.getInvCount(i) + "]"), () -> this.useCombatItem(i)));
 				}

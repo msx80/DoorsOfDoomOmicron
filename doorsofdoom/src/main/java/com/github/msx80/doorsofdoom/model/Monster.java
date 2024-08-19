@@ -10,5 +10,4 @@ public class Monster extends Entity {
 		this.hp = maxHp;
 		this.attack = Range.of(type.defaultattack.min, type.defaultattack.max);
 	}
-	
 }

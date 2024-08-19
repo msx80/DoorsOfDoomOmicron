@@ -7,35 +7,32 @@ import java.util.function.IntConsumer;
 public class AnimationManager {
 	private LinkedList<Animation> animations = new LinkedList<Animation>();
 	
-	
-	public void update()
-	{
-		if ( animations.isEmpty() ) return;
+	public void update() {
+		if (animations.isEmpty()) return;
+		
 		boolean finished = animations.getFirst().advance();
-		if(finished)
-		{
+		if (finished) {
 			animations.removeFirst();
 		}
-		
 	}
-	public Animation add(Easing easing, int ttl, Consumer<Animation> onEnd,	Consumer<Animation> onUpdate)
-	{
+	
+	public Animation add(Easing easing, int ttl, Consumer<Animation> onEnd,	Consumer<Animation> onUpdate) {
 		return this.add(new Animation(easing, ttl, onEnd, onUpdate));
 	}
-	public Animation add(Easing easing, int ttl, Consumer<Animation> onEnd,	int start, int end, IntConsumer onUpdate )
-	{
+	
+	public Animation add(Easing easing, int ttl, Consumer<Animation> onEnd,	int start, int end, IntConsumer onUpdate) {
 		return this.add(new Animation(easing, ttl, onEnd, a -> {
-			float f = ((float)end)*a.position + ((float)start)*(1f-a.position);
-			onUpdate.accept(  (int) f ); 
+			float f = ((float)end) * a.position + ((float)start) * (1f - a.position);
+			onUpdate.accept((int)f); 
 		}));
 	}
-	public Animation add(Animation a)
-	{
+	
+	public Animation add(Animation a) {
 		animations.add(a);
 		return a;
 	}
+	
 	public boolean isRunning() {
-		
 		return !animations.isEmpty();
 	}
 }

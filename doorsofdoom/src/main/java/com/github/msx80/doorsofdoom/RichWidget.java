@@ -13,5 +13,4 @@ public abstract class RichWidget extends Widget<Richtext> {
 	public void drawItem(int ax, int ay, int idx, Richtext r) {
 		p.richPrint(ax, ay, r.tokens);
 	}
-
 }

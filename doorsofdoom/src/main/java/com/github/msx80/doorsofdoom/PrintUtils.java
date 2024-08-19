@@ -12,15 +12,18 @@ public class PrintUtils {
 	public Sys sys;
 	private TextDrawer font;
 	private TextDrawer bigFont;
-	private TextDrawer smallFont;
 	
 	private int clr = Colors.fromHex("504030");
 	
-	public PrintUtils(Sys sys, TextDrawer font, TextDrawer bigFont, TextDrawer smallFont) {
+	public PrintUtils(Sys sys, TextDrawer font, TextDrawer bigFont) {
 		this.sys = sys;
 		this.font = font;
 		this.bigFont = bigFont;
-		this.smallFont = smallFont;
+	}
+	
+	public int size(String s)
+	{
+		return font.width(s);
 	}
 	
 	public void print(String string, int x, int y, int color, Align align) {

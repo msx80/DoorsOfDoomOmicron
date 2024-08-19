@@ -17,7 +17,7 @@ public class ConfirmWidget extends Widget<Action> {
 	private Runnable onNo;
 
 	public ConfirmWidget(GameInterface g, PrintUtils p, String question, Runnable onYes, Runnable onNo) {
-		super(p.sys, 120 - 35, 40, 70, ITEM_HEIGHT * 2 + 1, ITEM_HEIGHT);
+		super(p.sys, 120 - ( Math.max(p.size(question)+4, 70) ) /2, 40, Math.max(p.size(question)+4, 70), ITEM_HEIGHT * 2 + 1, ITEM_HEIGHT);
 		
 		this.question = question;
 		this.onYes = onYes;
@@ -70,7 +70,7 @@ public class ConfirmWidget extends Widget<Action> {
 
 	@Override
 	public void drawItem(int ax, int ay, int idx, Action a) {
-		p.drawBtn(ax,ay+1,70,ITEM_HEIGHT-2);
+		p.drawBtn(ax,ay+1,w-1,ITEM_HEIGHT-2);
 		p.richPrint(ax + 2, ay + 4, a.label.tokens);		
 	}
 }

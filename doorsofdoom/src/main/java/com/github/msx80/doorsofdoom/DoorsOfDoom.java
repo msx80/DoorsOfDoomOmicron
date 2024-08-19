@@ -285,7 +285,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		smallFont = new TextDrawerVariable(sys, 7, 4, 6, 2); //, 4);
 		bigFont = new TextDrawerVariable(sys, 8, 16, 16, 3); //, 14);
 		
-		p = new PrintUtils(sys, font, bigFont, smallFont);
+		p = new PrintUtils(sys, font, bigFont);
 		log = new Log(p);
 		
 		buttons = new ButtonWidget(p, BUTTONS_X, 10, 73, 86);

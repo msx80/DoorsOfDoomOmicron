@@ -9,7 +9,7 @@ import com.github.msx80.omicron.basicutils.palette.Tic80;
 
 public class ConfirmWidget extends Widget<Action> {
 
-	private static final int ITEM_HEIGHT = 14;
+	private static final int ITEM_HEIGHT = 20;
 	GameInterface g;
 	private PrintUtils p;
 	private String question;
@@ -70,7 +70,7 @@ public class ConfirmWidget extends Widget<Action> {
 
 	@Override
 	public void drawItem(int ax, int ay, int idx, Action a) {
-		p.drawBtn(ax, ay, 70, 13);
+		p.drawBtn(ax,ay+1,70,ITEM_HEIGHT-2);
 		p.richPrint(ax + 2, ay + 4, a.label.tokens);		
 	}
 }

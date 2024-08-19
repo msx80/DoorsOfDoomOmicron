@@ -12,6 +12,9 @@ import com.github.msx80.doorsofdoom.Richtext;
 
 public class Craft {
 
+	public static final int KEY_COST = 15;
+	
+	
 	private Item output;
 	private Map<Item, Integer> ingredients;
 	
@@ -30,7 +33,7 @@ public class Craft {
 	}
 
 	public static final List<Craft> ALL = Arrays.asList(
-		Craft.of(Item.Key, Item.Gold, 15),
+		Craft.of(Item.Key, Item.Gold, KEY_COST),
 		Craft.of(Item.SmallPotion, Item.Gold, 10),
 		Craft.of(Item.MediumPotion, Item.Gold, 19),
 		Craft.of(Item.Knife, Item.Gold, 30),

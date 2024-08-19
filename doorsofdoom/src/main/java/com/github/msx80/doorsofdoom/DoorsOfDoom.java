@@ -471,14 +471,34 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	void openDoor() {
 		if (run.pg.getInvCount(Item.Key) == 0) {
-			log.add(5,"NO MORE KEYS!", 15, " You can not continue and");
-			log.add(15," soon die of starvation, lost");
-			log.add(15," in the dungeon!");
 			
-			enterStep(DEATH);
+			boolean keyWarning = run.pg.getInvCount(Item.Gold) >= Craft.KEY_COST || run.pg.getInvCount(Item.BagOfGold)>0 ;
+			
+			if(keyWarning)
+			{
+				confirm("No keys! Continue?", () -> {
+					dieOfKeys();
+				}, () -> {
+					doSound(6, 1f, 1f);
+					log.add(15, "Go purchase some keys..");
+				});
+
+			}
+			else
+			{
+				dieOfKeys();
+			}
 		} else {
 			enterStep(OPENING);
 		}
+	}
+
+	private void dieOfKeys() {
+		log.add(5,"NO MORE KEYS!", 15, " You can not continue and");
+		log.add(15," soon die of starvation, lost");
+		log.add(15," in the dungeon!");
+		
+		enterStep(DEATH);
 	}
 	
 	private void useItem(Item i) {

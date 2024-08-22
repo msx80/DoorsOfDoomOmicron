@@ -241,7 +241,7 @@ public enum MonsterDef {
 		"KEY MASTER", -25,
 		range(25, 35),
 		range(10, 15),
-		range(45, 1000),
+		range(45, 119),
 		range(15, 20),
 		Loot.of(1, Item.Key, range(3, 5))
 	),

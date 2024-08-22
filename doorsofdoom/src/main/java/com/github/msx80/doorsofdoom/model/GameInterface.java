@@ -17,5 +17,7 @@ public interface GameInterface {
 	void animPG(String animText, int animColor, Consumer<Animation> onEnd);
 	void damageMonster(int dmg, Runnable funMonsterStillAlive);
 	void refreshCommands();
-	public void doSound(int soundNum, float volume, float pitch);
+	void doSound(int soundNum, float volume, float pitch);
+	void confirm(String question, Runnable onYes, Runnable onNo);
+	void exitDungeon();
 }

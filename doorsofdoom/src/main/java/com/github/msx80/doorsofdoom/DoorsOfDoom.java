@@ -42,6 +42,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	private static final int MADNESS_DAMAGE = 4;
 	public static final int WISDOM_DAMAGE = 50;
+	public static final int EXIT_BONUS = 5000;
 	
 	public final int BUTTONS_X = 167; // 8 * 12 + 3;
 	public final int STATS_X = 97; // 8 * 12 + 3;
@@ -86,6 +87,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	Step SETTINGS;
 	Step LOOT;
 	Step DEATH;
+	Step WIN;
 	private int zoomsurf;
 	
 	private void actionNewGame() {
@@ -394,33 +396,67 @@ public class DoorsOfDoom implements Game, GameInterface {
 			new Action("Grab Loot!", this::grabLoot)
 		));
 		
-		DEATH = new Step( () -> {
+		DEATH = makeDeathStep(sys);
+		
+		
+		WIN = makeWinStep(sys);
+		
+		
+		
+		enterStep(INTRO);
+	}
+
+	private Step makeWinStep(final Sys sys) {
+		
+		Runnable onEnter = () -> {
 			sys.stopMusic();
 			doSound(19, 0.8f, 1f);
 			
-			// play sound!
-			anims.add(Easing.LINEAR, 240, a -> {
-				if (run.score() > getHighScore()) {
-					doSound(17, 0.8f, 1f);
-					log.add(11, "!! NEW HIGH SCORE !!");
-					log.add(15, "YOUR NEW HIGH SCORE IS: ", 13, "" + run.score());
-					setHighScore(run.score());
-					anims.add(Easing.LINEAR, 240, null, 0, 50, x -> {
-						p.printBig("NEW HIGH SCORE!", 120, 50 - x / 4, 11, Align.CENTER);
-					});
-				}
-			}, 0,50, a -> {
-				p.printBig("YOU'RE DEAD!!", 120, 50 - a / 4, 6, Align.CENTER);
-			});
-			// this.animPG(, 6, null);
-		}, null, () -> Arrays.asList(
+			doFinalScoreAnimation("YOU WON!!");
+		
+			
+		};
+		
+		return new Step( onEnter, null, () -> Arrays.asList(
 			new Action("Try Again", () -> { 
 				if (musicOn()) sys.music(1, 0.3f, true);
 				enterStep(INTRO);
 			})
 		));
+	}	
+	
+	private Step makeDeathStep(final Sys sys) {
+		Runnable onEnter = () -> {
+			sys.stopMusic();
+			doSound(19, 0.8f, 1f);
+			
+			// play sound!
+			doFinalScoreAnimation("YOU'RE DEAD!!");
+			// this.animPG(, 6, null);
+		};
 		
-		enterStep(INTRO);
+		return new Step( onEnter, null, () -> Arrays.asList(
+			new Action("Try Again", () -> { 
+				if (musicOn()) sys.music(1, 0.3f, true);
+				enterStep(INTRO);
+			})
+		));
+	}
+
+	private void doFinalScoreAnimation(String message) {
+		anims.add(Easing.LINEAR, 240, a -> {
+			if (run.score() > getHighScore()) {
+				doSound(17, 0.8f, 1f);
+				log.add(11, "!! NEW HIGH SCORE !!");
+				log.add(15, "YOUR NEW HIGH SCORE IS: ", 13, "" + run.score());
+				setHighScore(run.score());
+				anims.add(Easing.LINEAR, 240, null, 0, 50, x -> {
+					p.printBig("NEW HIGH SCORE!", 120, 50 - x / 4, 11, Align.CENTER);
+				});
+			}
+		}, 0,50, a -> {
+			p.printBig(message, 120, 50 - a / 4, 6, Align.CENTER);
+		});
 	}
 	
 	private long getHighScore() {
@@ -527,6 +563,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	void enterStep(Step newStep) {
 		if (step!=null) step.onExit();
+		t = 0; // reset global counter
 		step = newStep;
 		step.onEnter();
 		refreshCommands();
@@ -535,6 +572,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	private Monster chooseMonster() {
 		List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(run.level)).collect(Collectors.toList());
 		return new Monster(eligibles.get(r.nextInt(eligibles.size())));
+		// return new Monster(MonsterDef.DUNGEON_BOSS);
 	}
 	
 	protected static Loot calcLoot(Loot[] loots) {
@@ -562,8 +600,14 @@ public class DoorsOfDoom implements Game, GameInterface {
 		sys.clear(Tic80.BLACK);
 		// font.center("Doors of doom", 100, 10);
 		
+		if(step == WIN)
+		{
+			sys.draw(9, 0, 0, 0, Math.max(0,192-(t/10)), 96, 96, 0, 0);
+		}
+		
 		// the door
-		sys.draw((step == INDOOR || step == OPENING|| step == LOOT) ? 2 : 3, 0, 0, 0, 0, 96, 96, 0, 0);
+		boolean open = step == INDOOR || step == OPENING|| step == LOOT || step == WIN;
+		sys.draw(open ? 2 : 3, 0, 0, 0, 0, 96, 96, 0, 0);
 		
 		drawGame();
 		
@@ -787,5 +831,17 @@ public class DoorsOfDoom implements Game, GameInterface {
 		boolean x = update();
 		render();
 		return x;
+	}
+
+	@Override
+	public void exitDungeon() {
+		run.exited = true;
+		log.add(15, "");
+		log.add(7, "===== GAME FINISHED ====");
+		log.add(15, "You head toward the exit.");
+		log.add(15, "You fought well, warrior.");
+		log.add(14, "Your final score is: ", 8, ""+run.score());
+		enterStep(WIN);
+		
 	} 
 }

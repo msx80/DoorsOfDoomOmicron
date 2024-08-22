@@ -10,7 +10,7 @@ public class Run {
 	public Item lootItem;
 	public int shake = 0;
 	public int shakePg = 0;
-	
+	public boolean exited = false;
 	public Run() {
 		pg = new Pg();	
 	
@@ -116,6 +116,7 @@ public class Run {
 		return level * 10
 			+ (pg.getInvCount(Item.Diamond) * 100)
 			+ (pg.getInvCount(Item.Crown) * 1000)
-			+ (pg.getInvCount(Item.CowardToken) * -15);
+			+ (pg.getInvCount(Item.CowardToken) * -15)
+			+ (exited ? DoorsOfDoom.EXIT_BONUS : 0);
 	}
 }

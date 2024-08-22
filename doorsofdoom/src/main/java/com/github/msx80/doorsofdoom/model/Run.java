@@ -1,5 +1,7 @@
 package com.github.msx80.doorsofdoom.model;
 
+import com.github.msx80.doorsofdoom.DoorsOfDoom;
+
 public class Run {
 	public Pg pg;
 	public int level;

@@ -34,7 +34,7 @@ public enum MonsterDef {
 		"BAT", -34,
 		range(4, 9),
 		range(1, 4),
-		range(0, 20),
+		range(0, 18),
 		range(2, 4),
 		Loot.of(1, Item.Leather, range(1, 1)),
 		Loot.of(1, Item.Rock, range(1, 2))

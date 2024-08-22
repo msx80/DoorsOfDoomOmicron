@@ -40,6 +40,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	// SOUND EFFECTS: https://juhanijunkala.com/ SubspaceAudio https://opengameart.org/content/512-sound-effects-8-bit-style
 	// MUSIC: https://twitter.com/SBieliayev  https://www.youtube.com/channel/UCvjkkwGL7g092E1oV7IMffw
 	
+	private static final int LEVEL_MONSTER_GROWTH = 160; // minimal level at which monsters start to grow
 	private static final int MADNESS_DAMAGE = 4;
 	public static final int WISDOM_DAMAGE = 50;
 	public static final int EXIT_BONUS = 5000;
@@ -578,8 +579,42 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	private Monster chooseMonster() {
 		List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(run.level)).collect(Collectors.toList());
-		return new Monster(eligibles.get(r.nextInt(eligibles.size())));
-		// return new Monster(MonsterDef.DUNGEON_BOSS);
+		
+		List<MonsterDef> uniques = eligibles.stream().filter(e -> e.unique).collect(Collectors.toList());
+		if(uniques.size()>1)
+		{
+			throw new RuntimeException("Too many unique monsters for level "+run.level+": "+uniques);
+		}
+		
+		MonsterDef md;
+		
+		if(uniques.isEmpty())
+		{
+			// no uniques, pick at random
+			md = eligibles.get(r.nextInt(eligibles.size()));
+		}
+		else
+		{
+			// there's a unique monster for this level, pick it.
+			md = uniques.get(0);
+		}
+		
+		if(run.level <= LEVEL_MONSTER_GROWTH)
+		{
+			return new Monster(md);
+		}
+		else
+		{
+			return pumpMonster(run.level, md);
+		}
+	}
+
+	protected static Monster pumpMonster(int level, MonsterDef md) {
+		int diff = level - LEVEL_MONSTER_GROWTH;
+		double delta = diff / 50.0; // in 50 levels, monsters will be twice as strong
+		double mult = 1.0 + delta;
+		if(level<LEVEL_MONSTER_GROWTH) mult = 1.0;
+		return new Monster(md, mult);
 	}
 	
 	protected static Loot calcLoot(Loot[] loots) {

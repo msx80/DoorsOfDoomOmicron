@@ -346,6 +346,7 @@ public enum MonsterDef {
 	public Range levels;
 	public Range gold;
 	public Loot[] loots;
+	public boolean unique;
 	
 	private MonsterDef(String name, int sprite, Range maxHpRange, Range attack, Range levels, Range gold, Loot... loots) {
 		this.name = name;
@@ -355,6 +356,26 @@ public enum MonsterDef {
 		this.levels = levels;
 		this.gold = gold;
 		this.loots = loots;
+		this.unique = false;
+	}
+	
+	private MonsterDef(String name, int sprite, Range maxHpRange, Range attack, Range levels, Range gold, boolean unique, Loot... loots) {
+		this.name = name;
+		this.sprite = sprite;
+		this.maxHpRange = maxHpRange;
+		this.defaultattack = attack;
+		this.levels = levels;
+		this.gold = gold;
+		this.loots = loots;
+		this.unique = unique;
+		
+		if(unique)
+		{
+			if(levels.min != levels.max)
+			{
+				throw new RuntimeException("Unique monsters must have a single appearance level");
+			}
+		}
 	}
 	
 	private static Range range(int min, int max) {
@@ -368,4 +389,8 @@ public enum MonsterDef {
 		
 		return false;
 	}
+	
+	
+	
 }
+

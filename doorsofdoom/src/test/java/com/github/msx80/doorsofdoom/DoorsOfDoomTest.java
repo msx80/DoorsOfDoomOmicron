@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import com.github.msx80.doorsofdoom.model.Item;
 import com.github.msx80.doorsofdoom.model.Loot;
+import com.github.msx80.doorsofdoom.model.Monster;
 import com.github.msx80.doorsofdoom.model.MonsterDef;
 import com.github.msx80.doorsofdoom.model.Range;
 
@@ -56,9 +57,19 @@ class DoorsOfDoomTest {
 			System.out.println("LEVEL: " + i + " : " + eligibles.size() + " -> " + eligibles);
 		}
 	}
+	@Test
+	void testGrowt() {
+		DoorsOfDoom.r = new Random();
+		for (int i = 0; i < 300; i++) {
+			Monster m = DoorsOfDoom.pumpMonster(i, MonsterDef.DARKKNIGHT);
+			
+			System.out.println("LEVEL: " + i + " : " + m);
+		}
+	}
 	
 	@Test
 	void testItems() {
+		DoorsOfDoom.r = new Random();
 		for (Item it : Item.values()) {
 			
 			List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.hasLoot(it)).sorted().collect(Collectors.toList());

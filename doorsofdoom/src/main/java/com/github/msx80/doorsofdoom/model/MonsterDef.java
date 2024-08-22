@@ -308,8 +308,9 @@ public enum MonsterDef {
 		range(30, 50),
 		range(75, 1000),
 		range(30, 50),
-		Loot.of(3, Item.Key, range(2, 3)),
-		Loot.of(1, Item.Diamond, range(1, 1))
+		Loot.of(1, Item.Key, range(2, 3)),
+		Loot.of(1, Item.Diamond, range(1, 1)),
+		Loot.of(1, Item.Greaves, range(1, 1))
 	),
 	DRAGON(
 		"DRAGON", -30,

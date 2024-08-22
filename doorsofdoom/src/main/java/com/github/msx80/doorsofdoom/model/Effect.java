@@ -9,6 +9,7 @@ public enum Effect {
 	MAGNETIC("MAGNETIC", 267, 10),
 	REGENERATION("REGENERATION", 284, 10),
 	MADNESS("MADNESS", 339, 10),
+	BARRIER("MAGIC BARRIER", 344, 15)
 	;
 	
 	public final String name;

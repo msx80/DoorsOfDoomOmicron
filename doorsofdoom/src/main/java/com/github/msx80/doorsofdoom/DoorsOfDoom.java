@@ -176,6 +176,13 @@ public class DoorsOfDoom implements Game, GameInterface {
 		} else {
 			attacksound();
 			int dmg = run.monster.attack.random();
+			
+			boolean barrier = run.pg.hasEffect(Effect.BARRIER);
+			if(barrier) { 
+				dmg = dmg /2;
+				log.add(9, "Magic Barrier", 15, " dispels half damage (", 6, ""+dmg, 15, ")!");
+			}
+			
 			float blockedf = (float)dmg * (float)run.pg.armour / 100f;
 			int blocked = (int)blockedf;
 			float blockedRemainder = blockedf - blocked;

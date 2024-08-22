@@ -58,7 +58,8 @@ public class Craft {
 		Craft.of(Item.VenomSword, Item.Venom, 15, Item.Sword, 1),
 		
 		Craft.of(Item.Hamburger, Item.Bread, 1, Item.Tomato, 1, Item.Cheese, 1),
-		Craft.of(Item.Bomb, Item.Phlogiston, 2, Item.Ectoplasm, 3)
+		Craft.of(Item.Bomb, Item.Phlogiston, 2, Item.Ectoplasm, 3),
+		Craft.of(Item.BarrierPotion, Item.Ectoplasm, 1, Item.Venom, 1, Item.Leather, 1)
 	);
 
 	public Craft(Item output, Map<Item, Integer> ingredients) {

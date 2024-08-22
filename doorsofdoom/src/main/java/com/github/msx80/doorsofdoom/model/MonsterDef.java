@@ -210,7 +210,7 @@ public enum MonsterDef {
 		"GOLEM", -8,
 		range(50, 60),
 		range(15, 20),
-		range(40, 1000),
+		range(40, 119),
 		range(10, 20),
 		Loot.of(3, Item.Rock, range(5, 8))
 	),

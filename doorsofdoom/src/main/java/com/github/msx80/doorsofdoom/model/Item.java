@@ -55,6 +55,8 @@ public enum Item {
 	Crown("Crown", 321, new String[] {"The Crown was only", "heard of in the", "wildest of legends.", "", "1000 Points each."}, 0, null, null, null, null),
 	Wisdom("Ancient Wisdom", 338, new String[] {"Some things are", "better left", "unlearned..."}, 0, null, null, null, Usable.of("Read", wisdom())),
 	
+	Map("Dungeon Map", 343, new String[] {"The map of the", "dungeon!", "It shows a path", "to the exit!", "", "Use it to complete", "the game."}, 0, null, null, Usable.of("Exit", (a, b) -> exitDungeon(a, b)), null),
+	
 	SmallPotion("Potion, Small", 293, new String[] {"Deliciously", "refreshing!", "", "Heal 10 hp."}, 0, null, null, null, Usable.of("Drink", (a, b) -> potionHealing(a, b, 10))),
 	MediumPotion("Potion, Medium", 310, new String[] {"Double the fun!", "", "Heal 20 hp."}, 0, null, null, null, Usable.of("Drink", (a, b) -> potionHealing(a, b, 20))),
 	BigPotion("Potion, Large", 294, new String[] {"So much healing!", "", "Heal 100 hp."}, 0, null, null, null, Usable.of("Drink", (a, b) -> potionHealing(a, b, 100))),
@@ -242,5 +244,18 @@ public enum Item {
 		g.getRun().pg.inventoryAdd(item, -1);
 		g.getRun().damage(g.getRun().pg, -hp);
 		g.animPG("+" + hp, 6, null);
+	}
+	private static void exitDungeon(Item item, GameInterface g) {
+		g.getLog().add(14, "You look at the map in search for the exit.");
+		g.getLog().add(14, "This will end the game and ");
+		g.getLog().add(14, "award you ",5,""+DoorsOfDoom.EXIT_BONUS, 14, " points.");
+		g.confirm("Really Exit?", () -> {
+			
+			g.exitDungeon();
+
+		}, () -> {
+			g.getLog().add(15, "You decide to keep fighting for the now.");
+			g.doSound(6, 1f, 1f);
+		});
 	}
 }

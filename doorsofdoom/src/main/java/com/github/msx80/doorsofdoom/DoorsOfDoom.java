@@ -587,7 +587,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private Monster chooseMonster() {
-		if(true) return new Monster(MonsterDef.DUNGEON_BOSS);
+		// if(true) return new Monster(MonsterDef.DUNGEON_BOSS);
 		List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(run.level)).collect(Collectors.toList());
 		
 		List<MonsterDef> uniques = eligibles.stream().filter(e -> e.unique).collect(Collectors.toList());

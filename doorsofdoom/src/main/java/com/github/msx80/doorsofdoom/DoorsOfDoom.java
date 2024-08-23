@@ -44,6 +44,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	private static final int MADNESS_DAMAGE = 4;
 	public static final int WISDOM_DAMAGE = 50;
 	public static final int EXIT_BONUS = 5000;
+	public static final int CROWN_POINT = 200;
 	
 	public final int BUTTONS_X = 167; // 8 * 12 + 3;
 	public final int STATS_X = 97; // 8 * 12 + 3;
@@ -132,17 +133,25 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private void flee() {
-		doSound(14, 1f, 1f);
-		confirm("Sure?", () -> {
-			doSound(16, 1f, 1f);
-			log.add(15, "You flee from ", 5, run.monster.type.name, 15, "!");
-			log.add(15, "You earned yourself a ", 14, Item.CowardToken.name, 15, "!");
-			run.pg.inventoryAdd(Item.CowardToken, 1);
-			enterStep(OUTDOOR);
-		}, () -> {
+		if(run.monster.type.unique)
+		{
 			doSound(6, 1f, 1f);
-			log.add(15, "You keep on fighting.");
-		});
+			log.add(6, "You cannot flee from this monster!!");
+		}
+		else
+		{
+			doSound(14, 1f, 1f);
+			confirm("Sure?", () -> {
+				doSound(16, 1f, 1f);
+				log.add(15, "You flee from ", 5, run.monster.type.name, 15, "!");
+				log.add(15, "You earned yourself a ", 14, Item.CowardToken.name, 15, "!");
+				run.pg.inventoryAdd(Item.CowardToken, 1);
+				enterStep(OUTDOOR);
+			}, () -> {
+				doSound(6, 1f, 1f);
+				log.add(15, "You keep on fighting.");
+			});
+		}
 	}
 	
 	private void attacksound() {
@@ -578,6 +587,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private Monster chooseMonster() {
+		if(true) return new Monster(MonsterDef.DUNGEON_BOSS);
 		List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(run.level)).collect(Collectors.toList());
 		
 		List<MonsterDef> uniques = eligibles.stream().filter(e -> e.unique).collect(Collectors.toList());

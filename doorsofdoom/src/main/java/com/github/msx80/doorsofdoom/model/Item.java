@@ -25,23 +25,28 @@ public enum Item {
 	Pants("Fancy Panties", 306, new String[] {"The latest in fashion."}, 5, Place.Legs, null, null, null),
 	Throusers("Throusers", 290, new String[] {"Sweet leather on", "your legs."}, 12, Place.Legs, null, null, null),
 	Greaves("Greaves", 331, new String[] {"Iron shins."}, 16, Place.Legs, null, null, null),
+	DuraniumChausses("Duranium Chausses", 349, new String[] {"Best leg apparel", "ever"}, 20, Place.Legs, null, null, null),
 	
 	// head
 	Helm("Helm", 309, new String[] {"Protect your", "brain cells, your", "most powerful", "weapon."}, 15, Place.Head, null, null, null),
+	DuraniumHelm("Duranium Helm", 351, new String[] {"Best helm ever."}, 18, Place.Head, null, null, null),
 	Cap("Cap", 301, new String[] {"Keep your scalp", "warm and safe."}, 8, Place.Head, null, null, null),
 	EyePatch("Eye Patch", 332, new String[] {"Not sure it", "protects that", "much."}, 5, Place.Head, null, null, null),
 	Tricorn("Tricorn", 333, new String[] {"Classic pirate", "headware."}, 13, Place.Head, null, null, null),
+	Crown("Crown", 321, new String[] {"The Crown was only", "heard of in the", "wildest of legends.", "", DoorsOfDoom.CROWN_POINT+" Points each."}, 12, Place.Head, null, null, null),
 
 	// offhand
 	Buckler("Buckler", 308, new String[] {"Actually the", "bottom of a","beer barrel."}, 20, Place.Right, null, null, null),
 	Stockade("Stockade", 283, new String[] {"Unorthodox but", "effective."}, 15, Place.Right, null, null, null),
 	Shield("Shield", 305, new String[] {"Heavy metal!"},30,Place.Right,null,null,null),
+	DuraniumShield("Duranium Shield", 348, new String[] {"Best shield ever."},33,Place.Right,null,null,null),
 	CrabShell("Crab Shell", 341, new String[] {"The shell of a", "deceased crab.", "Gross."},10,Place.Right,null,null,null),
 	
 	// body
 	Shirt("Shirt", 295, new String[] {"The very basic in", "combat protection."}, 8, Place.Body, null, null, null),
 	Jacket("Jacket", 291, new String[] {"Fine leather", "jacket, purchased", "from a pirate dude."}, 15, Place.Body, null, null, null),
 	Armour("Plate Armour", 289, new String[] {"Now we're talking.", "Plate is great."}, 20, Place.Body, null, null, null),
+	DuraniumArmour("Duranium Armour", 350, new String[] {"Best armour ever"}, 23, Place.Body, null, null, null),
 	
 	Key("Key", 319, new String[] {"Opens doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null),
 	Cheese("Cheese", 317, new String[] {"Stinky and delicious.", "", "Heal 4 hp."}, 0, null, null, Usable.of("Eat", (i, g) -> foodHealing(i, g, 4)), null),
@@ -52,7 +57,6 @@ public enum Item {
 	Phlogiston("Phlogiston", 302, new String[] {"The heart and", "soul of fire."}, 0, null, null, null, null),
 	Ectoplasm("Ectoplasm", 298, new String[] {"Gooey and powerful."}, 0, null, null, null, null),
 	Diamond("Diamond", 303, new String[] {"So so precious.", "", "100 Points each."}, 0, null, null, null, null),
-	Crown("Crown", 321, new String[] {"The Crown was only", "heard of in the", "wildest of legends.", "", "1000 Points each."}, 0, null, null, null, null),
 	Wisdom("Ancient Wisdom", 338, new String[] {"Some things are", "better left", "unlearned..."}, 0, null, null, null, Usable.of("Read", wisdom())),
 	
 	Map("Dungeon Map", 343, new String[] {"The map of the", "dungeon!", "It shows a path", "to the exit!", "", "Use it to complete", "the game."}, 0, null, null, Usable.of("Exit", (a, b) -> exitDungeon(a, b)), null),
@@ -84,7 +88,9 @@ public enum Item {
 	Bomb("Bomb", 312, new String[] {"Kaboom!", "", "Deals 40 damage."}, 0, null, null, null, Usable.of("Throw", bomb())),
 	
 	Sprite("Sprite", 335, new String[] {"A sprite you", "befriended.", "", "Deals 15 damages."}, 0, null, null, null, Usable.of("Unleash", sprite())),
-	Slime("Slime", 340, new String[] {"Smelly", "and sticky.", "A bit like glue."}, 0, null, null, null, null)
+	Slime("Slime", 340, new String[] {"Smelly", "and sticky.", "A bit like glue."}, 0, null, null, null, null),
+	Fur("Fur", 346, new String[] {"From the hide", "of some wild beast."}, 0, null, null, null, null),
+	Duranium("Duranium", 347, new String[] {"A magical material", "incredibly strong."}, 0, null, null, null, null),
 	;
 	
 	public final String name;

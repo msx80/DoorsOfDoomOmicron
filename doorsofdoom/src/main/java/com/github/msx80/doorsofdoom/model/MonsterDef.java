@@ -83,6 +83,7 @@ public enum MonsterDef {
 		range(13, 37),
 		range(1, 2),
 		Loot.of(5, Item.MediumPotion, range(1, 1)),
+		Loot.of(3, Item.Slime, range(1, 2)),
 		Loot.of(4, Item.Blood, range(3, 6))
 	), 
 	MYCONID(
@@ -260,7 +261,7 @@ public enum MonsterDef {
 		range(5, 40),
 		range(55, 85),
 		range(30, 50),
-		Loot.of(1, Item.Ectoplasm, range(4, 8)),
+		//Loot.of(1, Item.Ectoplasm, range(4, 8)),
 		Loot.of(2, Item.Sprite, range(2, 3)),
 		Loot.of(1, Item.Rejuvenant, range(2, 4))
 	),
@@ -268,9 +269,9 @@ public enum MonsterDef {
 		"TARDIGRADE", -13,
 		range(80, 100),
 		range(15, 25),
-		range(59, 1000),
+		range(59, 109),
 		range(3, 6),
-		Loot.of(2, Item.Spinach, range(1, 3)),
+		Loot.of(3, Item.Spinach, range(1, 3)),
 		Loot.of(2, Item.Leather, range(6, 8))
 	),
 	MAGE(
@@ -308,9 +309,9 @@ public enum MonsterDef {
 		range(30, 50),
 		range(75, 1000),
 		range(30, 50),
-		Loot.of(1, Item.Key, range(2, 3)),
-		Loot.of(1, Item.Diamond, range(1, 1)),
-		Loot.of(1, Item.Greaves, range(1, 1))
+		Loot.of(2, Item.Key, range(2, 3)),
+		Loot.of(2, Item.Phlogiston, range(2, 4)),
+		Loot.of(3, Item.Greaves, range(1, 1))
 	),
 	DRAGON(
 		"DRAGON", -30,
@@ -324,20 +325,57 @@ public enum MonsterDef {
 	),
 	DEVIL(
 		"DEVIL", -24,
-		range(200, 200),
-		range(20, 300),
+		range(200, 200), // hp
+		range(40, 200),  // attack
 		range(100, 1000),
 		range(30, 50),
 		Loot.of(1, Item.Crown, range(1, 1))
 	),
+	WEREWOLF(
+			"WEREWOLF", -38,
+			range(60, 80),
+			range(60, 130),
+			range(110, 1000),
+			range(5, 20),
+			Loot.of(2, Item.Greaves, range(1, 1)),
+			Loot.of(3, Item.Fur, range(2, 4))
+		),		
+	BANSHEE(
+			"BANSHEE", -39,
+			range(40, 60),
+			range(150, 250),
+			range(110, 1000),
+			range(10, 20),
+			Loot.of(1, Item.Ectoplasm, range(3, 6)),
+			Loot.of(1, Item.Rejuvenant, range(2, 4))
+		),	
+	NAGA(
+			"NAGA", -40,
+			range(70, 120),
+			range(60, 140),
+			range(120, 1000),
+			range(10, 20),
+			Loot.of(1, Item.Venom, range(3, 6)),
+			Loot.of(1, Item.BigPotion, range(1, 1))
+		),	
+	DUNGEON_BOSS(
+			"DUNGEON BOSS", -37,
+			range(400, 400),
+			range(100, 300),
+			range(150, 150),
+			range(100, 100),
+			true, // unique: appears a single time at specific level.
+			Loot.of(1, Item.Map, range(1, 1))
+		),
 	ANCIENT(
-		"ANCIENT", -36,
-		range(400, 400),
-		range(100, 1000),
-		range(200, 1000),
-		range(30, 50),
-		Loot.of(1, Item.Wisdom, range(1, 1))
-	),
+			"ANCIENT", -36,
+			range(500, 600),
+			range(300, 500),
+			range(160, 1000),
+			range(20, 50),
+			Loot.of(1, Item.Wisdom, range(1, 1))
+		),	
+
 	;
 	
 	public String name;

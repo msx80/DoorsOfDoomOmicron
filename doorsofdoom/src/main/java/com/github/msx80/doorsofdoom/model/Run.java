@@ -117,7 +117,7 @@ public class Run {
 	public long score() {
 		return level * 10
 			+ (pg.getInvCount(Item.Diamond) * 100)
-			+ (pg.getInvCount(Item.Crown) * 1000)
+			+ (pg.getInvCount(Item.Crown) * DoorsOfDoom.CROWN_POINT)
 			+ (pg.getInvCount(Item.CowardToken) * -15)
 			+ (exited ? DoorsOfDoom.EXIT_BONUS : 0);
 	}

@@ -21,8 +21,10 @@ public class CreditsWidget extends RichWidget {
 		return Arrays.asList(
 			Richtext.of(12, "Doors Of Doom", 15, " - (c) 2024"),
 			Richtext.of(""),
-			Richtext.of(15, "A game by ", 14, "MSX"),
+			Richtext.of(15, "An open source game by ", 14, "MSX"),
 			Richtext.with("https://livellosegreto.it/@msx", 13, "https://livellosegreto.it/@msx"),
+			Richtext.of(""),
+			Richtext.with("https://github.com/msx80/DoorsOfDoomOmicron/", 13, "Sources on Github"),
 			Richtext.of(""),
 			Richtext.of(9, "Over 27 monsters!"),
 			Richtext.of(12, "Over 64 items!"),		
@@ -73,7 +75,7 @@ public class CreditsWidget extends RichWidget {
 	protected boolean selected(int idx, Richtext line) {
 		if (line.userdata != null) {
 			g.getLog().add(15, "Opening url...");
-			String res = (String)p.sys.hardware("URL_OPENER", "OPEN", (String) line.userdata);
+			String res = (String)p.sys.hardware("com.github.msx80.omicron.plugins.builtin.UrlOpenerPlugin", "OPEN", (String) line.userdata);
 			g.getLog().add(15, res);
 		}
 		return true;

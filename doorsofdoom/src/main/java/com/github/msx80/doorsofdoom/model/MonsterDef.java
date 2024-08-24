@@ -319,9 +319,9 @@ public enum MonsterDef {
 		range(20, 40),
 		range(70, 1000),
 		range(1, 50),
-		Loot.of(1, Item.Fang, range(2, 2)),
+		Loot.of(1, Item.Fang, range(2, 3)),
 		Loot.of(1, Item.BagOfGold, range(2, 3)),
-		Loot.of(1, Item.Blood, range(3, 6))
+		Loot.of(1, Item.Blood, range(4, 6))
 	),
 	DEVIL(
 		"DEVIL", -24,

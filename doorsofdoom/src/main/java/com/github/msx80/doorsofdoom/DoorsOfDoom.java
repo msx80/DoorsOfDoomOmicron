@@ -91,6 +91,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	Step DEATH;
 	Step WIN;
 	private int zoomsurf;
+	private String buildId;
 	
 	private void actionNewGame() {
 		doSound(15, 1f, 1f);
@@ -300,6 +301,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 		this.r = new Random(sys.millis());
 		this.sys = sys;
 		
+		buildId = "Build: "+new String(sys.binfile(1));
+		System.out.println(buildId);
 		zoomsurf = sys.newSurface(128, 128);
 		font = new TextDrawerVariable(sys, 1, 6, 6, 3);
 		smallFont = new TextDrawerVariable(sys, 7, 4, 6, 2); //, 4);
@@ -693,6 +696,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 		sys.fill(0, 0, 8 * 12 + 1, 240, 1, Tic80.BROWN);
 		sys.fill(0, 0, 8 * 12 + 2, 240, 1, Tic80.DARK_RED);
 		sys.fill(0, 0, 8 * 12 + 3, 240, 1, Tic80.BLACK);
+		
+		if (step == INTRO) {
+			printSmall(buildId, 202, 90, 1, Align.CENTER);
+		}
+		
 		
 		anims.update();
 		

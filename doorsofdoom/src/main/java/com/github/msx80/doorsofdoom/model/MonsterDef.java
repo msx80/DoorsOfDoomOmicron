@@ -342,8 +342,8 @@ public enum MonsterDef {
 		),		
 	BANSHEE(
 			"BANSHEE", -39,
-			range(40, 60),
-			range(150, 250),
+			range(30, 50),
+			range(120, 200),
 			range(110, 1000),
 			range(10, 20),
 			Loot.of(1, Item.Ectoplasm, range(3, 6)),

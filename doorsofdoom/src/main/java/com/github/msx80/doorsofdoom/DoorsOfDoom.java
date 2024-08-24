@@ -41,7 +41,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	// MUSIC: https://twitter.com/SBieliayev  https://www.youtube.com/channel/UCvjkkwGL7g092E1oV7IMffw
 	
 	private static final int LEVEL_MONSTER_GROWTH = 160; // minimal level at which monsters start to grow
-	private static final int MADNESS_DAMAGE = 4;
+	// private static final int MADNESS_DAMAGE = 5;
 	public static final int WISDOM_DAMAGE = 50;
 	public static final int EXIT_BONUS = 5000;
 	public static final int CROWN_POINT = 200;
@@ -240,8 +240,9 @@ public class DoorsOfDoom implements Game, GameInterface {
 		}
 		
 		if (run.pg.hasEffect(Effect.MADNESS)) {
-			log.add(14, "Your mind deals you ", 6,"" + MADNESS_DAMAGE, 15, " hp!");
-			run.damage(run.pg, MADNESS_DAMAGE);
+			int count = run.pg.effects.get(Effect.MADNESS);
+			log.add(14, "Your mind deals you ", 6,"" + count, 15, " hp!");
+			run.damage(run.pg, count);
 		}
 		
 		run.pg.decEffects();

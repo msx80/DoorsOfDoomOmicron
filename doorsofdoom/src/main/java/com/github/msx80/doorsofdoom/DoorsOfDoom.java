@@ -791,7 +791,9 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private void printStats(int x, int y) {
-		if ((run.pg.hp > 10) || ((t / 15) % 2 == 0) || (run.pg.hp == 0)) {
+		boolean blink = ( (run.pg.hp < 10) || (run.pg.hp<run.pg.maxHp/3) ) && !(run.pg.hp == 0) ;
+		
+		if ((!blink) || ((t / 15) % 2 == 0)) {
 			printSmall("Life", x, y, 6);
 			printSmallRight(run.pg.hp + "/" + run.pg.maxHp, x + 63, y, 6);
 		}

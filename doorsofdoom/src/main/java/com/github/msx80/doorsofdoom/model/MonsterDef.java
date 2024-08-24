@@ -325,11 +325,12 @@ public enum MonsterDef {
 	),
 	DEVIL(
 		"DEVIL", -24,
-		range(200, 200), // hp
-		range(40, 200),  // attack
+		range(100, 200), // hp
+		range(40, 150),  // attack
 		range(100, 1000),
 		range(30, 50),
-		Loot.of(1, Item.Crown, range(1, 1))
+		Loot.of(4, Item.Crown, range(1, 1)),
+		Loot.of(2, Item.Phlogiston, range(6, 10))
 	),
 	WEREWOLF(
 			"WEREWOLF", -38,

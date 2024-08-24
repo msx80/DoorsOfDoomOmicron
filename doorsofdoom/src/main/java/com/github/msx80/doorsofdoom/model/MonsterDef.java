@@ -356,8 +356,8 @@ public enum MonsterDef {
 			range(60, 140),
 			range(120, 1000),
 			range(10, 20),
-			Loot.of(1, Item.Venom, range(3, 6)),
-			Loot.of(1, Item.BigPotion, range(1, 1))
+			Loot.of(1, Item.Venom, range(5, 8)),
+			Loot.of(1, Item.BigPotion, range(2, 3))
 		),	
 	DUNGEON_BOSS(
 			"DUNGEON BOSS", -37,

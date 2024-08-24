@@ -339,7 +339,7 @@ public enum MonsterDef {
 			range(110, 1000),
 			range(5, 20),
 			Loot.of(2, Item.Greaves, range(1, 1)),
-			Loot.of(3, Item.Fur, range(2, 4))
+			Loot.of(4, Item.Fur, range(1, 3))
 		),		
 	BANSHEE(
 			"BANSHEE", -39,

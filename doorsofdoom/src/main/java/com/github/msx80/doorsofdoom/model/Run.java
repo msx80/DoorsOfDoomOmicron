@@ -1,6 +1,7 @@
 package com.github.msx80.doorsofdoom.model;
 
 import com.github.msx80.doorsofdoom.DoorsOfDoom;
+import com.google.gson.Gson;
 
 public class Run {
 	public Pg pg;
@@ -45,7 +46,16 @@ public class Run {
 		pg.inventoryAdd(Item.SmallPotion, 3);
 		pg.inventoryAdd(Item.Key, 50);
 		
+		
+		
 		/*
+		// pg.inventoryAdd(Item.Map, 1);
+		pg.inventoryAdd(Item.Rock, 1000);
+		pg.inventoryAdd(Item.Slingshot, 1);
+		
+		
+		pg.inventoryAdd(Item.MediumPotion, 3);
+		pg.inventoryAdd(Item.BigPotion, 3);
   		pg.inventoryAdd(Item.Sword, 3);
     		pg.inventoryAdd(Item.Shield, 1);
       		pg.inventoryAdd(Item.Greaves, 1);
@@ -61,12 +71,20 @@ public class Run {
       		pg.inventoryAdd(Item.Slime, 22);
 		pg.inventoryAdd(Item.Hamburger, 2);
 		pg.inventoryAdd(Item.Phlogiston, 20);
+		pg.inventoryAdd(Item.Fur, 20);
+		pg.inventoryAdd(Item.Slime, 20);
 		pg.inventoryAdd(Item.Ectoplasm, 20);
 		pg.inventoryAdd(Item.BagOfGold, 2);
   		pg.inventoryAdd(Item.FlamingSword, 1);
       		pg.inventoryAdd(Item.CowardToken, 2);
 		pg.inventoryAdd(Item.BagOfGold, 2);
   		pg.inventoryAdd(Item.Knife, 2);
+  		
+  		pg.inventoryAdd(Item.DuraniumArmour, 2);
+  		pg.inventoryAdd(Item.DuraniumShield, 2);
+  		pg.inventoryAdd(Item.DuraniumChausses, 2);
+  		pg.inventoryAdd(Item.DuraniumHelm, 2);
+  		
     		pg.inventoryAdd(Item.Blood, 4);
       		pg.inventoryAdd(Item.Cheese, 15);
 		pg.inventoryAdd(Item.Jacket, 15);
@@ -107,11 +125,16 @@ public class Run {
 		*/
 		
 		/*
-  		pg.equip(Item.Bone);
+  		pg.equip(Item.FlamingSword);
+  		pg.equip(Item.Armour);
+  		pg.equip(Item.Helm);
+  		pg.equip(Item.Greaves);
+  		pg.equip(Item.Shield);
+  		*/
        		// run.monster = new Monster(MonsterDef.SNAKE);
-       		pg.addEffect(Effect.GHOSTLY);
-       		pg.addEffect(Effect.REGENERATION);
-       		*/
+       		//pg.addEffect(Effect.GHOSTLY);
+       		//pg.addEffect(Effect.BARRIER);
+       		
 	}
 	
 	public long score() {
@@ -120,5 +143,20 @@ public class Run {
 			+ (pg.getInvCount(Item.Crown) * DoorsOfDoom.CROWN_POINT)
 			+ (pg.getInvCount(Item.CowardToken) * -15)
 			+ (exited ? DoorsOfDoom.EXIT_BONUS : 0);
+	}
+	
+	public String dump()
+	{
+		Gson g = new Gson();
+		String s = g.toJson(this);
+		System.out.println(s);
+		return s;
+	}
+	
+	public static Run load(String s)
+	{
+		Gson g = new Gson();
+		Run r = g.fromJson(s, Run.class);
+		return r;
 	}
 }

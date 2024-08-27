@@ -29,9 +29,14 @@
 			<artifactId>omicron-basics</artifactId>
 			<version>0.0.2</version>
 		</dependency>
+			<dependency>
+			  <groupId>com.google.code.gson</groupId>
+			  <artifactId>gson</artifactId>
+			  <version>2.11.0</version>
+			</dependency>		
 		<dependency>
 			<groupId>com.github.msx80.omicron</groupId>
-			<version>0.0.4</version>
+			<version>0.0.5</version>
 			<artifactId>omicron-desktop</artifactId>
 			<scope>test</scope>
 		</dependency>

@@ -14,6 +14,7 @@ import com.github.msx80.omicron.GdxOmicron;
 import com.github.msx80.omicron.AndroidPlugin;
 import com.github.msx80.omicron.HardwareInterface;
 import com.github.msx80.omicron.api.Game;
+import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.api.adv.*;
 import com.github.msx80.omicron.fantasyconsole.cartridges.*;
 import java.util.Properties;
@@ -27,7 +28,10 @@ public class AndroidLauncher extends AndroidApplication implements HardwareInter
 	private byte[] bytesToSave = null;
 	private Consumer<String> fileResult = null;
 	
-	//AndroidPlugin plugin = new NfcAndroidPlugin();
+	
+	private Sys sys;
+    
+    PluginManager plugins = new PluginManager(this);
 	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -59,30 +63,54 @@ public class AndroidLauncher extends AndroidApplication implements HardwareInter
 		}
 		
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new GdxOmicron(c, this), config);
+		GdxOmicron go = new GdxOmicron(c, this);
+		sys = go;
+		initialize(go, config);
 	}
 	
-	
+	/*
    @Override
 	protected void onResume() {
 		super.onResume();
-		//plugin.onResume(this);
+		for(HardwarePlugin p : plugins.getPlugins())
+	{
+		if(p instanceof AndroidPlugin)
+		{
+			((AndroidPlugin)p).onResume(this);
+		}
+	}
 	}
   
 	@Override
    protected void onPause() {
 		super.onPause();
-		//plugin.onPause(this);
+		for(HardwarePlugin p : plugins.getPlugins())
+	{
+		if(p instanceof AndroidPlugin)
+		{
+			((AndroidPlugin)p).onPause(this);
+		}
 	}
+	}*/
 
 	
 	@Override
 	public void onNewIntent(Intent intent) {
 		
-		//plugin.onNewIntent(this, intent);
+		super.onNewIntent(intent);
+    setIntent(intent);
+	 for(HardwarePlugin p : plugins.getPlugins())
+	{
+		if(p instanceof AndroidPlugin)
+		{
+			 
+			boolean ok = ((AndroidPlugin)p).resolveIntent(intent);
+			if(ok) return;
+		}
+	}
 	}
 
-	
+/*	
 	@Override
 	public void openUrl(String url) throws Exception {
       Uri uri = Uri.parse( url );
@@ -92,16 +120,16 @@ public class AndroidLauncher extends AndroidApplication implements HardwareInter
    
    	@Override
 	public void saveFile(String mimeType, String filename, byte[] content, Consumer<String> result) {
-		/*this.bytesToSave = content;
+		this.bytesToSave = content;
 		this.fileResult = result;
 		Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 		intent.setType(mimeType); //not needed, but maybe usefull
 		intent.putExtra(Intent.EXTRA_TITLE, filename); //not needed, but maybe usefull
 		startActivityForResult(intent, SAVE_FILE);
-		*/
+		
    }
-   
+   */
    @Override
    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  if(requestCode == SAVE_FILE ) {
@@ -140,7 +168,7 @@ public class AndroidLauncher extends AndroidApplication implements HardwareInter
 
 	public Object hardware(String module, String command, Object param)
 	{
-		return null;
+		return plugins.getPlugin(module).exec(command, param);
 	}
    
    
@@ -148,4 +176,37 @@ public class AndroidLauncher extends AndroidApplication implements HardwareInter
    {
 	   return new String[0];
    }
+   
+   
+   	@Override
+	public Sys getSys() {
+		
+		return sys;
+	}
+
+	@Override
+	public void setSys(Sys sys) {
+		// not needed
+		
+	}
+
+	@Override
+	public void gamePaused() {
+		for(HardwarePlugin p : plugins.getPlugins())
+		{
+			p.onPause();
+		}
+		
+	}
+
+	@Override
+	public void gameRestored() {
+		for(HardwarePlugin p : plugins.getPlugins())
+		{
+			p.onResume();
+		}
+
+	}
+   
+   
 }

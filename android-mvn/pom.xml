@@ -68,7 +68,7 @@
 	<dependency>
       <groupId>com.github.msx80.omicron</groupId>
       <artifactId>omicron-engine</artifactId>
-      <version>0.0.4</version>
+      <version>0.0.5</version>
     </dependency>	
   </dependencies>
 

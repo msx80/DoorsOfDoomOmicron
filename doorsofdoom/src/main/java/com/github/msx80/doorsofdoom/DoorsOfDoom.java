@@ -3,11 +3,13 @@ package com.github.msx80.doorsofdoom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.Callable;
 import java.util.Random;
-import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +24,6 @@ import com.github.msx80.doorsofdoom.model.Loot;
 import com.github.msx80.doorsofdoom.model.Monster;
 import com.github.msx80.doorsofdoom.model.MonsterDef;
 import com.github.msx80.doorsofdoom.model.Place;
-import com.github.msx80.doorsofdoom.model.Range;
 import com.github.msx80.doorsofdoom.model.Run;
 import com.github.msx80.omicron.api.Game;
 import com.github.msx80.omicron.api.Pointer;
@@ -56,11 +57,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 	private TextDrawer smallFont = null;
 	private TextDrawer bigFont = null;
 	
-	int x = 100;
-	int y = 10;
-	int dir = 0;
+	//int x = 100;
+	//int y = 10;
+	//int dir = 0;
 	Pointer m;
-	boolean oldClick = false;
+	//boolean oldClick = false;
 	int t = 0;
 	
 	//InventoryWidget invWidget = null;
@@ -94,14 +95,28 @@ public class DoorsOfDoom implements Game, GameInterface {
 	private String buildId;
 	
 	private void actionNewGame() {
-		doSound(15, 1f, 1f);
-		log.add("");
-		log.add(5, "--=======================================================--");
-		log.add(15, "               You start a new game.");
-		log.add(5, "--=======================================================--");
-		log.add("");
-		run.init();
-		enterStep(OUTDOOR);
+		Runnable newGame = () -> {
+			doSound(15, 1f, 1f);
+			log.add("");
+			log.add(5, "--=======================================================--");
+			log.add(15, "               You start a new game.");
+			log.add(5, "--=======================================================--");
+			log.add("");
+			sys.mem("savestate", null);
+			run.init();
+			enterStep(OUTDOOR);
+		};
+		
+		if(hasSavedState())
+		{
+			doSound(14, 1f, 1f);
+			confirm("Erase current game?", newGame, () -> { doSound(6, 1f, 1f); log.add(15, "New game canceled."); });
+		}
+		else
+		{
+			newGame.run();
+		}
+		
 	}
 	
 	private void unimplemented() {
@@ -301,6 +316,15 @@ public class DoorsOfDoom implements Game, GameInterface {
 		this.r = new Random(sys.millis());
 		this.sys = sys;
 		
+		
+		try {
+			sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_RESUME", (Runnable )this::onResume);
+			sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_PAUSE", (Runnable )this::onSuspend);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		buildId = "Build: "+new String(sys.binfile(1));
 		System.out.println(buildId);
 		zoomsurf = sys.newSurface(128, 128);
@@ -316,6 +340,18 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		if (musicOn()) sys.music(1, 0.3f, true);
 		
+		Callable<List<Action>> introOptions = () -> {
+			List<Action> list = new ArrayList<>();
+			list.add(new Action("New Game!", this::actionNewGame));
+			list.add(new Action("Settings", () ->  {doSound(14, 1f, 1f); enterStep(SETTINGS);}));
+			if(hasSavedState())
+			{
+				list.add(new Action("Continue!", this::restoreFromSavestate));
+			}
+			return list;
+			
+		};
+		
 		INTRO = new Step(() -> {
 			run.init();
 			log.add(15, "Welcome to", 6, " Doors of Doom", 15, "! by", 8, " MSX");
@@ -323,10 +359,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			log.add(0, "");
 			log.add(15, "High score: ", 5, "" + getHighScore());
 			log.add(0, "");
-		}, null, () -> Arrays.asList(
-			new Action("New Game!", this::actionNewGame),
-			new Action("Settings", () ->  {doSound(14, 1f, 1f); enterStep(SETTINGS);})
-		));
+		}, null, introOptions);
 		
 		SETTINGS = new Step(() -> {
      		// log.add(15, "Set your settings!");
@@ -426,6 +459,97 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		enterStep(INTRO);
 	}
+
+	private void onSuspend()
+	{
+		System.out.println("Paused received!");
+		// unspool animations to get to a finite state
+		while(anims.isRunning())
+		{
+			anims.update();
+			System.out.println("Animations running");
+		}
+		System.out.println("Done!");
+		log.add(15, "suspended!");
+		
+		if(step == OPENING || step == INDOOR || step == OUTDOOR || step == LOOT)
+		{
+			System.out.println("Saving config..");
+			
+			String s = run.dump();
+			sys.mem("savestate", stepToString(step)+s);
+		}
+		else
+		{
+			System.out.println("Cleaning suspend");
+			sys.mem("savestate", null);
+		}
+		
+		
+	}
+	
+	private void onResume()
+	{
+		System.out.println("Resume received!");
+		if(step == OPENING || step == INDOOR || step == OUTDOOR || step == LOOT)
+		{
+			// no need to resume, the game is already running
+			System.out.println("Game already running, no resume");
+			// ensure we remove any save
+			sys.mem("savestate", null);
+		}
+		else
+		{
+			// if the application somehow restarted, we can resume
+			restoreFromSavestate();
+		}
+	}
+
+	private void restoreFromSavestate() {
+		String saveState = sys.mem("savestate");
+		if(saveState != null && !saveState.isEmpty())
+		{
+			doSound(15, 1f, 1f);
+			step = stringToStep(saveState.substring(0, 1));
+			run = Run.load(saveState.substring(1));
+			refreshCommands();
+
+			log.add("");
+			log.add(5, "--=======================================================--");
+			log.add(15, "         You resume your previous game.");
+			log.add(5, "--=======================================================--");
+			log.add("");
+			
+		}
+	}
+	
+	private boolean hasSavedState()
+	{
+		String saveState = sys.mem("savestate");
+		return saveState != null && !saveState.isEmpty();
+		
+	}
+	
+
+	private String stepToString(Step step)
+	{
+		if(step == OUTDOOR) return "T";
+		if(step == INDOOR) return "I";
+		if(step == OPENING) return "O";
+		if(step == LOOT) return "L";
+		throw new RuntimeException("wrong step! ");
+	}
+	
+	private Step stringToStep(String s)
+	{
+		if(s.equals("T")) return OUTDOOR;
+		if(s.equals("I")) return INDOOR;
+		if(s.equals("O")) return OPENING;
+		if(s.equals("L")) return LOOT;
+		
+		throw new RuntimeException("wrong step! "+s);
+	}
+	
 
 	private Step makeWinStep(final Sys sys) {
 		

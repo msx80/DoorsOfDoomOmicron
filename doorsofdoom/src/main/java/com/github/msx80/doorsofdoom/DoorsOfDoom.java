@@ -470,7 +470,6 @@ public class DoorsOfDoom implements Game, GameInterface {
 			System.out.println("Animations running");
 		}
 		System.out.println("Done!");
-		log.add(15, "suspended!");
 		
 		if(step == OPENING || step == INDOOR || step == OUTDOOR || step == LOOT)
 		{

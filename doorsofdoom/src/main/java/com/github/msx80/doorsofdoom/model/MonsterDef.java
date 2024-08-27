@@ -37,7 +37,8 @@ public enum MonsterDef {
 		range(0, 18),
 		range(2, 4),
 		Loot.of(1, Item.Leather, range(1, 1)),
-		Loot.of(1, Item.Rock, range(1, 2))
+		Loot.of(1, Item.SmallPotion, range(1, 1)),
+		Loot.of(1, Item.Rock, range(2, 3))
 	),
 	SKELETON(
 		"SKELETON", -3,

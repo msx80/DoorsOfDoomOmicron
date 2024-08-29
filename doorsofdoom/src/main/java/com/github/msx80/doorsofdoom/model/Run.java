@@ -49,7 +49,7 @@ public class Run {
 		
 		
 		/*
-		// pg.inventoryAdd(Item.Map, 1);
+		pg.inventoryAdd(Item.Map, 1);
 		pg.inventoryAdd(Item.Rock, 1000);
 		pg.inventoryAdd(Item.Slingshot, 1);
 		

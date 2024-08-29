@@ -554,15 +554,17 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		Runnable onEnter = () -> {
 			sys.stopMusic();
-			doSound(19, 0.8f, 1f);
+			sys.music(2, 0.3f, false);
+			//doSound(19, 0.8f, 1f);
 			
-			doFinalScoreAnimation("YOU WON!!");
+			doFinalScoreAnimation(true);
 		
 			
 		};
 		
 		return new Step( onEnter, null, () -> Arrays.asList(
-			new Action("Try Again", () -> { 
+			new Action("Play Again", () -> {
+				sys.stopMusic();
 				if (musicOn()) sys.music(1, 0.3f, true);
 				enterStep(INTRO);
 			})
@@ -575,7 +577,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			doSound(19, 0.8f, 1f);
 			
 			// play sound!
-			doFinalScoreAnimation("YOU'RE DEAD!!");
+			doFinalScoreAnimation(false);
 			// this.animPG(, 6, null);
 		};
 		
@@ -587,10 +589,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 		));
 	}
 
-	private void doFinalScoreAnimation(String message) {
+	private void doFinalScoreAnimation(boolean win) {
 		anims.add(Easing.LINEAR, 240, a -> {
 			if (run.score() > getHighScore()) {
-				doSound(17, 0.8f, 1f);
+				if(!win) doSound(17, 0.8f, 1f); // no jingle for winscreen or it covers the music
 				log.add(11, "!! NEW HIGH SCORE !!");
 				log.add(15, "YOUR NEW HIGH SCORE IS: ", 13, "" + run.score());
 				setHighScore(run.score());
@@ -599,7 +601,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 				});
 			}
 		}, 0,50, a -> {
-			p.printBig(message, 120, 50 - a / 4, 6, Align.CENTER);
+			p.printBig(win?"YOU WON!!":"YOU'RE DEAD!!", 120, 50 - a / 4, win?11:6, Align.CENTER);
 		});
 	}
 	
@@ -1023,9 +1025,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 	public void exitDungeon() {
 		run.exited = true;
 		log.add(15, "");
-		log.add(7, "===== GAME FINISHED ====");
-		log.add(15, "You head toward the exit.");
-		log.add(15, "You fought well, warrior.");
+		log.add(7, "       --=======  ", 15, "!! GAME  FINISHED !!",7,"  ======--    ");
+		log.add(15, "");
+		log.add(15, "You head toward the exit, tired but");
+		log.add(15, "victorious. You fought well, warrior.");
 		log.add(14, "Your final score is: ", 8, ""+run.score());
 		enterStep(WIN);
 		

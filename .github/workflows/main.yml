@@ -36,8 +36,8 @@ jobs:
     - name: Deploy Apk
       uses: actions/upload-artifact@v2
       with:
-        name: 'DoorsOfDoom.apk'
-        path: android-mvn/target/DoorsOfDoom.apk
+        name: 'doorsofdoom.apk'
+        path: android-mvn/target/doorsofdoom.apk
     - name: Deploy cartridge
       uses: actions/upload-artifact@v2
       with:

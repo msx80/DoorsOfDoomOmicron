@@ -65,7 +65,7 @@ public class Craft {
 		Craft.of(Item.DuraniumHelm, Item.Duranium, 1, Item.Helm, 1),
 		Craft.of(Item.DuraniumArmour, Item.Duranium, 2, Item.Armour, 1),
 		Craft.of(Item.DuraniumShield, Item.Duranium, 2, Item.Shield, 1),
-		Craft.of(Item.DuraniumChausses, Item.Duranium, 1, Item.Greaves, 1)
+		Craft.of(Item.DuraniumChausses, Item.Duranium, 2, Item.Greaves, 1)
 	);
 
 	public Craft(Item output, Map<Item, Integer> ingredients) {

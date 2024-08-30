@@ -249,7 +249,7 @@
         </executions> -->
       </plugin>
     </plugins>
-	<finalName>${omicron.main}</finalName>
+	<finalName>${cartridge.artifactId}</finalName>
   </build>
 
 </project>

@@ -32,7 +32,7 @@ jobs:
     - name: Build android
       run: |
         cd android-mvn
-        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=0.0.5-SNAPSHOT clean install android:apk
+        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=0.0.5 clean install android:apk
     - name: Deploy Apk
       uses: actions/upload-artifact@v2
       with:

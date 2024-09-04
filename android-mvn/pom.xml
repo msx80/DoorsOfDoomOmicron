@@ -88,7 +88,7 @@
       <filtering>true</filtering>
       <targetPath>${project.build.directory}/filtered-manifest</targetPath>
       <includes>
-        <include>src/main/AndroidManifest.xml</include>
+        <include>src/main/AndroidManifest.xml.template</include>
       </includes>
     </resource>
   </resources>
@@ -243,7 +243,7 @@
             <minApi>26</minApi>
          </d8>
 		 <!-- use the dynamically built manifest -->
-		 <androidManifestFile>${project.build.directory}/filtered-manifest/src/main/AndroidManifest.xml</androidManifestFile>
+		 <androidManifestFile>${project.build.directory}/filtered-manifest/src/main/AndroidManifest.xml.template</androidManifestFile>
         </configuration>
 		 <!--  </execution>
         </executions> -->

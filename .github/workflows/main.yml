@@ -29,10 +29,14 @@ jobs:
       run: |
         cd doorsofdoom
         mvn --batch-mode clean install package
+    - name: Read version
+      run: |
+        cd doorsofdoom
+        echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
     - name: Build android
       run: |
         cd android-mvn
-        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=0.0.5 clean install android:apk
+        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean install android:apk
     - name: Deploy Apk
       uses: actions/upload-artifact@v2
       with:

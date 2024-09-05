@@ -3,6 +3,8 @@ A simple RPG where you open doors and fight the monsters behind! They drop loot,
 Sounds by: Juhani Junkala
 https://juhanijunkala.com/
 
-Music by: RandomMind
+Game Music by: RandomMind
 https://www.youtube.com/@randommynd
 
+Win Music by: Vincent Fasano
+https://www.vincentfasano.com/

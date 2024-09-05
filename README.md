@@ -12,11 +12,9 @@ A porting of my [TIC-80 Game Doors of Doom](https://tic80.com/play?cart=786) ([s
 
 A simple RPG where you open doors and fight the monsters behind! They drop loot, you get stronger! You know the drill! Over 27 monsters, 64 items, crafts and stuff!
 
-Sounds by: Juhani Junkala
-https://juhanijunkala.com/
-
-Music by: RandomMind
-https://www.youtube.com/@randommynd
+  - Sounds by: [Juhani Junkala](https://juhanijunkala.com/)
+  - Game Music by: [RandomMind](https://www.youtube.com/@randommynd)
+  - Win Music by: [Vincent Fasano](https://www.vincentfasano.com/)
 
 Powered by [Omicron](https://github.com/msx80/Omicron)
 

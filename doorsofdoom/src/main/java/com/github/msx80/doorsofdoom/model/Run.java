@@ -28,6 +28,7 @@ public class Run {
 
 	public void init() {
 		
+		exited = false;
 		level = 0;
 		kills = 0;
 		monster = null;

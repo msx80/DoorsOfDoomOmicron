@@ -319,7 +319,7 @@ public enum MonsterDef {
 		range(80, 150),
 		range(20, 40),
 		range(70, 1000),
-		range(1, 50),
+		range(35, 60),
 		Loot.of(1, Item.Fang, range(2, 3)),
 		Loot.of(1, Item.BagOfGold, range(2, 3)),
 		Loot.of(1, Item.Blood, range(4, 6))

@@ -47,6 +47,7 @@ public class Pg extends Entity {
 			Item e = this.equip.get(p);
 			if (e != null) arm += e.armour;
 		}
+		if(arm>=100) arm = 99; // do not exceed 99%
 		this.armour = arm;
 		
 		// maxHp
@@ -125,7 +126,12 @@ public class Pg extends Entity {
 
 
 	public void addEffect(Effect e) {
-		effects.put(e, effects.getOrDefault(e, 0) + e.turns);
+		addEffect(e, e.turns);
+	}
+	
+
+	public void addEffect(Effect e, int turns) {
+		effects.put(e, effects.getOrDefault(e, 0) + turns);
 		ricalcola();
 	}
 	

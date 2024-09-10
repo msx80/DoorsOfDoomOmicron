@@ -91,6 +91,8 @@ public enum Item {
 	Slime("Slime", 340, new String[] {"Smelly", "and sticky.", "A bit like glue."}, 0, null, null, null, null),
 	Fur("Fur", 346, new String[] {"From the hide", "of some wild beast."}, 0, null, null, null, null),
 	Duranium("Duranium", 347, new String[] {"A magical material", "incredibly strong."}, 0, null, null, null, null),
+	
+	MagicLamp("Magic Lamp", 352, new String[] {"No wishing for","more wishes"}, 0, null, null, Usable.of("Rub", magicLamp()), null),
 	;
 	
 	public final String name;
@@ -113,6 +115,19 @@ public enum Item {
 		this.combat = combat;
 	}
 	
+	private static UsableFunc magicLamp() {
+
+		return (i, g) -> {
+			g.getRun().pg.inventoryAdd(i, -1); // remove lamp
+			g.getLog().add(15, "You rub ", 14, i.name, 15, " and express your wishes!");
+			g.getRun().pg.addEffect(Effect.BARRIER, 20);
+			g.getRun().pg.addEffect(Effect.MAGNETIC, 20);
+			g.getRun().pg.addEffect(Effect.MUSCLES, 20);
+			g.getRun().pg.addEffect(Effect.REGENERATION, 20);
+			g.getRun().pg.addEffect(Effect.LUCKY, 20);
+		};
+	}
+
 	private static UsableFunc bagOfGold() {
 		return (i, g) -> {
 			int num = DoorsOfDoom.r.nextInt(21) + 20;

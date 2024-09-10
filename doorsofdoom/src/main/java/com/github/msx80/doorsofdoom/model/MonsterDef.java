@@ -324,6 +324,17 @@ public enum MonsterDef {
 		Loot.of(1, Item.BagOfGold, range(2, 3)),
 		Loot.of(1, Item.Blood, range(4, 6))
 	),
+	TROLL(
+			"TROLL", -41,
+			range(50, 80),
+			range(25, 50),
+			range(80, 100),
+			range(10, 15),
+			Loot.of(2, Item.Armour, range(1, 1)),
+			Loot.of(1, Item.Clover, range(2, 3)),
+			Loot.of(1, Item.Spinach, range(2, 3)),
+			Loot.of(1, Item.Slime, range(3, 5))
+		),		
 	DEVIL(
 		"DEVIL", -24,
 		range(100, 200), // hp
@@ -360,6 +371,18 @@ public enum MonsterDef {
 			Loot.of(1, Item.Venom, range(5, 8)),
 			Loot.of(1, Item.BigPotion, range(2, 3))
 		),	
+	GENIE(
+			"GENIE", -42,
+			range(80, 100),
+			range(60, 80),
+			range(130, 1000),
+			range(10, 20),
+			Loot.of(10, Item.Phlogiston, range(3, 5)),
+			Loot.of(10, Item.BigPotion, range(2, 2)),
+			Loot.of(10, Item.BagOfGold, range(1, 1)),
+			Loot.of(1, Item.MagicLamp, range(1, 1))
+		),	
+
 	DUNGEON_BOSS(
 			"DUNGEON BOSS", -37,
 			range(400, 400),

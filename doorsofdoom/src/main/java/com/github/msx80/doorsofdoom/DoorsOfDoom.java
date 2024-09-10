@@ -103,7 +103,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			log.add(15, "               You start a new game.");
 			log.add(5, "--=======================================================--");
 			log.add("");
-			sys.mem("savestate", null);
+			deleteSavestate();
 			run.init();
 			enterStep(OUTDOOR);
 		};
@@ -482,7 +482,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		else
 		{
 			System.out.println("Cleaning suspend");
-			sys.mem("savestate", null);
+			deleteSavestate();
 		}
 		
 		
@@ -496,7 +496,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			// no need to resume, the game is already running
 			System.out.println("Game already running, no resume");
 			// ensure we remove any save
-			sys.mem("savestate", null);
+			deleteSavestate();
 		}
 		else
 		{
@@ -505,6 +505,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 		}
 	}
 
+	private void deleteSavestate()
+	{
+		sys.mem("savestate", null);
+	}
 	private void restoreFromSavestate() {
 		String saveState = sys.mem("savestate");
 		if(saveState != null && !saveState.isEmpty())
@@ -512,6 +516,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			doSound(15, 1f, 1f);
 			step = stringToStep(saveState.substring(0, 1));
 			run = Run.load(saveState.substring(1));
+			deleteSavestate();
 			refreshCommands();
 
 			log.add("");
@@ -519,6 +524,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 			log.add(15, "         You resume your previous game.");
 			log.add(5, "--=======================================================--");
 			log.add("");
+			
+			
 			
 		}
 	}
@@ -574,6 +581,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	private Step makeDeathStep(final Sys sys) {
 		Runnable onEnter = () -> {
+			deleteSavestate();
 			sys.stopMusic();
 			doSound(19, 0.8f, 1f);
 			

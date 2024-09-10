@@ -46,6 +46,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	public static final int WISDOM_DAMAGE = 50;
 	public static final int EXIT_BONUS = 5000;
 	public static final int CROWN_POINT = 200;
+	public static final int SPRITE_DAMAGE = 25;
 	
 	public final int BUTTONS_X = 167; // 8 * 12 + 3;
 	public final int STATS_X = 97; // 8 * 12 + 3;

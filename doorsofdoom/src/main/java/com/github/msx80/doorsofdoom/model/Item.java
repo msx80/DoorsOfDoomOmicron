@@ -87,7 +87,7 @@ public enum Item {
 	Mint("Mint", 322, new String[] {"Killer fresh", "breath!", "", "Halve a monster's HP."}, 0, null, null, null, Usable.of("Chew", mint())),
 	Bomb("Bomb", 312, new String[] {"Kaboom!", "", "Deals 40 damage."}, 0, null, null, null, Usable.of("Throw", bomb())),
 	
-	Sprite("Sprite", 335, new String[] {"A sprite you", "befriended.", "", "Deals 15 damages."}, 0, null, null, null, Usable.of("Unleash", sprite())),
+	Sprite("Sprite", 335, new String[] {"A sprite you", "befriended.", "", "Deals "+DoorsOfDoom.SPRITE_DAMAGE+" damages."}, 0, null, null, null, Usable.of("Unleash", sprite())),
 	Slime("Slime", 340, new String[] {"Smelly", "and sticky.", "A bit like glue."}, 0, null, null, null, null),
 	Fur("Fur", 346, new String[] {"From the hide", "of some wild beast."}, 0, null, null, null, null),
 	Duranium("Duranium", 347, new String[] {"A magical material", "incredibly strong."}, 0, null, null, null, null),
@@ -204,8 +204,8 @@ public enum Item {
 	private static UsableFunc sprite() {
 		return (i, g) -> {
 			g.getRun().pg.inventoryAdd(i, -1);
-			g.damageMonster(15, null);
-			g.getLog().add(15, "You unleash ", 14, i.name, 15, " and deal ", 6, "15", 15, " damage!");
+			g.damageMonster(DoorsOfDoom.SPRITE_DAMAGE, null);
+			g.getLog().add(15, "You unleash ", 14, i.name, 15, " and deal ", 6, ""+DoorsOfDoom.SPRITE_DAMAGE, 15, " damage!");
 		};
 	}
 	

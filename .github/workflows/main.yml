@@ -38,12 +38,12 @@ jobs:
         cd android-mvn
         mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean install android:apk
     - name: Deploy Apk
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom.apk'
         path: android-mvn/target/doorsofdoom.apk
     - name: Deploy cartridge
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom.omicron'
         path: doorsofdoom/doorsofdoom.omicron

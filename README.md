@@ -1,3 +1,12 @@
+![Build](https://github.com/msx80/DoorsOfDoomOmicron/workflows/Build/badge.svg)
+[![Contributors](https://img.shields.io/github/contributors/msx80/doorsofdoomomicron.svg)](https://github.com/msx80/doorsofdoomomicron/graphs/contributors)
+![GitHub Release](https://img.shields.io/github/v/release/msx80/DoorsOfDoomOmicron)
+![F-Droid Version](https://img.shields.io/f-droid/v/com.github.msx80.doorsofdoom)
+![GitHub Discussions](https://img.shields.io/github/discussions/msx80/DoorsOfDoomOmicron)
+[![Powered by Omicron](https://img.shields.io/badge/Powered_by-Omicron-Green)](https://github.com/msx80/Omicron)
+
+
+
 # DoorsOfDoom
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"

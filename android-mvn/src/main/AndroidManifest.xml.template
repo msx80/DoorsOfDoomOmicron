@@ -19,5 +19,5 @@
             android:label="Crash report" >
 		</activity>		
     </application>
-    <uses-sdk android:minSdkVersion="26" />
+    <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="26" />
 </manifest>

@@ -3,11 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.msx80.omicron</groupId>
-  <artifactId>omicronandroid</artifactId>
+  <artifactId>android-wrapper</artifactId>
   <version>1.0.0</version>
   <packaging>apk</packaging>
-
-  <name>OmicronAndroid</name>
+  
   <properties>
   
   <!-- This is the omicron cartridge to be package as an Android app. You can pass the properties as arguments to mvn with -D -->
@@ -22,7 +21,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>	
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<gdx.version>1.12.1</gdx.version>
-	<omicron.engine.version>0.0.6</omicron.engine.version>
+	<omicron.engine.version>0.0.7</omicron.engine.version>
   </properties>
 
 <pluginRepositories>
@@ -121,7 +120,50 @@
     </pluginManagement>
 	
     <plugins>
-
+	
+	
+	 <plugin>
+	 <!-- parse the version of the cartridge into Major, Minor, Incremental etc. Used to derive the versionCode from the Incremental part. -->
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>build-helper-maven-plugin</artifactId>
+    <version>3.6.0</version>
+    <executions>
+      <execution>
+        <phase>validate</phase>
+        <id>parse-version</id>
+        <goals>
+          <goal>parse-version</goal>
+        </goals>
+        <configuration>
+            <propertyPrefix>cartridgeVersion</propertyPrefix>
+			<versionString>${cartridge.version}</versionString>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+                <execution>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <tasks>
+						    <echo>Cartridge version breakup:</echo>
+                            <echo>Major: ${cartridgeVersion.majorVersion}</echo>
+                            <echo>Minor: ${cartridgeVersion.minorVersion}</echo>
+                            <echo>Incremental (this will be used as VersionCode): ${cartridgeVersion.incrementalVersion}</echo>
+                            <echo>Qualifier: ${cartridgeVersion.qualifier}</echo>
+                            <echo>BuildNumber: ${cartridgeVersion.buildNumber}</echo>
+                        </tasks>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 	            <plugin>
 				
                 <groupId>org.apache.maven.plugins</groupId>
@@ -224,13 +266,23 @@
 		<!-- main android plugin. select platform and build-tool version (33.0.2 is the last one supported by java 8) -->
         <groupId>com.github.msx80</groupId>
         <artifactId>android-maven-plugin</artifactId>
-		        <!--<executions>
+		        <executions>
           <execution>
-            <phase>install</phase>
+            <phase>package</phase>
             <goals>
               <goal>apk</goal>
-            </goals>-->
-        <configuration>
+			  <goal>zipalign</goal>
+            </goals>
+        </execution>
+        </executions>
+		<configuration>
+		<zipalignSkip>false</zipalignSkip>
+		<zipalign>
+			<skip>false</skip>
+			<verbose>true</verbose>
+			<inputApk>${project.build.directory}/${cartridge.artifactId}.apk</inputApk>
+			<outputApk>${project.build.directory}/${cartridge.artifactId}.apk</outputApk>
+		</zipalign>
 		  <!-- read natives from the folder we have unpacked them earlier -->
 		  <nativeLibrariesDirectory>${project.build.directory}/libgdxnatives/</nativeLibrariesDirectory>
           <sdk>
@@ -245,8 +297,7 @@
 		 <!-- use the dynamically built manifest -->
 		 <androidManifestFile>${project.build.directory}/filtered-manifest/src/main/AndroidManifest.xml.template</androidManifestFile>
         </configuration>
-		 <!--  </execution>
-        </executions> -->
+		
       </plugin>
     </plugins>
 	<finalName>${cartridge.artifactId}</finalName>

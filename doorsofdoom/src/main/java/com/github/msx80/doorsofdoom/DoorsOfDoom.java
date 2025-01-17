@@ -479,6 +479,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 			String s = run.dump();
 			sys.mem("savestate", stepToString(step)+s);
 		}
+		else if (step == INTRO || step == SETTINGS)
+		{
+			System.out.println("suspending from intro or settings, should not delete the savestate");
+		}
 		else
 		{
 			System.out.println("Cleaning suspend");

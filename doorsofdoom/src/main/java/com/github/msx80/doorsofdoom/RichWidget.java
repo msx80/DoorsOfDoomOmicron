@@ -5,7 +5,7 @@ public abstract class RichWidget extends Widget<Richtext> {
 	PrintUtils p;
 	
 	public RichWidget(PrintUtils p, int x, int y, int w, int h) {
-		super(p.sys, x, y, w, h, 11);
+		super(x, y, w, h, 11);
 		this.p = p;
 	}
 	

@@ -3,13 +3,11 @@ package com.github.msx80.doorsofdoom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.concurrent.Callable;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,7 +51,6 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	public static Random r;
 	
-	private Sys sys;
 	private TextDrawer font = null;
 	private TextDrawer smallFont = null;
 	private TextDrawer bigFont = null;
@@ -300,12 +297,12 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	public void animEnemy(String animText, int animColor, Consumer<Animation> onEnd) {
 		anims.add(Easing.LINEAR, 60,onEnd , 0,50, a->{
-	        	//sys.draw(2, a ,100   ,64,0,8,8,0,0);
+	        	//Sys.draw(2, a ,100   ,64,0,8,8,0,0);
 			p.printBig(animText, 45, 50-a/2, animColor, Align.CENTER);
 	        });
 	}
 	
-	public void init(final Sys sys) {
+	public void init() {
 		/*
 		// experiment with calculated spawn windows.
 		// normalize monsters levels
@@ -314,32 +311,32 @@ public class DoorsOfDoom implements Game, GameInterface {
 		}
 		*/
 		
-		this.r = new Random(sys.millis());
-		this.sys = sys;
+		this.r = new Random(Sys.millis());
+		
 		
 		
 		try {
-			sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_RESUME", (Runnable )this::onResume);
-			sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_PAUSE", (Runnable )this::onSuspend);
+			Sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_RESUME", (Runnable )this::onResume);
+			Sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_PAUSE", (Runnable )this::onSuspend);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-		buildId = "Build: "+new String(sys.binfile(1));
+		buildId = "Build: "+new String(Sys.binfile(1));
 		System.out.println(buildId);
-		zoomsurf = sys.newSurface(128, 128);
-		font = new TextDrawerVariable(sys, 1, 6, 6, 3);
-		smallFont = new TextDrawerVariable(sys, 7, 4, 6, 2); //, 4);
-		bigFont = new TextDrawerVariable(sys, 8, 16, 16, 3); //, 14);
+		zoomsurf = Sys.newSurface(128, 128);
+		font = new TextDrawerVariable(1, 6, 6, 3);
+		smallFont = new TextDrawerVariable(7, 4, 6, 2); //, 4);
+		bigFont = new TextDrawerVariable(8, 16, 16, 3); //, 14);
 		
-		p = new PrintUtils(sys, font, bigFont);
+		p = new PrintUtils(font, bigFont);
 		log = new Log(p);
 		
 		buttons = new ButtonWidget(p, BUTTONS_X, 10, 73, 86);
 		run.init();
 		
-		if (musicOn()) sys.music(1, 0.3f, true);
+		if (musicOn()) Sys.music(1, 0.3f, true);
 		
 		Callable<List<Action>> introOptions = () -> {
 			List<Action> list = new ArrayList<>();
@@ -381,10 +378,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 			run.lootQty = 0;
 			
 			anims.add(Easing.QUADRATIC_IN, 40, a -> {enterStep(INDOOR);}, 0, 255, a -> {
-				// sys.draw(2, a, 100, 64, 0, 8, 8, 0, 0);
-				sys.color(Colors.from(255, 255, 255, a));
+				// Sys.draw(2, a, 100, 64, 0, 8, 8, 0, 0);
+				Sys.color(Colors.from(255, 255, 255, a));
 				drawMonsterSprite(run.monster.type.sprite);
-				sys.color(Colors.WHITE);
+				Sys.color(Colors.WHITE);
 			});
 		}, () -> {
 			log.add(15, "-----------------------");
@@ -451,10 +448,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 			new Action("Grab Loot!", this::grabLoot)
 		));
 		
-		DEATH = makeDeathStep(sys);
+		DEATH = makeDeathStep();
 		
 		
-		WIN = makeWinStep(sys);
+		WIN = makeWinStep();
 		
 		
 		
@@ -477,7 +474,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			System.out.println("Saving config..");
 			
 			String s = run.dump();
-			sys.mem("savestate", stepToString(step)+s);
+			Sys.mem("savestate", stepToString(step)+s);
 		}
 		else if (step == INTRO || step == SETTINGS)
 		{
@@ -511,10 +508,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 
 	private void deleteSavestate()
 	{
-		sys.mem("savestate", null);
+		Sys.mem("savestate", null);
 	}
 	private void restoreFromSavestate() {
-		String saveState = sys.mem("savestate");
+		String saveState = Sys.mem("savestate");
 		if(saveState != null && !saveState.isEmpty())
 		{
 			doSound(15, 1f, 1f);
@@ -536,7 +533,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	private boolean hasSavedState()
 	{
-		String saveState = sys.mem("savestate");
+		String saveState = Sys.mem("savestate");
 		return saveState != null && !saveState.isEmpty();
 		
 	}
@@ -562,11 +559,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 
-	private Step makeWinStep(final Sys sys) {
+	private Step makeWinStep() {
 		
 		Runnable onEnter = () -> {
-			sys.stopMusic();
-			sys.music(2, 0.3f, false);
+			Sys.stopMusic();
+			Sys.music(2, 0.3f, false);
 			//doSound(19, 0.8f, 1f);
 			
 			doFinalScoreAnimation(true);
@@ -576,17 +573,17 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		return new Step( onEnter, null, () -> Arrays.asList(
 			new Action("Play Again", () -> {
-				sys.stopMusic();
-				if (musicOn()) sys.music(1, 0.3f, true);
+				Sys.stopMusic();
+				if (musicOn()) Sys.music(1, 0.3f, true);
 				enterStep(INTRO);
 			})
 		));
 	}	
 	
-	private Step makeDeathStep(final Sys sys) {
+	private Step makeDeathStep() {
 		Runnable onEnter = () -> {
 			deleteSavestate();
-			sys.stopMusic();
+			Sys.stopMusic();
 			doSound(19, 0.8f, 1f);
 			
 			// play sound!
@@ -596,7 +593,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		return new Step( onEnter, null, () -> Arrays.asList(
 			new Action("Try Again", () -> { 
-				if (musicOn()) sys.music(1, 0.3f, true);
+				if (musicOn()) Sys.music(1, 0.3f, true);
 				enterStep(INTRO);
 			})
 		));
@@ -619,49 +616,49 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private long getHighScore() {
-		String s = sys.mem("highscore");
+		String s = Sys.mem("highscore");
 		if ((s == null) || s.equals("")) s = "0";
 		return Long.parseLong(s);
 	}
 	
 	private void setHighScore(long hs) {
-		sys.mem("highscore", "" + hs);	
+		Sys.mem("highscore", "" + hs);	
 	}
 	
 	private boolean soundOn() {
-		if (sound == null) sound = !"OFF".equals(sys.mem("SOUND"));
+		if (sound == null) sound = !"OFF".equals(Sys.mem("SOUND"));
 		return sound;
 	}
 	
 	private void toggleSound() {
 		sound = !soundOn();
-		sys.mem("SOUND", sound ? "ON" : "OFF");
+		Sys.mem("SOUND", sound ? "ON" : "OFF");
 	}
 	
 	private boolean musicOn() {
-		if (music == null) music = !"OFF".equals(sys.mem("MUSIC"));
+		if (music == null) music = !"OFF".equals(Sys.mem("MUSIC"));
 		return music;
 	}
 	
 	
 	private boolean cursorOn() {
-		if (cursor == null) cursor = !"OFF".equals(sys.mem("CURSOR"));
+		if (cursor == null) cursor = !"OFF".equals(Sys.mem("CURSOR"));
 		return cursor;
 	}
 	
 	private void toggleMusic() {
 		music = !musicOn();
-		sys.mem("MUSIC", music ? "ON" : "OFF");
+		Sys.mem("MUSIC", music ? "ON" : "OFF");
 		if (music) {
-			sys.music(1, 0.3f, true);
+			Sys.music(1, 0.3f, true);
 		} else {
-			sys.stopMusic();
+			Sys.stopMusic();
 		}
 	}
 	
 	private void toggleCursor() {
 		cursor = !cursorOn();
-		sys.mem("CURSOR", cursor ? "ON" : "OFF");
+		Sys.mem("CURSOR", cursor ? "ON" : "OFF");
 	}
 	
 	void openDoor() {
@@ -709,7 +706,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	public void doSound(int soundNum, float volume, float pitch) {
-		if (soundOn()) sys.sound(soundNum, volume, pitch);	
+		if (soundOn()) Sys.sound(soundNum, volume, pitch);	
 	}
 	
 	void grabLoot() {
@@ -791,17 +788,17 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	public void render() {
-		sys.clear(Tic80.BLACK);
+		Sys.clear(Tic80.BLACK);
 		// font.center("Doors of doom", 100, 10);
 		
 		if(step == WIN)
 		{
-			sys.draw(9, 0, 0, 0, Math.max(0,192-(t/10)), 96, 96, 0, 0);
+			Sys.draw(9, 0, 0, 0, Math.max(0,192-(t/10)), 96, 96, 0, 0);
 		}
 		
 		// the door
 		boolean open = step == INDOOR || step == OPENING|| step == LOOT || step == WIN;
-		sys.draw(open ? 2 : 3, 0, 0, 0, 0, 96, 96, 0, 0);
+		Sys.draw(open ? 2 : 3, 0, 0, 0, 0, 96, 96, 0, 0);
 		
 		drawGame();
 		
@@ -822,18 +819,18 @@ public class DoorsOfDoom implements Game, GameInterface {
 		// richPrint(10, 10, 12, "ciao", 13, " a", 14, " tutti");
 		if (!anims.isRunning()) buttons.draw();
 		
-		sys.fill(0, BUTTONS_X, 0, 70, 10, Tic80.BLACK);
+		Sys.fill(0, BUTTONS_X, 0, 70, 10, Tic80.BLACK);
 		p.print("NOW WHAT?", BUTTONS_X + 8, 1, 6, Align.LEFT);
 		
-		sys.fill(0, 0, 8 * 12 + 4, 240, 36, Tic80.DARK_RED);
+		Sys.fill(0, 0, 8 * 12 + 4, 240, 36, Tic80.DARK_RED);
 		log.draw(1, 8 * 13 + 4 - 7);
 		
 		if (currWidget != null) currWidget.draw();
 		
-		sys.fill(0, 0, 8 * 12, 240, 1, Tic80.BLACK);
-		sys.fill(0, 0, 8 * 12 + 1, 240, 1, Tic80.BROWN);
-		sys.fill(0, 0, 8 * 12 + 2, 240, 1, Tic80.DARK_RED);
-		sys.fill(0, 0, 8 * 12 + 3, 240, 1, Tic80.BLACK);
+		Sys.fill(0, 0, 8 * 12, 240, 1, Tic80.BLACK);
+		Sys.fill(0, 0, 8 * 12 + 1, 240, 1, Tic80.BROWN);
+		Sys.fill(0, 0, 8 * 12 + 2, 240, 1, Tic80.DARK_RED);
+		Sys.fill(0, 0, 8 * 12 + 3, 240, 1, Tic80.BLACK);
 		
 		if (step == INTRO) {
 			printSmall(buildId, 202, 90, 1, Align.CENTER);
@@ -843,7 +840,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		anims.update();
 		
 		// mouse pointer
-		if (cursorOn()) sys.draw(4, m.x(), m.y(), 120, 120, 8, 8, 0, 0);
+		if (cursorOn()) Sys.draw(4, m.x(), m.y(), 120, 120, 8, 8, 0, 0);
 	}
 	
 	private void drawMonster(Monster m) {
@@ -866,11 +863,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 			run.shake --;
 		}
 		
-		sys.draw(5, 30 + ax, 50 + ay, sx, sy, 32, 32, 0,0);
+		Sys.draw(5, 30 + ax, 50 + ay, sx, sy, 32, 32, 0,0);
 	}
 	
 	private void drawGame() {
-		ShapeDrawer.outline(sys, STATS_X,0,66,12*8, 0, Tic80.P[1]);
+		ShapeDrawer.outline(STATS_X,0,66,12*8, 0, Tic80.P[1]);
 		// widget:draw(8*12+3, 10)
 		
 		p.spr(279, STATS_X, 0, 0);
@@ -926,15 +923,15 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private void printSmall(String text, int x, int y, int color, Align align) {
-		sys.color(Tic80.P[color]);
+		Sys.color(Tic80.P[color]);
 		smallFont.print(text, x, y, align);
-		sys.color(Tic80.P[15]);
+		Sys.color(Tic80.P[15]);
 	}
 	
 	private void printSmall(String text, int x, int y, int color) {
-		sys.color(Tic80.P[color]);
+		Sys.color(Tic80.P[color]);
 		smallFont.print(text, x, y, Align.LEFT);
-		sys.color(Tic80.P[15]);
+		Sys.color(Tic80.P[15]);
 	}
 	
 	private void printStats(int x, int y) {
@@ -974,7 +971,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 
 	public boolean update() {
-		m = sys.pointers()[0];
+		m = Sys.pointers()[0];
 		
 		if (currWidget != null) {
 			if (!currWidget.update(m)) currWidget = null;

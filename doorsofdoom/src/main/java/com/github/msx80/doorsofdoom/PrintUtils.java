@@ -9,14 +9,12 @@ import com.github.msx80.omicron.basicutils.text.TextDrawer.Align;
 
 public class PrintUtils {
 	
-	public Sys sys;
 	private TextDrawer font;
 	private TextDrawer bigFont;
 	
 	private int clr = Colors.fromHex("504030");
 	
-	public PrintUtils(Sys sys, TextDrawer font, TextDrawer bigFont) {
-		this.sys = sys;
+	public PrintUtils(TextDrawer font, TextDrawer bigFont) {
 		this.font = font;
 		this.bigFont = bigFont;
 	}
@@ -27,19 +25,19 @@ public class PrintUtils {
 	}
 	
 	public void print(String string, int x, int y, int color, Align align) {
-		sys.color(Tic80.P[color]);
+		Sys.color(Tic80.P[color]);
 		font.print(string, x, y, align);
-		sys.color(Colors.WHITE);
+		Sys.color(Colors.WHITE);
 	}
 	
 	public void drawBtn(int x, int y, int w, int h) {
-		sys.fill(0, x, y, w, h, clr);
-		sys.fill(0, x, y, 1, 1, Tic80.BLACK);
-		sys.fill(0, x + w - 1, y + h - 1, 1, 1, Tic80.BLACK);
-		sys.fill(0, x + w - 1, y, 1, 1, Tic80.BLACK);
-		sys.fill(0, x, y + h - 1, 1, 1, Tic80.BLACK);
-		sys.fill(0, x + 1, y, w - 2, 1, Tic80.LIGHT_GRAY);
-		sys.fill(0, x, y + 1, 1, h - 2, Tic80.LIGHT_GRAY);
+		Sys.fill(0, x, y, w, h, clr);
+		Sys.fill(0, x, y, 1, 1, Tic80.BLACK);
+		Sys.fill(0, x + w - 1, y + h - 1, 1, 1, Tic80.BLACK);
+		Sys.fill(0, x + w - 1, y, 1, 1, Tic80.BLACK);
+		Sys.fill(0, x, y + h - 1, 1, 1, Tic80.BLACK);
+		Sys.fill(0, x + 1, y, w - 2, 1, Tic80.LIGHT_GRAY);
+		Sys.fill(0, x, y + 1, 1, h - 2, Tic80.LIGHT_GRAY);
 	}
 	
 	public void richPrint(int sx, int sy, Object... tokens) {
@@ -85,7 +83,7 @@ public class PrintUtils {
 	}
 
 	public void printBig(String string, int x, int y, int color, Align a) {
-		sys.color(Tic80.P[15]);
+		Sys.color(Tic80.P[15]);
 		bigFont.print(string, x + 1, y, a);
 		bigFont.print(string, x - 1, y, a);
 		bigFont.print(string, x, y + 1, a);
@@ -96,17 +94,17 @@ public class PrintUtils {
 		bigFont.print(string, x - 1, y + 1, a);
 		bigFont.print(string, x - 1, y - 1, a);
 		
-		sys.color(Tic80.P[color]);
+		Sys.color(Tic80.P[color]);
 		bigFont.print(string, x, y, a);
-		sys.color(Colors.WHITE);
+		Sys.color(Colors.WHITE);
 	}
 	
 	public void rectb(int x, int y, int w, int h, int c) {
-		ShapeDrawer.outline(sys, x, y, w, h, 0, Tic80.P[c]);
+		ShapeDrawer.outline( x, y, w, h, 0, Tic80.P[c]);
 	}
 	
 	public void rect(int x, int y, int w, int h, int c) {
-		sys.fill(0, x, y, w, h, Tic80.P[c]);	
+		Sys.fill(0, x, y, w, h, Tic80.P[c]);	
 	}
 	
 	public void spr(int idx, int x, int y, int bgcol) {
@@ -114,6 +112,6 @@ public class PrintUtils {
 		int sx = (idx % 16) * 8;
 		int sy = (idx / 16) * 8;
 		
-		sys.draw(4, x, y, sx, sy, 8, 8, 0, 0);
+		Sys.draw(4, x, y, sx, sy, 8, 8, 0, 0);
 	}
 }

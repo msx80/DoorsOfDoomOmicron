@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.github.msx80.doorsofdoom.model.GameInterface;
+import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.basicutils.palette.Tic80;
 
 public class CreditsWidget extends RichWidget {
@@ -67,7 +68,7 @@ public class CreditsWidget extends RichWidget {
 
 	@Override
 	public void drawBackground(int x, int y) {
-		p.sys.fill(0, x - 4, y - 4, w + 8, h + 5, Tic80.BLACK);
+		Sys.fill(0, x - 4, y - 4, w + 8, h + 5, Tic80.BLACK);
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class CreditsWidget extends RichWidget {
 	protected boolean selected(int idx, Richtext line) {
 		if (line.userdata != null) {
 			g.getLog().add(15, "Opening url...");
-			String res = (String)p.sys.hardware("com.github.msx80.omicron.plugins.builtin.UrlOpenerPlugin", "OPEN", (String) line.userdata);
+			String res = (String)Sys.hardware("com.github.msx80.omicron.plugins.builtin.UrlOpenerPlugin", "OPEN", (String) line.userdata);
 			g.getLog().add(15, res);
 		}
 		return true;

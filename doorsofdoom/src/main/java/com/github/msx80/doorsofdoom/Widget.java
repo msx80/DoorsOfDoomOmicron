@@ -26,10 +26,8 @@ public abstract class Widget<T> {
 	protected int h;
 	protected int itemsHeight;
 	
-	protected Sys sys;
 	
-	public Widget(Sys sys, int x, int y, int w, int h, int itemsHeight) {
-		this.sys = sys;
+	public Widget(int x, int y, int w, int h, int itemsHeight) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -68,7 +66,7 @@ public abstract class Widget<T> {
 			int scx = x + w - 2;
 			int scy = y;
 			int sch = h * h / (lines.size() * itemsHeight);
-			ShapeDrawer.rect(sys, scx, scy + (int) (f * (h - sch)), 2, sch, 0, Colors.fromHex("402010"));
+			ShapeDrawer.rect(scx, scy + (int) (f * (h - sch)), 2, sch, 0, Colors.fromHex("402010"));
 		
 		}
 		

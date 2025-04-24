@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.github.msx80.doorsofdoom.model.GameInterface;
+import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.basicutils.ShapeDrawer;
 import com.github.msx80.omicron.basicutils.palette.Tic80;
 
@@ -17,7 +18,7 @@ public class ConfirmWidget extends Widget<Action> {
 	private Runnable onNo;
 
 	public ConfirmWidget(GameInterface g, PrintUtils p, String question, Runnable onYes, Runnable onNo) {
-		super(p.sys, 120 - ( Math.max(p.size(question)+4, 70) ) /2, 40, Math.max(p.size(question)+4, 70), ITEM_HEIGHT * 2 + 1, ITEM_HEIGHT);
+		super(120 - ( Math.max(p.size(question)+4, 70) ) /2, 40, Math.max(p.size(question)+4, 70), ITEM_HEIGHT * 2 + 1, ITEM_HEIGHT);
 		
 		this.question = question;
 		this.onYes = onYes;
@@ -46,9 +47,9 @@ public class ConfirmWidget extends Widget<Action> {
 
 	@Override
 	public void drawBackground(int x, int y) {
-		p.sys.fill(0, x - 3, y - 11, w + 6, h + 12, Tic80.BLACK);
+		Sys.fill(0, x - 3, y - 11, w + 6, h + 12, Tic80.BLACK);
 		
-		ShapeDrawer.outline(sys, x - 2, y - 10, w + 4, h + 10, 0, Tic80.BROWN);
+		ShapeDrawer.outline(x - 2, y - 10, w + 4, h + 10, 0, Tic80.BROWN);
 		p.richPrint(x, y - 8, 14, question);
 	}
 

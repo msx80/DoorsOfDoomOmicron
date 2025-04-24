@@ -35,7 +35,7 @@ public class InventoryWidget extends RichWidget {
 
 	private void displayItem(Item item, int x, int y) {
 		//p.spr(item.sprite,x,y,-1);
-		sys.draw(zoomsurf, x, y, 0, 0, 16, 16, 0,0);
+		Sys.draw(zoomsurf, x, y, 0, 0, 16, 16, 0,0);
 		int yy = y + 20;
 		p.richPrint(x, yy, 5, item.name);
 		yy += 10;
@@ -113,7 +113,7 @@ public class InventoryWidget extends RichWidget {
 		int idx = i.sprite - 256;
 		int sx = (idx % 16) * 8;
 		int sy = (idx / 16) * 8;
-		SurfUtils.zoom(sys, 4, zoomsurf, sx, sy, 0, 0, 8, 8, 2);
+		SurfUtils.zoom( 4, zoomsurf, sx, sy, 0, 0, 8, 8, 2);
 	}
 	
 	@Override
@@ -154,7 +154,7 @@ public class InventoryWidget extends RichWidget {
 			displayItem(selected, 132 + x, y + 2);
 		}
 		
-		sys.draw(4, x + 222, y + 2, 0, 112, 16, 16, 0, 0);
+		Sys.draw(4, x + 222, y + 2, 0, 112, 16, 16, 0, 0);
 	}
 
 	@Override

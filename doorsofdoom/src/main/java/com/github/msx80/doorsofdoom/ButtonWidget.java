@@ -10,7 +10,7 @@ public class ButtonWidget extends Widget<Action> {
 	PrintUtils p;
 	
 	public ButtonWidget(PrintUtils p, int x, int y, int w, int h) {
-		super(p.sys, x, y, w, h, BUTTON_Y);
+		super(x, y, w, h, BUTTON_Y);
 		this.p = p;
 	}
 

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.github.msx80.doorsofdoom.model.Craft;
 import com.github.msx80.doorsofdoom.model.GameInterface;
 import com.github.msx80.doorsofdoom.model.Item;
+import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.basicutils.palette.Tic80;
 import com.github.msx80.omicron.basicutils.text.TextDrawer.Align;
 
@@ -40,12 +41,12 @@ public class CraftWidget extends RichWidget {
 
 	@Override
 	public void drawBackground(int x, int y) {
-		p.sys.fill(0, x - 4, y - 10, w + 6, h + 12, Tic80.BLACK);
+		Sys.fill(0, x - 4, y - 10, w + 6, h + 12, Tic80.BLACK);
 	}
 
 	@Override
 	public void drawForeground(int x, int y) {
-		p.sys.fill(0, x - 4, y - 11, w + 6, 9, Tic80.DARK_RED);
+		Sys.fill(0, x - 4, y - 11, w + 6, 9, Tic80.DARK_RED);
 		p.print("Craft what?", x + 12, y - 9, 15, Align.LEFT);
 		p.rectb(x - 4, y - 11, w + 6, h + 13, 14);
 	}

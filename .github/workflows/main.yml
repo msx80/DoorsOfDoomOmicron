@@ -13,26 +13,39 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        path: main
+    - uses: actions/checkout@v4
+      with:
+        repository: msx80/omicron
+        path: omicron
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         java-version: '8'
         distribution: 'temurin'
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        cmdline-tools-version: 8512546
-    - name: Install packages        
-      run: |
-        sdkmanager "build-tools;33.0.2" "platforms;android-26"        
     - name: Build app
       run: |
-        cd doorsofdoom
+        cd main/doorsofdoom
         mvn --batch-mode clean install package
     - name: Read version
       run: |
-        cd doorsofdoom
+        cd main/doorsofdoom
         echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
+    - name: Build desktop
+      run: |
+        cd omicron/wrappers/desktop-wrapper
+        ./mvnw --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package
+    - name: Deploy Desktop
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'doorsofdoom-desktop.jar'
+        path: desktop-mvn/target/doorsofdoom-desktop.jar
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    - name: Install packages        
+      run: |
+        sdkmanager "build-tools;33.0.2" "platforms;android-26"        
     - name: Build android
       run: |
         cd android-mvn
@@ -42,15 +55,6 @@ jobs:
       with:
         name: 'doorsofdoom.apk'
         path: android-mvn/target/doorsofdoom.apk
-    - name: Build desktop
-      run: |
-        cd desktop-mvn
-        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package
-    - name: Deploy Desktop
-      uses: actions/upload-artifact@v4
-      with:
-        name: 'doorsofdoom-desktop.jar'
-        path: desktop-mvn/target/doorsofdoom-desktop.jar
     - name: Deploy cartridge
       uses: actions/upload-artifact@v4
       with:

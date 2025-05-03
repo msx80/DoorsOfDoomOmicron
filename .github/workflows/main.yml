@@ -12,10 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Doors of Doom code
+      uses: actions/checkout@v4
       with:
         path: main
-    - uses: actions/checkout@v4
+    - name: Checkout Omicron code
+      uses: actions/checkout@v4
       with:
         repository: msx80/omicron
         path: omicron
@@ -48,7 +50,7 @@ jobs:
         path: omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-    - name: Install packages        
+    - name: Install android sdk packages        
       run: |
         sdkmanager "build-tools;33.0.2" "platforms;android-26"        
     - name: Build android

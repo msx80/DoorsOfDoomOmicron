@@ -28,6 +28,11 @@ jobs:
       run: |
         cd main/doorsofdoom
         mvn --batch-mode clean install package
+    - name: Deploy cartridge
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'doorsofdoom.omicron'
+        path: doorsofdoom/doorsofdoom.omicron
     - name: Read version
       run: |
         cd main/doorsofdoom
@@ -40,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom-desktop.jar'
-        path: desktop-mvn/target/doorsofdoom-desktop.jar
+        path: omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     - name: Install packages        
@@ -48,13 +53,13 @@ jobs:
         sdkmanager "build-tools;33.0.2" "platforms;android-26"        
     - name: Build android
       run: |
-        cd android-mvn
-        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package
+        cd omicron/wrappers/android-wrapper
+        ./gradlew -Pcartridge.artifactId=doorsofdoom -Pcartridge.groupId=com.github.msx80.omicron -Pcartridge.version=$GITHUB_DDVER clean assembleRelease
     - name: Deploy Apk
       uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom.apk'
-        path: android-mvn/target/doorsofdoom.apk
+        path: omicron/wrappers/android-wrapper/app/build/outputs/apk/release/app-release-unsigned.apk
     - name: Deploy cartridge
       uses: actions/upload-artifact@v4
       with:

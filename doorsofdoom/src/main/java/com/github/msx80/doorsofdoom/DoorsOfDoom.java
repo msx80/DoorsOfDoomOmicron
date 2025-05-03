@@ -39,6 +39,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	// SOUND EFFECTS: https://juhanijunkala.com/ SubspaceAudio https://opengameart.org/content/512-sound-effects-8-bit-style
 	// MUSIC: https://twitter.com/SBieliayev  https://www.youtube.com/channel/UCvjkkwGL7g092E1oV7IMffw
 	
+	private static final float MUSIC_VOLUME = 0.2f;
 	private static final int LEVEL_MONSTER_GROWTH = 160; // minimal level at which monsters start to grow
 	// private static final int MADNESS_DAMAGE = 5;
 	public static final int WISDOM_DAMAGE = 50;
@@ -345,7 +346,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		buttons = new ButtonWidget(p, BUTTONS_X, 10, 73, 86);
 		run.init();
 		
-		if (musicOn()) Sys.music(1, 0.3f, true);
+		if (musicOn()) Sys.music(1, MUSIC_VOLUME, true);
 		
 		Callable<List<Action>> introOptions = () -> {
 			List<Action> list = new ArrayList<>();
@@ -573,7 +574,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		Runnable onEnter = () -> {
 			Sys.stopMusic();
-			Sys.music(2, 0.3f, false);
+			Sys.music(2, MUSIC_VOLUME, false);
 			//doSound(19, 0.8f, 1f);
 			
 			doFinalScoreAnimation(true);
@@ -584,7 +585,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		return new Step( onEnter, null, () -> Arrays.asList(
 			new Action("Play Again", () -> {
 				Sys.stopMusic();
-				if (musicOn()) Sys.music(1, 0.3f, true);
+				if (musicOn()) Sys.music(1, MUSIC_VOLUME, true);
 				enterStep(INTRO);
 			})
 		));
@@ -603,7 +604,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		return new Step( onEnter, null, () -> Arrays.asList(
 			new Action("Try Again", () -> { 
-				if (musicOn()) Sys.music(1, 0.3f, true);
+				if (musicOn()) Sys.music(1, MUSIC_VOLUME, true);
 				enterStep(INTRO);
 			})
 		));
@@ -660,7 +661,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		music = !musicOn();
 		Sys.mem("MUSIC", music ? "ON" : "OFF");
 		if (music) {
-			Sys.music(1, 0.3f, true);
+			Sys.music(1, MUSIC_VOLUME, true);
 		} else {
 			Sys.stopMusic();
 		}

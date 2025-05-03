@@ -410,6 +410,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			
 			list.add(new Action("Buy/Craft", () -> {
 				if (Craft.visible(run.pg).size() > 0) {
+					log.add(15, "You have ", 11, ""+run.pg.getInvCount(Item.Gold), 14, " Gold.");
 					currWidget  = new CraftWidget(this, p, 75, 16, 92, 78);
 					doSound(14, 1f, 1f);
 				} else {

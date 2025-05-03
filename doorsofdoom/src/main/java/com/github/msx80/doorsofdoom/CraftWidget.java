@@ -61,8 +61,9 @@ public class CraftWidget extends RichWidget {
 			g.getRun().pg.inventoryAdd(i, -required);
 		}
 		
-		g.getRun().pg.inventoryAdd(c.getOutput(), 1);
-		g.getLog().add(15, "You obtain ", /*-1, c.getOutput().sprite, */ 14, c.getOutput().name, 15, "!");
+		g.getRun().pg.inventoryAdd(c.getOutput(), c.getCount());
+		String cnt = c.getCount() == 1 ? "":" (x"+c.getCount()+")";
+		g.getLog().add(15, "You obtain ", /*-1, c.getOutput().sprite, */ 14, c.getOutput().name, 7, cnt, 15, "!");
 		g.refreshCommands();
 		return false;
 	}

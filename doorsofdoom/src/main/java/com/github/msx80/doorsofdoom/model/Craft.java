@@ -13,9 +13,11 @@ import com.github.msx80.doorsofdoom.Richtext;
 public class Craft {
 
 	public static final int KEY_COST = 15;
+	public static final int GROUP_PURCHASE = 5;
 	
 	
 	private Item output;
+	private int count;
 	private Map<Item, Integer> ingredients;
 	
 	
@@ -34,8 +36,10 @@ public class Craft {
 
 	public static final List<Craft> ALL = Arrays.asList(
 		Craft.of(Item.Key, Item.Gold, KEY_COST),
+		Craft.of(GROUP_PURCHASE, Item.Key, Item.Gold, KEY_COST*GROUP_PURCHASE),
 		Craft.of(Item.SmallPotion, Item.Gold, 10),
 		Craft.of(Item.MediumPotion, Item.Gold, 19),
+		Craft.of(GROUP_PURCHASE, Item.MediumPotion, Item.Gold, 19*GROUP_PURCHASE),
 		Craft.of(Item.Knife, Item.Gold, 30),
 		Craft.of(Item.Diamond, Item.Gold, 100),
 		Craft.of(Item.Dart, Item.Venom, 4),
@@ -68,20 +72,28 @@ public class Craft {
 		Craft.of(Item.DuraniumChausses, Item.Duranium, 2, Item.Greaves, 1)
 	);
 
-	public Craft(Item output, Map<Item, Integer> ingredients) {
+	public Craft(int count, Item output, Map<Item, Integer> ingredients) {
 		this.output = output;
+		this.count = count;
 		this.ingredients = ingredients;
 	}
 	
 	public Item getOutput() {
 		return output;
 	}
+	
+	public int getCount() {
+		return count;
+	}
 
 	public Map<Item, Integer> getIngredients() {
 		return ingredients;
 	}
-	
 	public static final Craft of(Item output, Object... ingredients) {
+		return Craft.of(1, output, ingredients);
+	}
+	
+	public static final Craft of(int count, Item output, Object... ingredients) {
 		Map<Item, Integer> ing = new HashMap<Item, Integer>();
 		
 		for (int i = 0; i < ingredients.length; i += 2) {
@@ -90,7 +102,7 @@ public class Craft {
 			ing.put(in, qty);
 		}
 		
-		return new Craft(output, ing);
+		return new Craft(count, output, ing);
 	}
 
 	public Richtext toRichtext() {
@@ -105,6 +117,11 @@ public class Craft {
 			o.add(e.getKey().sprite);
 			o.add(15);
 			o.add(" " + e.getValue() + " ");
+			if(count>1)
+			{
+				o.add(7);
+				o.add("  x"+count+"");
+			}
 		}
 		
 		return Richtext.with(this, o.toArray());

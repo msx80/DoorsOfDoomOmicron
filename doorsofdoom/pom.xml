@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
-		<omicron.engine.version>0.0.11</omicron.engine.version>
+		<omicron.engine.version>0.0.12</omicron.engine.version>
 	</properties>
 	<repositories>
 		<repository>

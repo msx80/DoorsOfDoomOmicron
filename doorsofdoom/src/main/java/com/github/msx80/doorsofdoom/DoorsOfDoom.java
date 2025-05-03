@@ -248,6 +248,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	void endTurn() {
+
+		
 		if (run.pg.hasEffect(Effect.REGENERATION)) {
 			log.add(15, "You regenerate ", 6, "2", 15, " hp!");
 			run.damage(run.pg, -2);
@@ -284,7 +286,14 @@ public class DoorsOfDoom implements Game, GameInterface {
 				log.add(15, "You defeated ", 6, run.monster.type.name, 15, "!");
 				killMonster();
 				endTurn();
-				enterStep(LOOT);
+				if (run.pg.hp <= 0) {
+					log.add(5, "You suffered too much! ", 6, "YOU'RE DEAD!");
+					enterStep(DEATH);
+				}
+				else
+				{
+					enterStep(LOOT);
+				}
 			} else {
 				if (funMonsterStillAlive != null) funMonsterStillAlive.run();
 			}	
@@ -324,7 +333,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		
 		buildId = "Build: "+new String(Sys.binfile(1));
-		System.out.println(buildId);
+		Sys.trace(buildId);
 		zoomsurf = Sys.newSurface(128, 128);
 		font = new TextDrawerVariable(1, 6, 6, 3);
 		smallFont = new TextDrawerVariable(7, 4, 6, 2); //, 4);
@@ -460,29 +469,29 @@ public class DoorsOfDoom implements Game, GameInterface {
 
 	private void onSuspend()
 	{
-		System.out.println("Paused received!");
+		Sys.trace("Paused received!");
 		// unspool animations to get to a finite state
 		while(anims.isRunning())
 		{
 			anims.update();
-			System.out.println("Animations running");
+			Sys.trace("Animations running");
 		}
-		System.out.println("Done!");
+		Sys.trace("Done!");
 		
 		if(step == OPENING || step == INDOOR || step == OUTDOOR || step == LOOT)
 		{
-			System.out.println("Saving config..");
+			Sys.trace("Saving config..");
 			
 			String s = run.dump();
 			Sys.mem("savestate", stepToString(step)+s);
 		}
 		else if (step == INTRO || step == SETTINGS)
 		{
-			System.out.println("suspending from intro or settings, should not delete the savestate");
+			Sys.trace("suspending from intro or settings, should not delete the savestate");
 		}
 		else
 		{
-			System.out.println("Cleaning suspend");
+			Sys.trace("Cleaning suspend");
 			deleteSavestate();
 		}
 		
@@ -491,11 +500,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	private void onResume()
 	{
-		System.out.println("Resume received!");
+		Sys.trace("Resume received!");
 		if(step == OPENING || step == INDOOR || step == OUTDOOR || step == LOOT)
 		{
 			// no need to resume, the game is already running
-			System.out.println("Game already running, no resume");
+			Sys.trace("Game already running, no resume");
 			// ensure we remove any save
 			deleteSavestate();
 		}
@@ -508,6 +517,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 
 	private void deleteSavestate()
 	{
+		Sys.trace("Deleting savestate");
 		Sys.mem("savestate", null);
 	}
 	private void restoreFromSavestate() {

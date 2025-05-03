@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom.omicron'
-        path: doorsofdoom/doorsofdoom.omicron
+        path: main/doorsofdoom/doorsofdoom.omicron
     - name: Read version
       run: |
         cd main/doorsofdoom
@@ -55,13 +55,24 @@ jobs:
       run: |
         cd omicron/wrappers/android-wrapper
         ./gradlew -Pcartridge.artifactId=doorsofdoom -Pcartridge.groupId=com.github.msx80.omicron -Pcartridge.version=$GITHUB_DDVER clean assembleRelease
-    - name: Deploy Apk
+    - name: Deploy Unsigned Apk
       uses: actions/upload-artifact@v4
       with:
-        name: 'doorsofdoom.apk'
+        name: 'doorsofdoom-unsigned.apk'
         path: omicron/wrappers/android-wrapper/app/build/outputs/apk/release/app-release-unsigned.apk
-    - name: Deploy cartridge
-      uses: actions/upload-artifact@v4
+    - uses: ilharp/sign-android-release@v1
+      name: Sign app APK
+      id: sign_app
       with:
-        name: 'doorsofdoom.omicron'
-        path: doorsofdoom/doorsofdoom.omicron
+        releaseDir: omicron/wrappers/android-wrapper/app/build/outputs/apk/release
+        signingKey: ${{ secrets.SIGNING_KEY }}
+        keyAlias: ${{ secrets.SIGNING_ALIAS }}
+        keyStorePassword: ${{ secrets.SIGNING_PASSWORD }}
+        buildToolsVersion: 33.0.2
+    - name: Rename apk
+      run: |
+        mv -v ${{steps.sign_app.outputs.signedFile}} doorsofdoom.apk
+    - uses: actions/upload-artifact@v4
+      with:
+        name: doorsofdoom.apk
+        path: doorsofdoom.apk        

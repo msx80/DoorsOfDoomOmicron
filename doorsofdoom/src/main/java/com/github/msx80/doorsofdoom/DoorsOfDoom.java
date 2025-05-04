@@ -46,6 +46,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	public static final int EXIT_BONUS = 5000;
 	public static final int CROWN_POINT = 200;
 	public static final int SPRITE_DAMAGE = 25;
+	public static final int BEE_DAMAGE = 10;
 	
 	public final int BUTTONS_X = 167; // 8 * 12 + 3;
 	public final int STATS_X = 97; // 8 * 12 + 3;
@@ -250,10 +251,20 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	void endTurn() {
 
+		if (run.pg.hasEffect(Effect.HONEYED)) {
+			log.add(15, "A ", 14, Item.Bee.name, 15, " arrives from who knows where.. ");
+			run.pg.inventoryAdd(Item.Bee, 1);
+		}
+		
 		
 		if (run.pg.hasEffect(Effect.REGENERATION)) {
 			log.add(15, "You regenerate ", 6, "2", 15, " hp!");
 			run.damage(run.pg, -2);
+		}
+		
+		if (run.pg.hasEffect(Effect.POISONED)) {
+			log.add(15, "You're poisoned! ", 6, "-2", 15, " hp!");
+			run.damage(run.pg, 2);
 		}
 		
 		if (run.pg.hasEffect(Effect.MADNESS)) {
@@ -263,6 +274,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		}
 		
 		run.pg.decEffects();
+		refreshCommands();
 	}
 	
 	void killMonster() {
@@ -321,6 +333,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 		}
 		*/
 		
+		//String platform = (String) Sys.hardware("com.github.msx80.omicron.plugins.builtin.PlatformPlugin", "PLATFORM", null);
+		//cursor = platform.contains("DESKTOP");
 		this.r = new Random(Sys.millis());
 		
 		

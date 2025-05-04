@@ -94,7 +94,8 @@ public enum MonsterDef {
 		range(15, 40),
 		range(3, 6),
 		Loot.of(3, Item.Clover, range(1, 2)),
-		Loot.of(1, Item.Spinach, range(1, 1))
+		Loot.of(1, Item.Spinach, range(1, 1)),
+		Loot.of(1, Item.Mushroom, range(1, 2))
 	),
 	MIMIC(
 		"MIMIC", -14,
@@ -133,6 +134,7 @@ public enum MonsterDef {
 		Loot.of(6, Item.Bread, range(2, 3)),
 		Loot.of(4, Item.Tomato, range(2, 3)),
 		Loot.of(2, Item.Cheese, range(2, 4)),
+		Loot.of(2, Item.HoneyPot, range(1, 3)),
 		Loot.of(5, Item.Fork, range(1, 1))
 	),
 	FIREIMP(
@@ -295,15 +297,25 @@ public enum MonsterDef {
 		Loot.of(1, Item.Slime, range(4, 6))
 	),
 	VAMPIRE(
-		"VAMPIRE", -32,
-		range(40, 70),
-		range(20, 30),
-		range(65, 1000),
-		range(30, 50),
-		Loot.of(1, Item.Sword, range(1, 1)),
-		Loot.of(1, Item.Fang, range(2, 2)),
-		Loot.of(1, Item.Blood, range(3, 6))
-	),
+			"VAMPIRE", -32,
+			range(40, 70),
+			range(20, 30),
+			range(65, 1000),
+			range(30, 50),
+			Loot.of(1, Item.Sword, range(1, 1)),
+			Loot.of(1, Item.Fang, range(2, 2)),
+			Loot.of(1, Item.Blood, range(3, 6))
+		),
+	WITCH(
+			"WITCH", -44,
+			range(30, 50),
+			range(40, 50),
+			range(94, 130),
+			range(3, 12),
+			Loot.of(1, Item.HoneyPot, range(1, 2)),
+			Loot.of(1, Item.Mushroom, range(2, 2)),
+			Loot.of(1, Item.CleansingPotion, range(3, 5))
+		),
 	DEMON(
 		"DEMON", -19,
 		range(50, 100),
@@ -399,6 +411,15 @@ public enum MonsterDef {
 			range(160, 1000),
 			range(20, 50),
 			Loot.of(1, Item.Wisdom, range(1, 1))
+		),	
+	TRIFFID(
+			"TRIFFID", -43,
+			range(90, 110), // hp
+			range(20, 50), // attack
+			range(140, 1000), // levels
+			range(5, 12), // gold
+			Loot.of(10, Item.Slime, range(2, 3)),
+			Loot.of(10, Item.MintLeaf, range(2, 5))
 		),	
 
 	;

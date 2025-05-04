@@ -2,24 +2,28 @@ package com.github.msx80.doorsofdoom.model;
 
 public enum Effect {
 
-	SMOKE("SMOKE", 270, 6),
-	LUCKY("LUCKY", 287, 9),
-	GHOSTLY("GHOSTLY", 271, 20),
-	MUSCLES("MUSCLES", 268, 15),
-	MAGNETIC("MAGNETIC", 267, 10),
-	REGENERATION("REGENERATION", 284, 10),
-	MADNESS("MADNESS", 339, 8),
-	BARRIER("MAGIC BARRIER", 344, 15)
+	SMOKE("SMOKE", 270, 6, true),
+	LUCKY("LUCKY", 287, 9, true),
+	GHOSTLY("GHOSTLY", 271, 20, true),
+	MUSCLES("MUSCLES", 268, 15, true),
+	MAGNETIC("MAGNETIC", 267, 10, true),
+	REGENERATION("REGENERATION", 284, 10, true),
+	MADNESS("MADNESS", 339, 8, false),
+	BARRIER("MAGIC BARRIER", 344, 15, true),
+	POISONED("POISONED", 356, 10, false),
+	HONEYED("HONEYED", 359, 6, true),
 	;
 	
 	public final String name;
 	public final int sprite;
 	public final int turns;
+	public final boolean positive;
 	
-	private Effect(String name, int sprite, int turns) {
+	private Effect(String name, int sprite, int turns, boolean positive) {
 		this.name = name;
 		this.sprite = sprite;
 		this.turns = turns;
+		this.positive = positive;
 	}
 	
 	/*

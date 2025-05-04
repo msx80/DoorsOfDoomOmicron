@@ -49,6 +49,7 @@ public enum Item {
 	DuraniumArmour("Duranium Armour", 350, new String[] {"Best armour ever"}, 23, Place.Body, null, null, null),
 	
 	Key("Key", 319, new String[] {"Opens doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null),
+	KeyRing("Keyring", 353, new String[] {"Contains exacly ",Craft.GROUP_PURCHASE+" keys"}, 0, null, null, Usable.of("Open", keyRing()), null),
 	Cheese("Cheese", 317, new String[] {"Stinky and delicious.", "", "Heal 4 hp."}, 0, null, null, Usable.of("Eat", (i, g) -> foodHealing(i, g, 4)), null),
 	Blood("Blood", 265,  new String[] {"It's always good", "to bring some", "around."}, 0, null, null, null, null),
 	Leather("Leather", 297, new String[] {"Ready to be", "stitched."}, 0, null, null, null, null), 
@@ -88,11 +89,15 @@ public enum Item {
 	Bomb("Bomb", 312, new String[] {"Kaboom!", "", "Deals 40 damage."}, 0, null, null, null, Usable.of("Throw", bomb())),
 	
 	Sprite("Sprite", 335, new String[] {"A sprite you", "befriended.", "", "Deals "+DoorsOfDoom.SPRITE_DAMAGE+" damages."}, 0, null, null, null, Usable.of("Unleash", sprite())),
+	Bee("Bee", 357, new String[] {"A friendly bee", "attracted by your", "scent of honey.", "", "Deals "+DoorsOfDoom.BEE_DAMAGE+" damages."}, 0, null, null, null, Usable.of("Unleash", bee())),
 	Slime("Slime", 340, new String[] {"Smelly", "and sticky.", "A bit like glue."}, 0, null, null, null, null),
 	Fur("Fur", 346, new String[] {"From the hide", "of some wild beast."}, 0, null, null, null, null),
 	Duranium("Duranium", 347, new String[] {"A magical material", "incredibly strong."}, 0, null, null, null, null),
 	
 	MagicLamp("Magic Lamp", 352, new String[] {"No wishing for","more wishes"}, 0, null, null, Usable.of("Rub", magicLamp()), null),
+	Mushroom("Magic Mushroom", 354, new String[] {"Doesn't look safe", "to eat honestly."}, 0, null, null, null,  Usable.of("Eat", shroom()) ),
+	CleansingPotion("Cleansing Potion", 355, new String[] {"Grape flavored", "perhaps?", "", "Remove bad","effects."}, 0, null, null, Usable.of("Drink", cleansing()), null ),
+	HoneyPot("Honey Pot", 358, new String[] {"A sweet moment", "in this bitter", "dungeon."}, 0, null, null, Usable.of("Slurp", honey()), null )
 	;
 	
 	public final String name;
@@ -127,7 +132,15 @@ public enum Item {
 			g.getRun().pg.addEffect(Effect.LUCKY, 20);
 		};
 	}
-
+	
+	private static UsableFunc keyRing() {
+		return (i, g) -> {
+			int num = Craft.GROUP_PURCHASE;
+			g.getLog().add(15, "You unbundle ", 14, i.name, 15, " and get ", 13, num + "", 15, " keys!");
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.getRun().pg.inventoryAdd(Item.Key, num);
+		};
+	}
 	private static UsableFunc bagOfGold() {
 		return (i, g) -> {
 			int num = DoorsOfDoom.r.nextInt(21) + 20;
@@ -189,6 +202,42 @@ public enum Item {
 			}
 		};
 	}
+
+	private static UsableFunc shroom() {
+		return (i, g) -> {
+			
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.getRun().pg.addEffect(Effect.POISONED);
+			g.getRun().pg.addEffect(Effect.MUSCLES);
+			g.getLog().add(15, "You eat ", 14, i.name);
+			g.getLog().add(15, "  you feel both stronger and nauseated..");
+			
+		};
+	}
+
+	private static UsableFunc honey() {
+		return (i, g) -> {
+			
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.getRun().pg.addEffect(Effect.HONEYED);
+			g.getLog().add(15, "You eat ", 14, i.name, 15, ". So sweet!");
+			g.getLog().add(15, "  But you smeared yourself with it.");
+			
+		};
+	}
+
+	private static UsableFunc cleansing() {
+		return (i, g) -> {
+			
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.getRun().pg.removeBadEffects();
+			
+			g.getLog().add(15, "You drink ", 14, i.name);
+			g.getLog().add(15, "  you feel deeply cleansed..");
+			
+		};
+	}
+	
 	
 	private static UsableFunc bomb() {
 		return (i, g) -> {
@@ -221,6 +270,14 @@ public enum Item {
 			g.getRun().pg.inventoryAdd(i, -1);
 			g.damageMonster(DoorsOfDoom.SPRITE_DAMAGE, null);
 			g.getLog().add(15, "You unleash ", 14, i.name, 15, " and deal ", 6, ""+DoorsOfDoom.SPRITE_DAMAGE, 15, " damage!");
+		};
+	}
+	
+	private static UsableFunc bee() {
+		return (i, g) -> {
+			g.getRun().pg.inventoryAdd(i, -1);
+			g.damageMonster(DoorsOfDoom.BEE_DAMAGE, null);
+			g.getLog().add(15, "You unleash ", 14, i.name, 15, " and deal ", 6, ""+DoorsOfDoom.BEE_DAMAGE, 15, " damage!");
 		};
 	}
 	

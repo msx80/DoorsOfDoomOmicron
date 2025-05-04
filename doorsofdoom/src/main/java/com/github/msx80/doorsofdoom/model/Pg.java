@@ -140,4 +140,14 @@ public class Pg extends Entity {
 		this.hp += i;
 		ricalcola();		
 	}
+
+	public void removeBadEffects() {
+		for (Effect e : Effect.values()) {
+			if(!e.positive)
+			{
+				effects.remove(e);
+			}
+		}
+		ricalcola();
+	}
 }

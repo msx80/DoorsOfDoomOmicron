@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,6 +56,16 @@ class DoorsOfDoomTest {
 			final int level = i;
 			List<MonsterDef> eligibles = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(level)).sorted().collect(Collectors.toList());
 			System.out.println("LEVEL: " + i + " : " + eligibles.size() + " -> " + eligibles);
+		}
+	}
+	@Test
+	void testLootByLevel() {
+		for (int i = 0; i < 300; i++) {
+			
+			final int level = i;
+			Set<Item> loots = Stream.of(MonsterDef.values()).filter(m -> m.levels.contains(level)).flatMap(m -> Stream.of(m.loots)).map(l -> l.item).collect(Collectors.toSet());
+						
+			System.out.println("LEVEL: " + i + " : " + loots.size() + " -> " + loots);
 		}
 	}
 	@Test

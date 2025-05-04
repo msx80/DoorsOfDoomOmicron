@@ -825,7 +825,16 @@ public class DoorsOfDoom implements Game, GameInterface {
 			
 			p.spr(run.lootItem.sprite, 38, 60, -1);
 			p.print("x" + run.lootQty, 48, 62, 15, Align.LEFT);
-			p.print(run.lootItem.name, 50, 72, 15, Align.CENTER);
+			if(run.lootItem.name.contains(" "))
+			{
+				String[] tok = run.lootItem.name.split(" ", 2); 
+				p.print(tok[0], 50, 72, 15, Align.CENTER);
+				p.print(tok[1], 50, 80, 15, Align.CENTER);
+			}
+			else
+			{
+				p.print(run.lootItem.name, 50, 72, 15, Align.CENTER);
+			}
 		}
 	
 		// richPrint(10, 10, 12, "ciao", 13, " a", 14, " tutti");

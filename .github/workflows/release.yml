@@ -1,15 +1,16 @@
-name: Build
+name: Release
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - 'v*'
 
 jobs:
-  build:
-
+  release:
     runs-on: ubuntu-latest
+
+    permissions:
+        contents: write
 
     steps:
     - name: Checkout Doors of Doom code
@@ -27,6 +28,14 @@ jobs:
       with:
         java-version: 17
         distribution: 'temurin'
+    - name: Get release version
+      run: |
+        VERSION="${GITHUB_REF#refs/tags/v}"
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+    - name: Read version
+      run: |
+        cd main/doorsofdoom
+        echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
     - name: Build app
       run: |
         cd main/doorsofdoom
@@ -36,10 +45,6 @@ jobs:
       with:
         name: 'doorsofdoom.omicron'
         path: main/doorsofdoom/doorsofdoom.omicron
-    - name: Read version
-      run: |
-        cd main/doorsofdoom
-        echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
     - name: Build desktop
       run: |
         cd omicron/wrappers/desktop-wrapper
@@ -78,4 +83,17 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: doorsofdoom.apk
-        path: doorsofdoom.apk        
+        path: doorsofdoom.apk          
+    - name: Upload Release
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        draft: false
+        prerelease: false
+        title: "Release ${{ env.VERSION }}"
+        files: |
+          LICENSE
+          main/doorsofdoom/doorsofdoom.omicron
+          doorsofdoom.apk
+          omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
+          

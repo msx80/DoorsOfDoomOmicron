@@ -92,7 +92,7 @@ jobs:
         prerelease: false
         title: "Release ${{ env.VERSION }}"
         files: |
-          LICENSE
+          main/LICENSE
           main/doorsofdoom/doorsofdoom.omicron
           doorsofdoom.apk
           omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar

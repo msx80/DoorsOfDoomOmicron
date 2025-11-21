@@ -1,0 +1,99 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+        contents: write
+
+    steps:
+    - name: Checkout Doors of Doom code
+      uses: actions/checkout@v4
+      with:
+        path: main
+    - name: Checkout Omicron code
+      uses: actions/checkout@v4
+      with:
+        repository: msx80/omicron
+        path: omicron
+        ref: 0.0.12
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: 'temurin'
+    - name: Get release version
+      run: |
+        VERSION="${GITHUB_REF#refs/tags/v}"
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+    - name: Read version
+      run: |
+        cd main/doorsofdoom
+        echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
+    - name: Build app
+      run: |
+        cd main/doorsofdoom
+        mvn --batch-mode clean install package
+    - name: Deploy cartridge
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'doorsofdoom.omicron'
+        path: main/doorsofdoom/doorsofdoom.omicron
+    - name: Build desktop
+      run: |
+        cd omicron/wrappers/desktop-wrapper
+        ./mvnw --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package
+    - name: Deploy Desktop
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'doorsofdoom-desktop.jar'
+        path: omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    - name: Install android sdk packages        
+      run: |
+        sdkmanager "build-tools;33.0.2" "platforms;android-26"        
+    - name: Build android
+      run: |
+        cd omicron/wrappers/android-wrapper
+        ./gradlew -Pcartridge.artifactId=doorsofdoom -Pcartridge.groupId=com.github.msx80.omicron -Pcartridge.version=$GITHUB_DDVER clean assembleRelease
+    - name: Deploy Unsigned Apk
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'doorsofdoom-unsigned.apk'
+        path: omicron/wrappers/android-wrapper/app/build/outputs/apk/release/app-release-unsigned.apk
+    - uses: ilharp/sign-android-release@v1
+      name: Sign app APK
+      id: sign_app
+      with:
+        releaseDir: omicron/wrappers/android-wrapper/app/build/outputs/apk/release
+        signingKey: ${{ secrets.SIGNING_KEY }}
+        keyAlias: ${{ secrets.SIGNING_ALIAS }}
+        keyStorePassword: ${{ secrets.SIGNING_PASSWORD }}
+        buildToolsVersion: 33.0.2
+    - name: Rename apk
+      run: |
+        mv -v ${{steps.sign_app.outputs.signedFile}} doorsofdoom.apk
+    - uses: actions/upload-artifact@v4
+      with:
+        name: doorsofdoom.apk
+        path: doorsofdoom.apk          
+    - name: Upload Release
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        draft: false
+        prerelease: false
+        title: "Release ${{ env.VERSION }}"
+        files: |
+          LICENSE
+          main/doorsofdoom/doorsofdoom.omicron
+          doorsofdoom.apk
+          omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
+          

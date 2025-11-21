@@ -389,9 +389,9 @@ public enum MonsterDef {
 			range(60, 80),
 			range(130, 1000),
 			range(10, 20),
-			Loot.of(10, Item.Phlogiston, range(3, 5)),
-			Loot.of(10, Item.BigPotion, range(2, 2)),
-			Loot.of(10, Item.BagOfGold, range(1, 1)),
+			Loot.of(5, Item.Phlogiston, range(3, 5)),
+			Loot.of(5, Item.BigPotion, range(2, 2)),
+			Loot.of(5, Item.BagOfGold, range(1, 1)),
 			Loot.of(1, Item.MagicLamp, range(1, 1))
 		),	
 

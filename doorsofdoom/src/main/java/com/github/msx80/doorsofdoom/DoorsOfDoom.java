@@ -51,6 +51,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 	public final int BUTTONS_X = 167; // 8 * 12 + 3;
 	public final int STATS_X = 97; // 8 * 12 + 3;
 	
+	public final int EFFECTS_X = 142;
+	public final int EFFECTS_Y = 50;
+	public final int EFFECTS_SPACING = 9;
+	
+	
 	public static Random r;
 	
 	private TextDrawer font = null;
@@ -378,9 +383,10 @@ public class DoorsOfDoom implements Game, GameInterface {
 			run.init();
 			log.add(15, "Welcome to", 6, " Doors of Doom", 15, "! by", 8, " MSX");
 			log.add(14, "Fight your way deep into the dungeon!");
+			log.add(14, "Can you find your way out?");
 			log.add(0, "");
 			log.add(15, "High score: ", 5, "" + getHighScore());
-			log.add(0, "");
+			
 		}, null, introOptions);
 		
 		SETTINGS = new Step(() -> {
@@ -947,13 +953,18 @@ public class DoorsOfDoom implements Game, GameInterface {
 			this.p.spr(sprite,cx+p.x, cy+p.y, 8);
 		}
 		
-		int ey = cy - ay;
-		int ex = cx - ax;
+		drawEffects();
+	}
+
+	private void drawEffects() {
+		int ex = EFFECTS_X;
+		int ey = EFFECTS_Y;
 		
 		for (Entry<Effect, Integer> e : run.pg.effects.entrySet()) {
-			p.spr(e.getKey().sprite, ex + 42, ey, 8);
-			p.print(e.getValue().toString(), ex + 42 + 9, ey + 1, 15, Align.LEFT);
-			ey = ey + 9;
+			
+			p.spr(e.getKey().sprite, ex, ey, 8);
+			p.print(e.getValue().toString(), ex + 9, ey + 1, 15, Align.LEFT);
+			ey = ey + EFFECTS_SPACING;
 		}
 	}
 	
@@ -1005,8 +1016,16 @@ public class DoorsOfDoom implements Game, GameInterface {
 		currWidget = new ConfirmWidget(this, p, question, onYes, onNo);
 	}
 
+	private boolean inside(Pointer m, int x1, int y1, int x2, int y2)
+	{
+		return m.x()>=x1 &&
+				m.x()<x2 &&
+				m.y()>=y1 &&
+				m.y()<y2;
+	}
 	public boolean update() {
 		m = Sys.pointers()[0];
+		
 		
 		if (currWidget != null) {
 			if (!currWidget.update(m)) currWidget = null;
@@ -1016,6 +1035,22 @@ public class DoorsOfDoom implements Game, GameInterface {
   		*/
 		} else {
 			// if (m.btn[0] && !oldClick) {
+			
+			if(m.btnp(0) && step == OUTDOOR && m.x() <= 70 ) {
+				
+				if(inside(m, 30 ,50, 50, 65))
+				{
+					System.out.println("TOC TOC");
+				}
+				
+			}
+			
+			if(m.btnp(0) && m.x()>=142 && m.x()<=160 && m.y()>50)
+			{
+				clickOnEffect(m.x()-142, m.y()-50);
+			}
+			
+			
 			if (!anims.isRunning()) {
 				// doSound(1, 1f, r.nextFloat()*1.5f+0.5f);
 				buttons.update(m);
@@ -1029,6 +1064,19 @@ public class DoorsOfDoom implements Game, GameInterface {
 		return true;
 	}
 	
+	private void clickOnEffect(int x, int y) {
+		int idx = y/9;
+		int numEffects = run.pg.effects.size();
+		if(idx < numEffects)
+		{
+			Effect e = new ArrayList<>(run.pg.effects.entrySet()).get(idx).getKey();
+			log.add( /*-1, e.sprite, 15, " ", */ e.positive ?  11 : 6, e.name, 15, ":");
+			log.add(15, e.desc);
+		}
+		
+		
+	}
+
 	@Override
 	public SysConfig sysConfig() {
 		return new SysConfig(240, 136, VirtualScreenMode.FILL_SIDE, "Doors of Doom", "doorsofdoom");

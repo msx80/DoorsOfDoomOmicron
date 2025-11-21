@@ -22,7 +22,11 @@ public class CreditsWidget extends RichWidget {
 		return Arrays.asList(
 			Richtext.of(12, "Doors Of Doom", 15, " - (c) 2024"),
 			Richtext.of(""),
-			Richtext.of(15, "An open source game by ", 14, "MSX"),
+			Richtext.of(15, "An open source game by: "),
+			Richtext.of(15, ""),
+			Richtext.of(14, "MSX"),
+			Richtext.of(15, ""),
+			Richtext.with(15, "Find me on the Fediverse: "),
 			Richtext.with("https://livellosegreto.it/@msx", 13, "https://livellosegreto.it/@msx"),
 			Richtext.of(""),
 			Richtext.with("https://github.com/msx80/DoorsOfDoomOmicron/", 13, "Sources on Github"),

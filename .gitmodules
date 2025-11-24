@@ -1,0 +1,3 @@
+[submodule "Omicron"]
+	path = Omicron
+	url = https://github.com/msx80/Omicron.git

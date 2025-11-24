@@ -15,13 +15,7 @@ jobs:
     - name: Checkout Doors of Doom code
       uses: actions/checkout@v4
       with:
-        path: main
-    - name: Checkout Omicron code
-      uses: actions/checkout@v4
-      with:
-        repository: msx80/omicron
-        path: omicron
-        ref: 0.0.12
+        submodules: 'true'
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
@@ -29,16 +23,16 @@ jobs:
         distribution: 'temurin'
     - name: Build app
       run: |
-        cd main/doorsofdoom
+        cd doorsofdoom
         mvn --batch-mode clean install package
     - name: Deploy cartridge
       uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom.omicron'
-        path: main/doorsofdoom/doorsofdoom.omicron
+        path: doorsofdoom/doorsofdoom.omicron
     - name: Read version
       run: |
-        cd main/doorsofdoom
+        cd doorsofdoom
         echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
     - name: Build desktop
       run: |

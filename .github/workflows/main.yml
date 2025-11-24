@@ -36,13 +36,13 @@ jobs:
         echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
     - name: Build desktop
       run: |
-        cd omicron/wrappers/desktop-wrapper
+        cd Omicron/wrappers/desktop-wrapper
         ./mvnw --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package
     - name: Deploy Desktop
       uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom-desktop.jar'
-        path: omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
+        path: Omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     - name: Install android sdk packages        
@@ -50,18 +50,18 @@ jobs:
         sdkmanager "build-tools;33.0.2" "platforms;android-26"        
     - name: Build android
       run: |
-        cd omicron/wrappers/android-wrapper
+        cd Omicron/wrappers/android-wrapper
         ./gradlew -Pcartridge.artifactId=doorsofdoom -Pcartridge.groupId=com.github.msx80.omicron -Pcartridge.version=$GITHUB_DDVER clean assembleRelease
     - name: Deploy Unsigned Apk
       uses: actions/upload-artifact@v4
       with:
         name: 'doorsofdoom-unsigned.apk'
-        path: omicron/wrappers/android-wrapper/app/build/outputs/apk/release/app-release-unsigned.apk
+        path: Omicron/wrappers/android-wrapper/app/build/outputs/apk/release/app-release-unsigned.apk
     - uses: ilharp/sign-android-release@v1
       name: Sign app APK
       id: sign_app
       with:
-        releaseDir: omicron/wrappers/android-wrapper/app/build/outputs/apk/release
+        releaseDir: Omicron/wrappers/android-wrapper/app/build/outputs/apk/release
         signingKey: ${{ secrets.SIGNING_KEY }}
         keyAlias: ${{ secrets.SIGNING_ALIAS }}
         keyStorePassword: ${{ secrets.SIGNING_PASSWORD }}

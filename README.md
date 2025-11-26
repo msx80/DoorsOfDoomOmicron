@@ -13,9 +13,9 @@
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/com.github.msx80.doorsofdoom/)
 
-A porting of my [TIC-80 Game Doors of Doom](https://tic80.com/play?cart=786) ([sources](https://github.com/msx80/DoorsOfDoom)) to Omicron.
-
 *Adventure into the dungeon of infinite doors! Behind each, a monster awaits!*
+
+# Now you can play in the browser [HERE](https://msx80.github.io/DoorsOfDoomOmicron/)! No install or download!
 
 ![Screenshot](https://github.com/msx80/DoorsOfDoomOmicron/blob/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png?raw=true)
 
@@ -26,6 +26,7 @@ A simple RPG where you open doors and fight the monsters behind! They drop loot,
   - Win Music by: [Vincent Fasano](https://www.vincentfasano.com/)
 
 Powered by [Omicron](https://github.com/msx80/Omicron)
+A porting of my [TIC-80 Game Doors of Doom](https://tic80.com/play?cart=786) ([sources](https://github.com/msx80/DoorsOfDoom)) to Omicron.
 
 ![Screenshot](https://github.com/msx80/DoorsOfDoomOmicron/blob/main/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png?raw=true)
 

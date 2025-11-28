@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class Pg extends Entity {
+import com.github.msx80.doorsofdoom.dump.DumpReader;
+import com.github.msx80.doorsofdoom.dump.DumpWriter;
+import com.github.msx80.doorsofdoom.dump.Dumpable;
+
+public class Pg extends Entity implements Dumpable {
 	
 	public Map<Item, Integer> inventory = new HashMap<Item, Integer>();
 	public Map<Place, Item> equip = new HashMap<Place, Item>();
@@ -17,6 +22,31 @@ public class Pg extends Entity {
 	
 	public Range attack = Range.of(2, 4);
 	public int armour = 0;
+	
+	
+	@Override
+	public void dump(DumpWriter out) {
+		out.dump(hp);
+		out.dump(maxHp);
+		out.dump(armour);
+		out.dump(blockedRemainder);
+		out.dump(attack);
+		out.dump(inventory);
+		out.dump(equip);
+		out.dump(effects);
+	}
+
+	@Override
+	public void load(DumpReader in) {
+		hp = in.loadInt();
+		maxHp = in.loadInt();
+		armour = in.loadInt();
+		blockedRemainder = in.loadFloat();
+		attack = in.loadDumpable(Range::new);
+		inventory = in.loadMap( Item.class, Integer.class);
+		equip = in.loadMap(Place.class, Item.class);
+		effects = in.loadMap( Effect.class, Integer.class);
+	}
 	
 	public Pg() {
 		hp = 20;
@@ -150,4 +180,26 @@ public class Pg extends Entity {
 		}
 		ricalcola();
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(armour, attack, blockedRemainder, effects, equip, inventory);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pg other = (Pg) obj;
+		return armour == other.armour && Objects.equals(attack, other.attack)
+				&& Float.floatToIntBits(blockedRemainder) == Float.floatToIntBits(other.blockedRemainder)
+				&& Objects.equals(effects, other.effects) && Objects.equals(equip, other.equip)
+				&& Objects.equals(inventory, other.inventory);
+	}
+
+
 }

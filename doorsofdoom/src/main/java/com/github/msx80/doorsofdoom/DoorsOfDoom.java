@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import com.github.msx80.doorsofdoom.anim.Animation;
 import com.github.msx80.doorsofdoom.anim.AnimationManager;
 import com.github.msx80.doorsofdoom.anim.Easing;
+import com.github.msx80.doorsofdoom.dump.Dumpable;
 import com.github.msx80.doorsofdoom.model.Craft;
 import com.github.msx80.doorsofdoom.model.Effect;
 import com.github.msx80.doorsofdoom.model.GameInterface;
@@ -330,6 +331,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	public void init() {
+		
+		Sys.trace("Initalizing Door of Doom");
 		/*
 		// experiment with calculated spawn windows.
 		// normalize monsters levels
@@ -340,9 +343,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		//String platform = (String) Sys.hardware("com.github.msx80.omicron.plugins.builtin.PlatformPlugin", "PLATFORM", null);
 		//cursor = platform.contains("DESKTOP");
-		this.r = new Random(Sys.millis());
-		
-		
+		DoorsOfDoom.r = new Random(Sys.millis());
 		
 		try {
 			Sys.hardware("com.github.msx80.omicron.plugins.builtin.StatePlugin", "ON_RESUME", (Runnable )this::onResume);
@@ -364,9 +365,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		buttons = new ButtonWidget(p, BUTTONS_X, 10, 73, 86);
 		run.init();
-		
 		if (musicOn()) Sys.music(1, MUSIC_VOLUME, true);
-		
 		Callable<List<Action>> introOptions = () -> {
 			List<Action> list = new ArrayList<>();
 			list.add(new Action("New Game!", this::actionNewGame));
@@ -439,12 +438,6 @@ public class DoorsOfDoom implements Game, GameInterface {
 				}
 			}));
 			
-			//list.add(new Action("Robe", this::unimplemented));
-			//list.add(new Action("Ciccio", this::unimplemented));
-			//list.add(new Action("Pasticcio", this::unimplemented));
-			//list.add(new Action("AAA prova", this::unimplemented));
-			//list.add(new Action("Back", () -> {enterStep(INTRO);}));
-			
 			List<Item> keys = new ArrayList<>( run.pg.inventory.keySet() );
 			Collections.sort(keys);
 			
@@ -481,10 +474,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		DEATH = makeDeathStep();
 		
-		
 		WIN = makeWinStep();
-		
-		
 		
 		enterStep(INTRO);
 	}
@@ -504,7 +494,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		{
 			Sys.trace("Saving config..");
 			
-			String s = run.dump();
+			String s = Dumpable.dumpToString(run);
 			Sys.mem("savestate", stepToString(step)+s);
 		}
 		else if (step == INTRO || step == SETTINGS)
@@ -548,16 +538,23 @@ public class DoorsOfDoom implements Game, GameInterface {
 		{
 			doSound(15, 1f, 1f);
 			step = stringToStep(saveState.substring(0, 1));
-			run = Run.load(saveState.substring(1));
-			deleteSavestate();
-			refreshCommands();
-
-			log.add("");
-			log.add(5, "--=======================================================--");
-			log.add(15, "         You resume your previous game.");
-			log.add(5, "--=======================================================--");
-			log.add("");
-			
+			String dump = saveState.substring(1);
+			if(dump.startsWith("{"))
+			{
+				log.add("Sorry, old format.. :( cannot reload game.");
+			}
+			else
+			{
+				run = Dumpable.loadFromString(dump, Run::new);
+				deleteSavestate();
+				refreshCommands();
+	
+				log.add("");
+				log.add(5, "--=======================================================--");
+				log.add(15, "         You resume your previous game.");
+				log.add(5, "--=======================================================--");
+				log.add("");
+			}
 			
 			
 		}

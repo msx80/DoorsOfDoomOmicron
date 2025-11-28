@@ -1,9 +1,19 @@
 package com.github.msx80.doorsofdoom.model;
 
-import com.github.msx80.doorsofdoom.DoorsOfDoom;
-import com.google.gson.Gson;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-public class Run {
+import com.github.msx80.doorsofdoom.DoorsOfDoom;
+import com.github.msx80.doorsofdoom.dump.DumpReader;
+import com.github.msx80.doorsofdoom.dump.DumpWriter;
+import com.github.msx80.doorsofdoom.dump.Dumpable;
+
+public class Run implements Dumpable{
 	public Pg pg;
 	public int level;
 	public int kills;
@@ -14,6 +24,38 @@ public class Run {
 	public int shake = 0;
 	public int shakePg = 0;
 	public boolean exited = false;
+	
+	
+	@Override
+	public void dump(DumpWriter out) {
+		out.dump(pg);
+		out.dump(level);
+		out.dump(kills);
+		out.dump(monster);
+		out.dump(gold);
+		out.dump(lootQty);
+		out.dump(lootItem);
+		out.dump(shake);
+		out.dump(shakePg);
+		out.dump(exited);
+		
+	}
+
+	@Override
+	public void load(DumpReader in) {
+		pg = in.loadDumpable(Pg::new);
+		level = in.loadInt();
+		kills = in.loadInt();
+		monster = in.loadDumpable(Monster::new);
+		gold = in.loadInt();
+		lootQty = in.loadInt();
+		lootItem = in.loadEnum(Item.class);
+		shake = in.loadInt();
+		shakePg = in.loadInt();
+		exited = in.loadBoolean();
+	}
+
+	
 	public Run() {
 		pg = new Pg();	
 	
@@ -146,18 +188,24 @@ public class Run {
 			+ (exited ? DoorsOfDoom.EXIT_BONUS : 0);
 	}
 	
-	public String dump()
-	{
-		Gson g = new Gson();
-		String s = g.toJson(this);
-		System.out.println(s);
-		return s;
+	@Override
+	public int hashCode() {
+		return Objects.hash(exited, gold, kills, level, lootItem, lootQty, monster, pg, shake, shakePg);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Run other = (Run) obj;
+		return exited == other.exited && gold == other.gold && kills == other.kills && level == other.level
+				&& lootItem == other.lootItem && lootQty == other.lootQty && Objects.equals(monster, other.monster)
+				&& Objects.equals(pg, other.pg) && shake == other.shake && shakePg == other.shakePg;
 	}
 	
-	public static Run load(String s)
-	{
-		Gson g = new Gson();
-		Run r = g.fromJson(s, Run.class);
-		return r;
-	}
+	
 }

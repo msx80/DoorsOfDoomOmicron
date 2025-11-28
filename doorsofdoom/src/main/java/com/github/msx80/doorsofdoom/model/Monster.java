@@ -1,8 +1,34 @@
 package com.github.msx80.doorsofdoom.model;
 
-public class Monster extends Entity {
+import java.util.Objects;
+
+import com.github.msx80.doorsofdoom.dump.DumpReader;
+import com.github.msx80.doorsofdoom.dump.DumpWriter;
+import com.github.msx80.doorsofdoom.dump.Dumpable;
+
+public class Monster extends Entity implements Dumpable {
 	public MonsterDef type;
 	public Range attack;
+	
+	
+	@Override
+	public void dump(DumpWriter out) {
+		out.dump(hp);
+		out.dump(maxHp);
+		out.dump(type);
+		out.dump(attack);
+		
+	}
+
+	@Override
+	public void load(DumpReader in) {
+		hp = in.loadInt();
+		maxHp = in.loadInt();
+		type = in.loadEnum(MonsterDef.class);
+		attack = in.loadDumpable(Range::new);
+	}
+	public Monster() {
+	}
 	
 	public Monster(MonsterDef type) {
 		this.type = type;
@@ -32,6 +58,27 @@ public class Monster extends Entity {
 	public String toString() {
 		return "Monster " + type + " attack " + attack + ", hp = "+hp;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(attack, type);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Monster other = (Monster) obj;
+		return Objects.equals(attack, other.attack) && type == other.type;
+	}
+	
 	
 	
 }

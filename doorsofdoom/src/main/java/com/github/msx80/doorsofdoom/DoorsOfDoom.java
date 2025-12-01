@@ -88,6 +88,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	Boolean sound = null;
 	Boolean music = null;
 	Boolean cursor = null;
+	Boolean fastAnim = null;
 	
 	Step INTRO;
 	Step OPENING;
@@ -394,6 +395,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			new Action("Sound: " + (soundOn() ? "ON" : "OFF"), () -> {toggleSound(); doSound(14, 1f, 1f); refreshCommands();}),
 			new Action("Music: " + (musicOn() ? "ON" : "OFF"), () -> {toggleMusic(); refreshCommands();}),
 			new Action("Cursor: " + (cursorOn() ? "ON" : "OFF"), () -> {toggleCursor(); refreshCommands();}),
+			new Action("Fast: " + (fastAnimOn() ? "ON" : "OFF"), () -> {toggleFastAnim(); refreshCommands();}),
 			new Action("Credits", () -> { currWidget = new CreditsWidget(this, p, 4, 4, 240 - 8, 91); }),
 			new Action("Back", () ->  {enterStep(INTRO);} )
 		));
@@ -675,6 +677,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 		return cursor;
 	}
 	
+	private boolean fastAnimOn() {
+		if (fastAnim == null) fastAnim = !"OFF".equals(Sys.mem("FASTANIM"));
+		return fastAnim;
+	}
+	
 	private void toggleMusic() {
 		music = !musicOn();
 		Sys.mem("MUSIC", music ? "ON" : "OFF");
@@ -688,6 +695,12 @@ public class DoorsOfDoom implements Game, GameInterface {
 	private void toggleCursor() {
 		cursor = !cursorOn();
 		Sys.mem("CURSOR", cursor ? "ON" : "OFF");
+	}
+	
+	private void toggleFastAnim() {
+		fastAnim = !fastAnimOn();
+		Sys.mem("FASTANIM", fastAnim ? "ON" : "OFF");
+		anims.setFast(fastAnim);
 	}
 	
 	void openDoor() {

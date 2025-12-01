@@ -60,6 +60,7 @@ public class Craft {
 		Craft.of(Item.FlamingSword, Item.Phlogiston, 15, Item.Sword, 1),
 		Craft.of(Item.GhostSword, Item.Ectoplasm, 15, Item.Sword, 1),
 		Craft.of(Item.VenomSword, Item.Venom, 15, Item.Sword, 1),
+		Craft.of(Item.GoldenSword, Item.VenomSword, 1, Item.GhostSword, 1, Item.FlamingSword, 1, Item.Scroll, 1),
 		
 		Craft.of(Item.Hamburger, Item.Bread, 1, Item.Tomato, 1, Item.Cheese, 1),
 		Craft.of(Item.Bomb, Item.Phlogiston, 2, Item.Ectoplasm, 3),
@@ -109,12 +110,21 @@ public class Craft {
 		ArrayList<Object> o = new ArrayList<Object>();
 		o.add(-1);
 		o.add(output.sprite);
+		o.add(-2);
+		o.add(1);
 		o.add(15);
 		o.add(" = ");
+		o.add(-2);
+		o.add(1);
 		
 		for (Entry<Item, Integer> e : ingredients.entrySet()) {
 			o.add(-1);
 			o.add(e.getKey().sprite);
+			if(ingredients.size()>3)
+			{
+				o.add(-2);
+				o.add(2);
+			}
 			o.add(15);
 			o.add(" " + e.getValue() + " ");
 			if(count>1)

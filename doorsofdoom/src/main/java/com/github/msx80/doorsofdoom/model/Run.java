@@ -91,7 +91,7 @@ public class Run implements Dumpable{
 		
 		
 		
-		/*
+		
 		pg.inventoryAdd(Item.Map, 1);
 		pg.inventoryAdd(Item.Rock, 1000);
 		pg.inventoryAdd(Item.Slingshot, 1);
@@ -159,13 +159,17 @@ public class Run implements Dumpable{
 		pg.inventoryAdd(Item.Clover, 1);
 		pg.inventoryAdd(Item.Tomato, 1);
 		pg.inventoryAdd(Item.Shield, 15);
+		pg.inventoryAdd(Item.Scroll, 15);
 		pg.inventoryAdd(Item.Shirt, 15);
 		pg.inventoryAdd(Item.Helm, 15);
 		pg.inventoryAdd(Item.Bone, 15);
 		pg.inventoryAdd(Item.FlamingSword, 1);
 		pg.inventoryAdd(Item.Sword, 1);
 		pg.inventoryAdd(Item.Claw, 1);
-		*/
+		
+		for (Item i : Item.values()) {
+			pg.inventoryAdd(i, 5);
+		}
 		
 		/*
   		pg.equip(Item.FlamingSword);

@@ -42,12 +42,12 @@ public class PrintUtils {
 	
 	public void richPrint(int sx, int sy, Object... tokens) {
 		
-	    	if ((tokens.length == 1) && (tokens[0] instanceof String)) {
+		if ((tokens.length == 1) && (tokens[0] instanceof String)) {
 	    		print((String) tokens[0], sx, sy, 15, Align.LEFT);
 	    		return;
 		}
 		
-	    	for (int i = 0; i < tokens.length; i += 2) {
+		for (int i = 0; i < tokens.length; i += 2) {
 			Integer c = (Integer) tokens[i];
 			Object p1 = tokens[i + 1];
 			
@@ -56,6 +56,8 @@ public class PrintUtils {
 				spr((Integer)p1, sx, sy-1, 0);
 				w = 8;
 				//throw new RuntimeException("Sprite not supported yet in richprint");
+			} else	if (c == -2) {
+				w = - (Integer)p1;
 			} else {
 				String str = p1.toString();
 				w = font.width(str);
@@ -65,21 +67,7 @@ public class PrintUtils {
 			sx = sx + w;
 		}
 		
-		    /*if type(tokens)=="string" then
-		      print(tokens,sx,sy,15,false,1,false)
-		    else
-		      for n=1,#tokens,2 do
-		        local str = tokens[n+1]
-		        local c = tokens[n]
-		        local w
-		        if c == -1 then
-		        
-		        else
-		         w = print(str,sx,sy,c,false,1,false)
-		        end
-		        sx=sx+w
-		      end
-		    end*/
+		  
 	}
 
 	public void printBig(String string, int x, int y, int color, Align a) {

@@ -20,9 +20,10 @@ public enum Item {
 	FlamingSword("Flaming Sword", 320, new String[] {"The badassery", "made sword."}, 0, Place.Left, Range.of(15, 20), null, null),
 	GhostSword("Ghost Sword", 336, new String[] {"Spooky and", "deadly."}, 0, Place.Left, Range.of(13, 22), null, null),
 	VenomSword("Venom Sword", 337, new String[] {"Be careful when", "you sheathe this."}, 0, Place.Left, Range.of(14, 23), null, null),
+	GoldenSword("Golden Sword", 360, new String[] {"The single most", "legendary item", "ever."}, 0, Place.Left, Range.of(20, 35), null, null),
 	
 	// legs
-	Pants("Fancy Panties", 306, new String[] {"The latest in fashion."}, 5, Place.Legs, null, null, null),
+	Pants("Fancy Panties", 306, new String[] {"The latest in","fashion."}, 5, Place.Legs, null, null, null),
 	Throusers("Throusers", 290, new String[] {"Sweet leather on", "your legs."}, 12, Place.Legs, null, null, null),
 	Greaves("Greaves", 331, new String[] {"Iron shins."}, 16, Place.Legs, null, null, null),
 	DuraniumChausses("Duranium Chausses", 349, new String[] {"Best leg apparel", "ever"}, 20, Place.Legs, null, null, null),
@@ -50,7 +51,7 @@ public enum Item {
 	
 	Key("Key", 319, new String[] {"Opens doors.", "Be careful not to", "run out of them."}, 0, null, null, null, null),
 	KeyRing("Keyring", 353, new String[] {"Contains exacly ",Craft.GROUP_PURCHASE+" keys"}, 0, null, null, Usable.of("Open", keyRing()), null),
-	Cheese("Cheese", 317, new String[] {"Stinky and delicious.", "", "Heal 4 hp."}, 0, null, null, Usable.of("Eat", (i, g) -> foodHealing(i, g, 4)), null),
+	Cheese("Cheese", 317, new String[] {"Stinky and","delicious.", "", "Heal 4 hp."}, 0, null, null, Usable.of("Eat", (i, g) -> foodHealing(i, g, 4)), null),
 	Blood("Blood", 265,  new String[] {"It's always good", "to bring some", "around."}, 0, null, null, null, null),
 	Leather("Leather", 297, new String[] {"Ready to be", "stitched."}, 0, null, null, null, null), 
 	Venom("Venom", 266, new String[] {"Handle with care."}, 0, null, null, null, null),

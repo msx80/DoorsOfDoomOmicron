@@ -91,7 +91,7 @@ public class Run implements Dumpable{
 		
 		
 		
-		
+		/*
 		pg.inventoryAdd(Item.Map, 1);
 		pg.inventoryAdd(Item.Rock, 1000);
 		pg.inventoryAdd(Item.Slingshot, 1);
@@ -171,16 +171,7 @@ public class Run implements Dumpable{
 			pg.inventoryAdd(i, 5);
 		}
 		
-		/*
-  		pg.equip(Item.FlamingSword);
-  		pg.equip(Item.Armour);
-  		pg.equip(Item.Helm);
-  		pg.equip(Item.Greaves);
-  		pg.equip(Item.Shield);
-  		*/
-       		// run.monster = new Monster(MonsterDef.SNAKE);
-       		//pg.addEffect(Effect.GHOSTLY);
-       		//pg.addEffect(Effect.BARRIER);
+		*/
        		
 	}
 	

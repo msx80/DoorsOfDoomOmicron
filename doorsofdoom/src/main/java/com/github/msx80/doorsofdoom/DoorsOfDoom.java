@@ -678,7 +678,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	}
 	
 	private boolean fastAnimOn() {
-		if (fastAnim == null) fastAnim = !"OFF".equals(Sys.mem("FASTANIM"));
+		if (fastAnim == null) fastAnim = "ON".equals(Sys.mem("FASTANIM"));
 		return fastAnim;
 	}
 	

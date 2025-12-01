@@ -38,6 +38,10 @@ jobs:
       run: |
         cd Omicron/wrappers/desktop-wrapper
         ./mvnw --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package
+    - name: Build web
+      run: |
+        cd Omicron/wrappers/web-wrapper
+        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean compile package
     - name: Deploy Desktop
       uses: actions/upload-artifact@v4
       with:

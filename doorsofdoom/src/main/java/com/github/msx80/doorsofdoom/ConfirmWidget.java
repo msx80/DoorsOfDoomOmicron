@@ -72,6 +72,8 @@ public class ConfirmWidget extends Widget<Action> {
 	@Override
 	public void drawItem(int ax, int ay, int idx, Action a) {
 		p.drawBtn(ax,ay+1,w-1,ITEM_HEIGHT-2);
-		p.richPrint(ax + 2, ay + 4, a.label.tokens);		
+		
+		
+		p.richPrint(ax + w/2 - 10, ay + 7, a.label.tokens);		
 	}
 }

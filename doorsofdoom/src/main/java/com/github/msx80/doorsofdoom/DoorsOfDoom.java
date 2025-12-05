@@ -103,6 +103,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	private void actionNewGame() {
 		Runnable newGame = () -> {
+			anims.setFast(fastAnimOn());
 			doSound(15, 1f, 1f);
 			log.add("");
 			log.add(5, "--=======================================================--");
@@ -535,6 +536,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		Sys.mem("savestate", null);
 	}
 	private void restoreFromSavestate() {
+		anims.setFast(fastAnimOn());
 		String saveState = Sys.mem("savestate");
 		if(saveState != null && !saveState.isEmpty())
 		{

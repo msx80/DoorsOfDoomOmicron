@@ -5,7 +5,7 @@
 	<artifactId>doorsofdoom</artifactId>
 	<groupId>com.github.msx80.omicron</groupId>
 	<!-- NOTE: keep Major and Minor version at 0 because Incremental is used to derive versionCode for android -->
-	<version>0.0.8</version>
+	<version>0.0.9</version>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

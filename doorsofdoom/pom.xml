@@ -6,6 +6,7 @@
 	<groupId>com.github.msx80.omicron</groupId>
 	<!-- NOTE: keep Major and Minor version at 0 because Incremental is used to derive versionCode for android -->
 	<version>0.0.9</version>
+
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,6 +14,115 @@
 		<maven.compiler.target>8</maven.compiler.target>
 		<omicron.engine.version>0.0.12</omicron.engine.version>
 	</properties>
+
+	<profiles>
+	    <profile>
+            <id>cartridge</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+			            <plugin>
+				            <artifactId>maven-assembly-plugin</artifactId>
+				            <configuration>
+					            <descriptorRefs>
+						            <descriptorRef>jar-with-dependencies</descriptorRef>
+					            </descriptorRefs>
+				            </configuration>
+				            <executions>
+					            <execution>
+						            <id>make-assembly</id>
+						            <phase>package</phase>
+						            <goals>
+							            <goal>single</goal>
+						            </goals>
+					            </execution>
+				            </executions>
+			            </plugin>
+			            <plugin>
+				            <!-- rename the generated jar to an omicron cartridge -->
+				            <groupId>com.coderplus.maven.plugins</groupId>
+				            <artifactId>copy-rename-maven-plugin</artifactId>
+				            <version>1.0</version>
+				            <executions>
+					            <execution>
+						            <id>rename-file</id>
+						            <phase>package</phase>
+						            <goals>
+							            <goal>copy</goal>
+						            </goals>
+						            <configuration>
+							            <sourceFile>${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar</sourceFile>
+							            <destinationFile>${project.artifactId}.omicron</destinationFile>
+						            </configuration>
+					            </execution>
+				            </executions>
+			            </plugin>
+                
+                </plugins>
+            </build>
+        </profile>
+	    <profile>
+            <id>desktop</id>
+            <dependencies>
+		          <dependency>
+			          <groupId>com.github.msx80.omicron</groupId>
+			          <version>${omicron.engine.version}</version>
+			          <artifactId>desktop-lib</artifactId>
+		          </dependency>
+            </dependencies>
+              <build>
+                <plugins>
+			            <plugin>
+				            <artifactId>maven-assembly-plugin</artifactId>
+				            <configuration>
+				            <archive>
+                    <manifest>
+                      <mainClass>com.github.msx80.omicron.MainLauncher</mainClass>
+                    </manifest>
+                  </archive>
+					            <descriptorRefs>
+						            <descriptorRef>jar-with-dependencies</descriptorRef>
+					            </descriptorRefs>
+				            </configuration>
+				            <executions>
+					            <execution>
+						            <id>make-assembly</id>
+						            <phase>package</phase>
+						            <goals>
+							            <goal>single</goal>
+						            </goals>
+					            </execution>
+				            </executions>
+			            </plugin>
+			            <plugin>
+				            <!-- rename the generated jar to an omicron cartridge -->
+				            <groupId>com.coderplus.maven.plugins</groupId>
+				            <artifactId>copy-rename-maven-plugin</artifactId>
+				            <version>1.0</version>
+				            <executions>
+					            <execution>
+						            <id>rename-file</id>
+						            <phase>package</phase>
+						            <goals>
+							            <goal>copy</goal>
+						            </goals>
+						            <configuration>
+							            <sourceFile>${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar</sourceFile>
+							            <destinationFile>${project.artifactId}-desktop.jar</destinationFile>
+						            </configuration>
+					            </execution>
+				            </executions>
+			            </plugin>
+                
+                </plugins>
+            </build>
+
+      </profile>            
+        
+	</profiles>
+
 	<repositories>
 		<repository>
 			<id>jitpack.io</id>
@@ -71,6 +181,20 @@
 		
 	</resources>
 		<plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-help-plugin</artifactId>
+            <version>3.2.0</version>
+            <executions>
+                <execution>
+                    <id>show-profiles</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>active-profiles</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>		
 			<plugin>
   <groupId>io.github.git-commit-id</groupId>
   <artifactId>git-commit-id-maven-plugin</artifactId>
@@ -103,43 +227,6 @@
 							<files>
 								<file>${project.build.resources[0].directory}/omicron.properties</file>
 							</files>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<!-- generate fat jar with the dependencies -->
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<!-- rename the generated jar to an omicron cartridge -->
-				<groupId>com.coderplus.maven.plugins</groupId>
-				<artifactId>copy-rename-maven-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<id>rename-file</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<sourceFile>${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar</sourceFile>
-							<destinationFile>${project.artifactId}.omicron</destinationFile>
 						</configuration>
 					</execution>
 				</executions>

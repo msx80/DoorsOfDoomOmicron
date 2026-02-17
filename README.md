@@ -9,11 +9,15 @@
 
 # DoorsOfDoom
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+[<img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Get_it_on_F-Droid_%28material_design%29.svg"
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/com.github.msx80.doorsofdoom/)
+[<img height='80' alt='Get it on Flathub' src='https://flathub.org/api/badge?svg&locale=en'/>](https://flathub.org/apps/io.github.msx80.DoorsOfDoomOmicron)
+[<img height='80' alt='Play in your browser' src='https://cdn.prod.website-files.com/62f10984b7ece0cd68b339a1/634414e97c8fd43650e0f799_play-in-browser.svg'/>](https://msx80.github.io/DoorsOfDoomOmicron/)
 
 *Adventure into the dungeon of infinite doors! Behind each, a monster awaits!*
+
+
 
 # Now you can play in the browser [HERE](https://msx80.github.io/DoorsOfDoomOmicron/)! No install or download!
 

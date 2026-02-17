@@ -4,6 +4,10 @@
 ![F-Droid Version](https://img.shields.io/f-droid/v/com.github.msx80.doorsofdoom)
 ![GitHub Discussions](https://img.shields.io/github/discussions/msx80/DoorsOfDoomOmicron)
 [![Powered by Omicron](https://img.shields.io/badge/Powered_by-Omicron-Green)](https://github.com/msx80/Omicron)
+[![Flathub](https://img.shields.io/flathub/v/io.github.msx80.DoorsOfDoomOmicron)](https://flathub.org/apps/io.github.msx80.DoorsOfDoomOmicron)
+[![Flathub Installs](https://img.shields.io/flathub/downloads/io.github.msx80.DoorsOfDoomOmicron?label=Flathub%20Installs
+)](https://flathub.org/apps/io.github.msx80.DoorsOfDoomOmicron)
+
 
 
 

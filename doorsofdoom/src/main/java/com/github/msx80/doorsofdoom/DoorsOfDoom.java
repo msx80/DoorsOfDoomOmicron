@@ -3,6 +3,7 @@ package com.github.msx80.doorsofdoom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -49,8 +50,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 	public static final int SPRITE_DAMAGE = 25;
 	public static final int BEE_DAMAGE = 10;
 	
-	public final int BUTTONS_X = 167; // 8 * 12 + 3;
-	public final int STATS_X = 97; // 8 * 12 + 3;
+	public static final int BUTTONS_X = 167; // 8 * 12 + 3;
+	public static final int STATS_X = 97; // 8 * 12 + 3;
 	
 	public final int EFFECTS_X = 142;
 	public final int EFFECTS_Y = 50;
@@ -426,7 +427,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 			list.add(new Action("Open Door!", this::openDoor));
 			
 			list.add(new Action("Inventory", () -> {
-				currWidget  = new InventoryWidget(this, zoomsurf, p, 2, 2, 127, 92);
+				currWidget  = new InventoryWidget(null, this, zoomsurf, p, 2, 2, 127, 92);
 				doSound(14, 1f, 1f);
 			}));
 			
@@ -932,12 +933,21 @@ public class DoorsOfDoom implements Game, GameInterface {
 		p.print("Stats", STATS_X + 20, 2, 15, Align.LEFT);
 		// p.print("Equip:", STATS_X + 2, 8 + 32, 15, Align.LEFT);
 		
-		int cx = STATS_X+3;
-		int cy = 50;
-		drawEquip(cx, cy);
+		drawEquip();
 	}
 	
-	private void drawEquip(int cx, int cy) {
+	
+	EnumSet<Place> available = EnumSet.noneOf(Place.class);
+	private void drawEquip() {
+		
+		available.clear();
+		run.pg.inventory.keySet().forEach(i -> { 
+			if(i.equip != null) available.add(i.equip); 
+		});
+		
+		int cx = Place.EQUIP_START_X;
+		int cy = Place.EQUIP_START_Y;
+		
 		int ax = 0;
 		int ay = 0;
 		
@@ -960,9 +970,16 @@ public class DoorsOfDoom implements Game, GameInterface {
 			int sprite = p.defaultSprite;
 			Item i = run.pg.equip.get(p);
 			
-			if (i != null) sprite = i.sprite;
-			
+			if (i != null) 
+			{
+				sprite = i.sprite;
+			}
+			else
+			{
+				if(available.contains(p)) sprite = p.defaultSprite+16; // hightlight possible equip
+			}
 			this.p.spr(sprite,cx+p.x, cy+p.y, 8);
+			
 		}
 		
 		drawEffects();
@@ -1048,6 +1065,8 @@ public class DoorsOfDoom implements Game, GameInterface {
 		} else {
 			// if (m.btn[0] && !oldClick) {
 			
+			
+			
 			if(m.btnp(0) && step == OUTDOOR && m.x() <= 70 ) {
 				
 				if(inside(m, 30 ,50, 50, 65))
@@ -1064,9 +1083,24 @@ public class DoorsOfDoom implements Game, GameInterface {
 			
 			
 			if (!anims.isRunning()) {
-				// doSound(1, 1f, r.nextFloat()*1.5f+0.5f);
-				buttons.update(m);
+				
+					buttons.update(m);
 			}
+			
+			if(m.btnp(0) && step == OUTDOOR)
+			{
+				for (Place p : Place.values()) {
+					int px = Place.EQUIP_START_X+p.x;
+					int py = Place.EQUIP_START_Y+p.y;
+					if(inside(m, px,py, px+8, py+8))
+					{
+						
+						clickedEquip(p);
+					}
+				}
+			}
+
+			
 			// }
 			
 			//oldClick = m.btn[0];
@@ -1076,6 +1110,25 @@ public class DoorsOfDoom implements Game, GameInterface {
 		return true;
 	}
 	
+	private void clickedEquip(Place p) {
+		System.out.println("You clicked "+p.name());
+		
+		long n = run.pg.inventory.keySet().stream().filter(e -> e.equip == p).count();
+		
+		if(n == 0)
+		{
+			log.add(15, "You have nothing to equip on ", 14, p.name());
+		}
+		else
+		{
+			log.add(15, "Equip something on ", 14, p.name());
+			currWidget  = new InventoryWidget(e -> e.equip == p, this, zoomsurf, this.p, 2, 2, 127, 92);
+			buttons.down = false; // ugly hack to avoid double clicks
+			doSound(14, 1f, 1f);
+
+		}
+	}
+
 	private void clickOnEffect(int x, int y) {
 		int idx = y/9;
 		int numEffects = run.pg.effects.size();

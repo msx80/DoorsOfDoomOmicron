@@ -1,6 +1,7 @@
 package com.github.msx80.doorsofdoom;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.github.msx80.doorsofdoom.model.GameInterface;
@@ -19,9 +20,12 @@ public class InventoryWidget extends RichWidget {
 	
 	private int btnx, btny, btnw, btnh;
 	private GameInterface g;
+	private Predicate<Item> filter;
 	
-	public InventoryWidget(GameInterface g, int zoomsurf, PrintUtils p, int x, int y, int w, int h) {
+	public InventoryWidget(Predicate<Item> filter, GameInterface g, int zoomsurf, PrintUtils p, int x, int y, int w, int h) {
 		super(p, x, y, w, h);
+		
+		this.filter = filter == null ? a -> true : filter;
 		
 		this.zoomsurf = zoomsurf;
 		this.g = g;
@@ -96,7 +100,7 @@ public class InventoryWidget extends RichWidget {
 			.keySet()
 			.stream()
 			.sorted((a, b) -> a.name.compareTo(b.name))
-			// .filter(i -> i.equip != null)
+			.filter(this.filter)
 			.map(i -> Richtext.with(i, -1, i.sprite, 15, " " + i.name, 14, " [" + pg.getInvCount(i) + "]"))
 			.collect(Collectors.toList());
 	}
@@ -119,7 +123,9 @@ public class InventoryWidget extends RichWidget {
 	@Override
 	protected boolean clickedOutside(int x, int y) {
 		if (x >= 222 && y <= 16) {
+			System.out.println("Exiting, "+((DoorsOfDoom) g).buttons.down);
 			g.doSound(18, 1f, 1f);
+			g.refreshCommands();
 			return false;
 		}
 		

@@ -431,10 +431,16 @@ public class DoorsOfDoom implements Game, GameInterface {
 				doSound(14, 1f, 1f);
 			}));
 			
-			list.add(new Action("Buy/Craft", () -> {
+			Richtext text = Richtext.of("Buy/Craft");
+			if(!run.seenCraft.containsAll(Craft.visible(run.pg)))
+				text = Richtext.of(14, "Buy/Craft");
+			
+			list.add(new Action(text, () -> {
 				if (Craft.visible(run.pg).size() > 0) {
 					log.add(15, "You have ", 11, ""+run.pg.getInvCount(Item.Gold), 14, " Gold.");
+					run.seenCraft.addAll(Craft.visible(run.pg));
 					currWidget  = new CraftWidget(this, p, 75, 16, 92, 78);
+					
 					doSound(14, 1f, 1f);
 				} else {
 					log.add(15, "You can't craft anything yet!");
@@ -1057,7 +1063,11 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		
 		if (currWidget != null) {
-			if (!currWidget.update(m)) currWidget = null;
+			if (!currWidget.update(m)) 
+			{
+				currWidget = null;
+				refreshCommands();
+			}
 		/*
   		} else if (craftWidget != null) {
 			if (!craftWidget.update(m)) craftWidget = null;

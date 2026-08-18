@@ -35,6 +35,9 @@ public class Craft {
 	}
 
 	public static final List<Craft> ALL = Arrays.asList(
+			
+		// ATTENTION: always add to the bottom as they are indexed in save state
+			
 		Craft.of(Item.Key, Item.Gold, KEY_COST),
 		Craft.of(GROUP_PURCHASE, Item.Key, Item.Gold, KEY_COST*GROUP_PURCHASE),
 		Craft.of(Item.SmallPotion, Item.Gold, 10),
@@ -73,7 +76,7 @@ public class Craft {
 		Craft.of(Item.DuraniumChausses, Item.Duranium, 2, Item.Greaves, 1)
 	);
 
-	public Craft(int count, Item output, Map<Item, Integer> ingredients) {
+	private Craft(int count, Item output, Map<Item, Integer> ingredients) {
 		this.output = output;
 		this.count = count;
 		this.ingredients = ingredients;
@@ -106,6 +109,17 @@ public class Craft {
 		return new Craft(count, output, ing);
 	}
 
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + count;
+		result = prime * result + output.ordinal();
+		return result;
+	}
+
 	public Richtext toRichtext() {
 		ArrayList<Object> o = new ArrayList<Object>();
 		o.add(-1);
@@ -136,4 +150,5 @@ public class Craft {
 		
 		return Richtext.with(this, o.toArray());
 	}
+
 }

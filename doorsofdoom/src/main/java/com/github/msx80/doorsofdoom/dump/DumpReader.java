@@ -47,6 +47,12 @@ public class DumpReader {
 			lh = x; // don't consume if it's not null
 		}  
 		return isnull;
+	}	
+	public String peek()
+	{
+		String x = next();
+		lh = x;
+		return x;
 	}
 	
 	private String next() {

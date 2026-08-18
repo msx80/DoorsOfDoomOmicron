@@ -1,12 +1,8 @@
 package com.github.msx80.doorsofdoom.model;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.Set;
 
 import com.github.msx80.doorsofdoom.DoorsOfDoom;
 import com.github.msx80.doorsofdoom.dump.DumpReader;
@@ -24,10 +20,15 @@ public class Run implements Dumpable{
 	public int shake = 0;
 	public int shakePg = 0;
 	public boolean exited = false;
+	public Set<Craft> seenCraft;
 	
 	
 	@Override
 	public void dump(DumpWriter out) {
+		
+		out.dump("VERSIONED"); // this is necessary because i forgot to add a proper version field at the time
+		out.dump(2); // version!
+		
 		out.dump(pg);
 		out.dump(level);
 		out.dump(kills);
@@ -39,10 +40,23 @@ public class Run implements Dumpable{
 		out.dump(shakePg);
 		out.dump(exited);
 		
+		out.dump(seenCraft.size());
+		for (Craft craft : seenCraft) {
+			out.dump(Craft.ALL.indexOf(craft));
+		}
+		
 	}
 
 	@Override
 	public void load(DumpReader in) {
+		String peek = in.peek();
+		int version = 0;
+		if("VERSIONED".equals(peek))		
+		{
+			in.loadString(); // skip "VERSIONED"
+			version = in.loadInt();
+		}
+		
 		pg = in.loadDumpable(Pg::new);
 		level = in.loadInt();
 		kills = in.loadInt();
@@ -53,6 +67,21 @@ public class Run implements Dumpable{
 		shake = in.loadInt();
 		shakePg = in.loadInt();
 		exited = in.loadBoolean();
+		
+		seenCraft = new HashSet<Craft>();
+		if(version >= 2)
+		{
+			int num = in.loadInt();
+			for (int i = 0; i < num; i++) {
+				int idx = in.loadInt();
+				seenCraft.add(Craft.ALL.get(idx));
+			}
+		}
+		else
+		{
+			seenCraft.addAll(Craft.visible(pg));
+		}
+			
 	}
 
 	
@@ -88,6 +117,8 @@ public class Run implements Dumpable{
 		
 		pg.inventoryAdd(Item.SmallPotion, 3);
 		pg.inventoryAdd(Item.Key, 50);
+		
+		seenCraft = new HashSet<Craft>();
 		
 		
 		

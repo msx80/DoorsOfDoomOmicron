@@ -603,7 +603,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 		
 		Runnable onEnter = () -> {
 			Sys.stopMusic();
-			Sys.music(2, MUSIC_VOLUME, false);
+			if (musicOn()) Sys.music(2, MUSIC_VOLUME, false);
 			//doSound(19, 0.8f, 1f);
 			
 			doFinalScoreAnimation(true);

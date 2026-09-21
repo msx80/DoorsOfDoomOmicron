@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>gdx-teavm</title>
+        <title>Doors of Doom</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <style>
             body {
@@ -25,10 +25,10 @@
         </div>
         <script>
             async function start() {
-                let teavm = await TeaVM.wasmGC.load("app.wasm"); teavm.exports.main([]);
+                main(["com.github.msx80.doorsofdoom.DoorsOfDoom"])
             }
             window.addEventListener("load", start);
         </script>
-        <script type="text/javascript" charset="utf-8" src="wasm-gc-runtime.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="app.js"></script>
     </body>
 </html>

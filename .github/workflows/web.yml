@@ -1,0 +1,54 @@
+name: Web build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: 'false'
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: 'temurin'
+    - name: Build app
+      run: |
+        cd doorsofdoom
+        mvn --batch-mode clean install package
+    - name: Read version
+      run: |
+        cd doorsofdoom
+        echo "GITHUB_DDVER=$(mvn -q org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_ENV
+    - uses: actions/checkout@master
+      name: omicron version with web working
+      with:
+        repository: msx80/Omicron
+        ref: bbdff15dd28bf4bd9e1a69f35bfc030475a2fc39
+        path: omicronweb
+    - name: Build Omicron
+      run: |
+        cd omicronweb
+        cd omicron-player
+        mvn --batch-mode clean install package
+    - name: Build Web app
+      run: |
+        cd omicronweb
+        cd wrappers
+        cd web-wrapper
+        mvn --batch-mode -Dcartridge.artifactId=doorsofdoom -Dcartridge.groupId=com.github.msx80.omicron -Dcartridge.version=$GITHUB_DDVER clean package        
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./omicronweb/wrappers/web-wrapper/target/web/dist/webapp
+        publish_branch: pages

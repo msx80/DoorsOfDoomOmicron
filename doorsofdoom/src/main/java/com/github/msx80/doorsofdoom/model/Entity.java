@@ -21,5 +21,8 @@ public class Entity {
 		return hp == other.hp && maxHp == other.maxHp;
 	}
 	
-	
+	public boolean isMaxHP() {
+		return hp == maxHp;
+	}
+
 }

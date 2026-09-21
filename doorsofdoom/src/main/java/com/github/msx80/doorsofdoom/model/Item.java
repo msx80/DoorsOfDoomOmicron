@@ -305,25 +305,48 @@ public enum Item {
 	}
 
 	private static void foodHealing(Item item, GameInterface g, int hp) {
-		g.getLog().add(15, "You eat ", 14, item.name, 15, "! ", 6, "+" + hp);
-		g.getLog().add(15, "You feel much better now.");
-		g.getRun().pg.inventoryAdd(item, -1);
-		g.getRun().damage(g.getRun().pg, -hp);
-		g.animPG("+"+hp, 6, null);
+		if(g.getRun().pg.isMaxHP())
+		{
+			g.getLog().add(15, "Your HP is already at max!");
+		}
+		else
+		{
+			g.getLog().add(15, "You eat ", 14, item.name, 15, "! ", 6, "+" + hp);
+			g.getLog().add(15, "You feel much better now.");
+			g.getRun().pg.inventoryAdd(item, -1);
+			g.getRun().damage(g.getRun().pg, -hp);
+			g.animPG("+"+hp, 6, null);
+		}
 	}
 	
 	private static void hamburger(Item item, GameInterface g, int hp) {
-		foodHealing(item, g, hp);
-		g.getRun().pg.addEffect(Effect.MUSCLES);
-		g.getLog().add(15, "You feel stronger!");
+		if(g.getRun().pg.isMaxHP())
+		{
+			g.getRun().pg.addEffect(Effect.MUSCLES, 40);
+			g.getLog().add(15, "You feel MUCH stronger!");
+			g.getRun().pg.inventoryAdd(item, -1);
+		}
+		else
+		{
+			foodHealing(item, g, hp);
+			g.getRun().pg.addEffect(Effect.MUSCLES);
+			g.getLog().add(15, "You feel stronger!");
+		}
 	}
 	
 	private static void potionHealing(Item item, GameInterface g, int hp) {
-		g.getLog().add(15, "You drink ", 14, item.name, 15, "! ", 6, "+" + hp);
-		g.getLog().add(15, "You feel much better now.");
-		g.getRun().pg.inventoryAdd(item, -1);
-		g.getRun().damage(g.getRun().pg, -hp);
-		g.animPG("+" + hp, 6, null);
+		if(g.getRun().pg.isMaxHP())
+		{
+			g.getLog().add(15, "Your HP is already at max!");
+		}
+		else
+		{
+			g.getLog().add(15, "You drink ", 14, item.name, 15, "! ", 6, "+" + hp);
+			g.getLog().add(15, "You feel much better now.");
+			g.getRun().pg.inventoryAdd(item, -1);
+			g.getRun().damage(g.getRun().pg, -hp);
+			g.animPG("+" + hp, 6, null);
+		}
 	}
 	private static void exitDungeon(Item item, GameInterface g) {
 		g.getLog().add(14, "You look at the map in search for the exit.");

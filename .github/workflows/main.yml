@@ -44,7 +44,7 @@ jobs:
         name: 'doorsofdoom-desktop.jar'
         path: Omicron/wrappers/desktop-wrapper/target/doorsofdoom-desktop.jar
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
     - name: Install android sdk packages        
       run: |
         sdkmanager "build-tools;33.0.2" "platforms;android-26"        

@@ -336,6 +336,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	public void init() {
 		
 		Sys.trace("Initalizing Door of Doom");
+	
 		/*
 		// experiment with calculated spawn windows.
 		// normalize monsters levels
@@ -840,6 +841,7 @@ public class DoorsOfDoom implements Game, GameInterface {
 	
 	public void render() {
 		Sys.clear(Tic80.BLACK);
+		Sys.clip(0, 0, 240, 136);
 		// font.center("Doors of doom", 100, 10);
 		
 		if(step == WIN)

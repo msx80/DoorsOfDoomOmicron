@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.github.msx80.doorsofdoom.model.Craft;
 import com.github.msx80.doorsofdoom.model.GameInterface;
-import com.github.msx80.doorsofdoom.model.Item;
 import com.github.msx80.omicron.api.Sys;
 import com.github.msx80.omicron.basicutils.palette.Tic80;
 import com.github.msx80.omicron.basicutils.text.TextDrawer.Align;
@@ -53,20 +52,11 @@ public class CraftWidget extends RichWidget {
 
 	@Override
 	protected boolean selected(int idx, Richtext line) {
-		g.doSound(13, 1f, 1f);
 		Craft c = (Craft) line.userdata;
-		
-		for (Item i : c.getIngredients().keySet()) {
-			int required = c.getIngredients().get(i);
-			g.getRun().pg.inventoryAdd(i, -required);
-		}
-		
-		g.getRun().pg.inventoryAdd(c.getOutput(), c.getCount());
-		String cnt = c.getCount() == 1 ? "":" (x"+c.getCount()+")";
-		g.getLog().add(15, "You obtain ", /*-1, c.getOutput().sprite, */ 14, c.getOutput().name, 7, cnt, 15, "!");
-		g.refreshCommands();
+		g.executeCraft(c);
 		return false;
 	}
+
 
 	@Override
 	protected boolean clickedOutside(int x, int y) {
